@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LIFEOS | Your Personal Space</title>
+    <meta name="description" content="Your personal space for planning, focus, and growth.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <a href="./" class="brand">
+            <span class="brand-icon">
+                <i data-lucide="sprout"></i>
+            </span>
+            <span class="brand-name">LIFEOS</span>
+        </a>
+
+        <div class="sidebar-label">YOUR SPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="./" class="side-link active">
+                <i data-lucide="house"></i>
+                <span>Home</span>
+            </a>
+
+            <a href="pages/calendar.html" class="side-link">
+                <i data-lucide="calendar-days"></i>
+                <span>Calendar</span>
+            </a>
+
+            <a href="pages/tasks.html" class="side-link">
+                <i data-lucide="list-checks"></i>
+                <span>My Tasks</span>
+            </a>
+
+            <a href="pages/journal.html" class="side-link">
+                <i data-lucide="book-heart"></i>
+                <span>Mood & Journal</span>
+            </a>
+
+            <a href="pages/focus.html" class="side-link">
+                <i data-lucide="timer"></i>
+                <span>Focus Room</span>
+            </a>
+
+            <a href="pages/progress.html" class="side-link">
+                <i data-lucide="chart-no-axes-combined"></i>
+                <span>My Progress</span>
+            </a>
+
+            <a href="pages/notes.html" class="side-link">
+                <i data-lucide="notebook-pen"></i>
+                <span>My Notes</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="pages/settings.html" class="side-link">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+
+            <div class="sidebar-quote">
+                <i data-lucide="leaf"></i>
+                <p>Small steps every day lead to beautiful changes.</p>
+            </div>
+
+            <div class="sidebar-version">
+                LIFEOS <span>PERSONAL EDITION</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Toggle navigation"
+            >
+                <i data-lucide="menu"></i>
+            </button>
+
+            <div class="topbar-heading">
+                <span class="topbar-overline">YOUR PERSONAL SPACE</span>
+                <span class="topbar-page">Home</span>
+            </div>
+
+            <div class="topbar-spacer"></div>
+
+            <label class="search-container">
+                <i data-lucide="search"></i>
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search your space..."
+                    aria-label="Search LIFEOS"
+                >
+            </label>
+
+           <div class="notification-wrapper">
+    <button
+    class="icon-button notification-button"
+    id="notificationBtn"
+    type="button"
+    aria-label="Notifications"
+    aria-expanded="false"
+    aria-controls="notificationPanel"
+>
+    <i data-lucide="bell"></i>
+    <span class="notification-dot" hidden></span>
+</button>
+
+    <div class="notification-panel" id="notificationPanel" hidden>
+        <div class="notification-header">
+            <div>
+                <h3>Notifications</h3>
+                <p>Your latest updates</p>
+            </div>
+
+            <button
+                type="button"
+                id="closeNotifications"
+                aria-label="Close notifications"
+            >
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <div class="notification-content" id="notificationList">
+            <div class="notification-empty">
+                <i data-lucide="bell-ring"></i>
+                <strong>You're all caught up!</strong>
+                <p>New updates will appear here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <a href="pages/settings.html" class="profile-button">
+                <span class="profile-avatar">A</span>
+                <span class="profile-name">My Space</span>
+                <i data-lucide="chevron-down"></i>
+            </a>
+
+        </header>
+
+
+        <!-- HOMEPAGE DASHBOARD -->
+        <section class="dashboard">
+
+            <!-- WELCOME HEADING -->
+            <div class="dashboard-heading">
+
+                <div>
+                    <p class="eyebrow">A LITTLE SPACE FOR YOU</p>
+
+                    <h1>Make today meaningful.</h1>
+
+                    <p class="section-subtitle">
+                        A little progress is still progress. Take your day one step at a time.
+                    </p>
+                </div>
+
+                <div class="today-date">
+                    <span class="today-date-icon">
+                        <i data-lucide="calendar-days"></i>
+                    </span>
+
+                    <div>
+                        <span class="today-date-label">TODAY</span>
+                        <strong id="todayDate">Your day, your pace</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- WELCOME AND VERSE -->
+            <section class="welcome-card">
+
+                <div class="welcome-decoration welcome-decoration-one"></div>
+                <div class="welcome-decoration welcome-decoration-two"></div>
+
+                <div class="welcome-content">
+
+                    <span class="welcome-label">
+                        <span class="welcome-label-dot"></span>
+                        <span id="greetingLabel">A GENTLE START TO YOUR DAY</span>
+                    </span>
+
+                    <h2 id="greetingTitle">Good morning!</h2>
+
+                    <p class="welcome-description" id="taskSummary">
+                        Let's make today meaningful.
+                    </p>
+
+                    <div class="welcome-message">
+                        <span class="welcome-message-line"></span>
+                        <p>You're doing better than you think. ♡</p>
+                    </div>
+
+                    <a href="pages/tasks.html" class="welcome-button">
+                        Plan my day
+                        <i data-lucide="arrow-up-right"></i>
+                    </a>
+
+                </div>
+
+                
+<div class="verse-card">
+
+    <div class="verse-card-top">
+        <span class="verse-icon">
+            <i data-lucide="book-open"></i>
+        </span>
+        <span>DAILY BIBLE VERSE</span>
+    </div>
+
+    <p class="verse-text" id="dailyVerseText">
+        Loading your daily verse...
+    </p>
+
+    <p class="verse-reference" id="dailyVerseReference">
+        LIFEOS DAILY VERSE
+    </p>
+
+    <div class="verse-divider"></div>
+
+    <div class="verse-card-bottom">
+        <p class="verse-footer" id="dailyVerseMessage">
+            A little reminder for your day. ♡
+        </p>
+
+        <a href="pages/verses.html" class="verse-history-link">
+            Verse history
+            <i data-lucide="arrow-up-right"></i>
+        </a>
+    </div>
+
+</div>
+
+
+                <div class="welcome-plant">
+                    <i data-lucide="sprout"></i>
+                </div>
+
+            </section>
+
+
+            <!-- SMALL DASHBOARD PREVIEWS -->
+            <div class="dashboard-grid hero-grid">
+
+                <!-- CALENDAR PREVIEW -->
+                <section class="card mini-calendar-card">
+
+                    <div class="card-heading">
+
+                        <div>
+                            <p class="card-overline">YOUR SCHEDULE</p>
+                            <h2 id="calendarTitle">November 2026</h2>
+                        </div>
+
+                        <div class="calendar-controls">
+
+                            <button
+                                id="prevMonth"
+                                class="icon-button"
+                                type="button"
+                                aria-label="Previous month"
+                            >
+                                <i data-lucide="chevron-left"></i>
+                            </button>
+
+                            <button
+                                id="nextMonth"
+                                class="icon-button"
+                                type="button"
+                                aria-label="Next month"
+                            >
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="calendar-weekdays">
+                        <span>Sun</span>
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                    </div>
+
+                    <div class="calendar-days" id="calendarDays"></div>
+
+                    <a href="pages/calendar.html" class="text-link">
+                        View full calendar
+                        <i data-lucide="arrow-up-right"></i>
+                    </a>
+
+                </section>
+
+
+                <!-- TASK PREVIEW -->
+                <section class="card tasks-card">
+
+                    <div class="card-heading">
+
+                        <div>
+                            <p class="card-overline">ONE STEP AT A TIME</p>
+                            <h2>Today's Tasks</h2>
+                        </div>
+
+                        <a href="pages/tasks.html" class="small-action">
+                            View all
+                            <i data-lucide="arrow-up-right"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="task-list" id="tasksList">
+                        <!-- Homepage task preview loaded by app.js -->
+                    </div>
+
+                    <div class="task-card-footer">
+
+                        <div class="task-completion">
+                            <span class="completion-indicator"></span>
+                            <span>
+                                <strong id="completedCount">0</strong>
+                                tasks completed
+                            </span>
+                        </div>
+
+                        <a href="pages/tasks.html">Manage tasks</a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- FOCUS AND PROGRESS -->
+            <div class="dashboard-grid middle-grid">
+
+                <!-- FOCUS PREVIEW -->
+                <section class="card focus-card">
+
+                    <div class="card-heading">
+
+                        <div>
+                            <p class="card-overline">A LITTLE TIME FOR YOURSELF</p>
+                            <h2>Focus Room</h2>
+                        </div>
+
+                        <span class="focus-status-pill">
+                            <i data-lucide="sparkles"></i>
+                            25 MIN
+                        </span>
+
+                    </div>
+
+                    <p class="card-description">
+                        Clear your mind and focus on one thing at a time.
+                    </p>
+
+                    <div class="timer-preview">
+
+                        <div class="timer-ring">
+                            <div class="timer-ring-inner">
+                                <span class="timer-display" id="timerDisplay">
+                                    25:00
+                                </span>
+
+                                <span class="timer-caption">
+                                    TIME TO FOCUS
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="timer-controls">
+
+                            <button
+                                class="primary-button"
+                                id="timerStart"
+                                type="button"
+                            >
+                                <i data-lucide="play"></i>
+                                <span>Start session</span>
+                            </button>
+
+                            <button
+                                class="secondary-button"
+                                id="timerReset"
+                                type="button"
+                                aria-label="Reset timer"
+                            >
+                                <i data-lucide="rotate-ccw"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <a href="pages/focus.html" class="text-link">
+                        Open Focus Room
+                        <i data-lucide="arrow-up-right"></i>
+                    </a>
+
+                </section>
+
+
+                <!-- PROGRESS PREVIEW -->
+                <section class="card progress-card">
+
+                    <div class="card-heading">
+
+                        <div>
+                            <p class="card-overline">EVERY STEP COUNTS</p>
+                            <h2>Your Progress</h2>
+                        </div>
+
+                        <a href="pages/progress.html" class="small-action">
+                            View details
+                            <i data-lucide="arrow-up-right"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="progress-stats">
+
+                        <div class="stat-item">
+
+                            <div class="stat-icon completed-icon">
+                                <i data-lucide="check"></i>
+                            </div>
+
+                            <strong id="progressTasksDone">0</strong>
+                            <span>Tasks done</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <div class="stat-icon streak-icon">
+                                <i data-lucide="flame"></i>
+                            </div>
+
+                            <strong id="progressStreak">0</strong>
+                            <span>Day streak</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <div class="stat-icon goal-icon">
+                                <i data-lucide="star"></i>
+                            </div>
+
+                            <strong id="progressGoal">0%</strong>
+                            <span>Goal progress</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-bar">
+                            <div
+                                class="progress-fill"
+                                id="progressFill"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <p class="progress-caption">
+                        Little by little, you're getting there.
+                    </p>
+
+                </section>
+
+            </div>
+
+
+            <!-- SMALL NOTES LINK -->
+            <a href="pages/notes.html" class="notes-shortcut">
+
+                <span class="notes-shortcut-icon">
+                    <i data-lucide="notebook-pen"></i>
+                </span>
+
+                <span class="notes-shortcut-text">
+                    <strong>Have something to remember?</strong>
+                    <small>Keep your ideas and reminders in My Notes.</small>
+                </span>
+
+                <i data-lucide="arrow-up-right"></i>
+
+            </a>
+
+
+            <!-- FOOTER -->
+            <footer class="dashboard-footer">
+
+                <span>Made with care, for a life well lived. ♡</span>
+                <span>LIFEOS © 2026</span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ADD TASK DIALOG -->
+<dialog class="task-dialog" id="taskDialog">
+
+    <form id="newTaskForm" class="dialog-content">
+
+        <div class="dialog-heading">
+
+            <div>
+                <p class="eyebrow">MAKE IT HAPPEN</p>
+                <h2>Add a new task</h2>
+            </div>
+
+            <button
+                type="button"
+                class="icon-button"
+                id="closeTaskDialog"
+                aria-label="Close"
+            >
+                <i data-lucide="x"></i>
+            </button>
+
+        </div>
+
+        <label for="newTaskName">Task name</label>
+
+        <input
+            type="text"
+            id="newTaskName"
+            placeholder="What do you need to do?"
+            maxlength="120"
+            required
+        >
+
+        <label for="newTaskTime">Time</label>
+
+        <input type="time" id="newTaskTime">
+
+        <div class="dialog-actions">
+
+            <button
+                type="button"
+                class="secondary-button"
+                id="cancelTask"
+            >
+                Cancel
+            </button>
+
+            <button type="submit" class="primary-button">
+                <i data-lucide="plus"></i>
+                Add task
+            </button>
+
+        </div>
+
+    </form>
+
+</dialog>
+
+
+<!-- APPLICATION SCRIPT -->
+<script src="js/app.js"></script>
+<script src="js/search.js"></script>
+<script src="js/verses.js"></script>
+<script src="js/theme.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+
+        const dateElement = document.getElementById("todayDate");
+
+        if (dateElement) {
+            dateElement.textContent = new Intl.DateTimeFormat("en-US", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            }).format(new Date());
+        }
+    });
+</script>
+
+</body>
+</html>

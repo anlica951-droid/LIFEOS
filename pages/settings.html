@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f5ef">
+  <meta name="description" content="Personalize your LIFEOS workspace and manage your preferences.">
+
+  <title>Settings | LIFEOS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/settings.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../js/theme.js"></script>
+</head>
+
+<body class="settings-page">
+
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <a href="../index.html" class="brand">
+      <span class="brand-icon"><i data-lucide="sprout"></i></span>
+      <span class="brand-name">LIFEOS</span>
+    </a>
+
+    <p class="sidebar-label">WORKSPACE</p>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+      <a href="../index.html" class="nav-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Home</span>
+      </a>
+
+      <a href="calendar.html" class="nav-link">
+        <i data-lucide="calendar-days"></i>
+        <span>Calendar</span>
+      </a>
+
+      <a href="tasks.html" class="nav-link">
+        <i data-lucide="check-square"></i>
+        <span>Tasks</span>
+      </a>
+
+      <a href="journal.html" class="nav-link">
+        <i data-lucide="book-heart"></i>
+        <span>Journal</span>
+      </a>
+
+      <a href="focus.html" class="nav-link">
+        <i data-lucide="timer"></i>
+        <span>Focus</span>
+      </a>
+
+      <a href="progress.html" class="nav-link">
+        <i data-lucide="chart-no-axes-column-increasing"></i>
+        <span>Progress</span>
+      </a>
+
+      <a href="notes.html" class="nav-link">
+        <i data-lucide="notebook-pen"></i>
+        <span>Notes</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a href="settings.html" class="nav-link active" aria-current="page">
+        <i data-lucide="settings-2"></i>
+        <span>Settings</span>
+      </a>
+
+      <div class="sidebar-profile">
+        <div class="profile-avatar">
+          <i data-lucide="user-round"></i>
+        </div>
+        <div class="profile-info">
+          <strong>My LIFEOS</strong>
+          <span>Personal workspace</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="topbar-breadcrumb">
+        <span>Workspace</span>
+        <i data-lucide="chevron-right"></i>
+        <strong>Settings</strong>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="topbar-date" id="currentDate"></span>
+      </div>
+
+    </header>
+
+    <div class="page-content settings-content">
+
+      <!-- PAGE INTRO -->
+      <section class="settings-welcome">
+        <div>
+          <span class="settings-eyebrow">YOUR SPACE, YOUR RULES</span>
+          <h1>Make LIFEOS <em>yours.</em></h1>
+          <p>
+            A few thoughtful adjustments can make your workspace feel
+            more like you.
+          </p>
+        </div>
+
+        <div class="settings-welcome-icon" aria-hidden="true">
+          <i data-lucide="sliders-horizontal"></i>
+        </div>
+      </section>
+
+      <form id="settingsForm" autocomplete="on">
+
+        <!-- PERSONAL PREFERENCES -->
+        <section class="settings-section" id="personalSettings">
+
+          <div class="settings-section-heading">
+            <span class="settings-section-icon">
+              <i data-lucide="user-round"></i>
+            </span>
+
+            <div>
+              <span class="settings-section-kicker">01 / PERSONAL</span>
+              <h2>Personal preferences</h2>
+              <p>Set up how your workspace feels and responds to you.</p>
+            </div>
+          </div>
+
+          <div class="settings-card">
+
+            <div class="settings-field-grid">
+
+              <div class="settings-field">
+                <label for="settingsDisplayName">Display name</label>
+                <input
+                  type="text"
+                  id="settingsDisplayName"
+                  name="displayName"
+                  maxlength="40"
+                  placeholder="What should LIFEOS call you?"
+                >
+                <small>Used for your personal dashboard greeting.</small>
+              </div>
+
+              <div class="settings-field">
+                <label for="settingsDailyGoal">Daily task goal</label>
+                <div class="settings-input-suffix">
+                  <input
+                    type="number"
+                    id="settingsDailyGoal"
+                    name="dailyGoal"
+                    min="1"
+                    max="50"
+                    value="3"
+                  >
+                  <span>tasks / day</span>
+                </div>
+                <small>A small daily target can help you stay organized.</small>
+              </div>
+
+              <div class="settings-field">
+                <label for="settingsWeekStart">First day of the week</label>
+                <select id="settingsWeekStart" name="weekStart">
+                  <option value="monday">Monday</option>
+                  <option value="sunday">Sunday</option>
+                </select>
+                <small>Choose how your calendar week is displayed.</small>
+              </div>
+
+              <div class="settings-field">
+                <label for="settingsDateFormat">Date format</label>
+                <select id="settingsDateFormat" name="dateFormat">
+                  <option value="long">November 3, 2026</option>
+                  <option value="short">Nov 3, 2026</option>
+                  <option value="numeric">11/03/2026</option>
+                  <option value="day-first">03/11/2026</option>
+                </select>
+                <small>Choose your preferred date display.</small>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- FOCUS PREFERENCES -->
+        <section class="settings-section" id="focusSettings">
+
+          <div class="settings-section-heading">
+            <span class="settings-section-icon">
+              <i data-lucide="timer"></i>
+            </span>
+
+            <div>
+              <span class="settings-section-kicker">02 / PRODUCTIVITY</span>
+              <h2>Focus preferences</h2>
+              <p>Set a timer routine that works with your study rhythm.</p>
+            </div>
+          </div>
+
+          <div class="settings-card">
+
+            <div class="settings-field-grid">
+
+              <div class="settings-field">
+                <label for="settingsFocusDuration">Focus session</label>
+                <select id="settingsFocusDuration" name="focusDuration">
+                  <option value="15">15 minutes</option>
+                  <option value="25" selected>25 minutes</option>
+                  <option value="30">30 minutes</option>
+                  <option value="45">45 minutes</option>
+                  <option value="50">50 minutes</option>
+                  <option value="60">60 minutes</option>
+                </select>
+                <small>How long you want each focus session to last.</small>
+              </div>
+
+              <div class="settings-field">
+                <label for="settingsShortBreak">Short break</label>
+                <select id="settingsShortBreak" name="shortBreak">
+                  <option value="5" selected>5 minutes</option>
+                  <option value="10">10 minutes</option>
+                  <option value="15">15 minutes</option>
+                </select>
+                <small>Your quick rest between focus sessions.</small>
+              </div>
+
+              <div class="settings-field">
+                <label for="settingsLongBreak">Long break</label>
+                <select id="settingsLongBreak" name="longBreak">
+                  <option value="15">15 minutes</option>
+                  <option value="20" selected>20 minutes</option>
+                  <option value="25">25 minutes</option>
+                  <option value="30">30 minutes</option>
+                </select>
+                <small>A longer rest after several focus sessions.</small>
+              </div>
+
+              <div class="settings-field">
+                <label for="settingsLongBreakInterval">Long break interval</label>
+                <select id="settingsLongBreakInterval" name="longBreakInterval">
+                  <option value="2">After 2 focus sessions</option>
+                  <option value="3" selected>After 3 focus sessions</option>
+                  <option value="4">After 4 focus sessions</option>
+                  <option value="5">After 5 focus sessions</option>
+                </select>
+                <small>How many sessions before your long break.</small>
+              </div>
+
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <div class="settings-toggle-row">
+              <div class="settings-option-copy">
+                <strong>Auto-start the next focus session</strong>
+                <p>Automatically begin another focus session after a break.</p>
+              </div>
+
+              <label class="settings-switch">
+                <input
+                  type="checkbox"
+                  id="settingsAutoStartFocus"
+                  name="autoStartFocus"
+                >
+                <span class="settings-switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <div class="settings-toggle-row">
+              <div class="settings-option-copy">
+                <strong>Auto-start breaks</strong>
+                <p>Automatically start your break when a focus session ends.</p>
+              </div>
+
+              <label class="settings-switch">
+                <input
+                  type="checkbox"
+                  id="settingsAutoStartBreak"
+                  name="autoStartBreak"
+                  checked
+                >
+                <span class="settings-switch-slider"></span>
+              </label>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- APPEARANCE -->
+        <section class="settings-section" id="appearanceSettings">
+
+          <div class="settings-section-heading">
+            <span class="settings-section-icon">
+              <i data-lucide="palette"></i>
+            </span>
+
+            <div>
+              <span class="settings-section-kicker">03 / APPEARANCE</span>
+              <h2>Choose your atmosphere</h2>
+              <p>Pick the look that feels comfortable for your workspace.</p>
+            </div>
+          </div>
+
+          <div class="settings-card">
+
+            <div class="settings-theme-options">
+
+              <label class="theme-choice">
+                <input
+                  type="radio"
+                  name="appearance"
+                  id="themeLight"
+                  value="light"
+                  checked
+                >
+
+                <span class="theme-preview theme-preview-light">
+                  <span class="theme-preview-top"></span>
+                  <span class="theme-preview-content">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </span>
+
+                <span class="theme-choice-label">
+                  <strong>Light</strong>
+                  <small>Soft and bright</small>
+                </span>
+
+                <span class="theme-choice-check">
+                  <i data-lucide="check"></i>
+                </span>
+              </label>
+
+              <label class="theme-choice">
+                <input
+                  type="radio"
+                  name="appearance"
+                  id="themeDark"
+                  value="dark"
+                >
+
+                <span class="theme-preview theme-preview-dark">
+                  <span class="theme-preview-top"></span>
+                  <span class="theme-preview-content">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </span>
+
+                <span class="theme-choice-label">
+                  <strong>Dark</strong>
+                  <small>Easy on the eyes</small>
+                </span>
+
+                <span class="theme-choice-check">
+                  <i data-lucide="check"></i>
+                </span>
+              </label>
+
+              <label class="theme-choice">
+                <input
+                  type="radio"
+                  name="appearance"
+                  id="themeSystem"
+                  value="system"
+                >
+
+                <span class="theme-preview theme-preview-system">
+                  <span class="theme-preview-top"></span>
+                  <span class="theme-preview-content">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </span>
+
+                <span class="theme-choice-label">
+                  <strong>System</strong>
+                  <small>Follow device settings</small>
+                </span>
+
+                <span class="theme-choice-check">
+                  <i data-lucide="check"></i>
+                </span>
+              </label>
+
+            </div>
+
+            <p class="settings-helper">
+              Your selected theme will be applied throughout LIFEOS.
+            </p>
+
+          </div>
+        </section>
+
+        <!-- NOTIFICATIONS -->
+        <section class="settings-section" id="notificationSettings">
+
+          <div class="settings-section-heading">
+            <span class="settings-section-icon">
+              <i data-lucide="bell"></i>
+            </span>
+
+            <div>
+              <span class="settings-section-kicker">04 / REMINDERS</span>
+              <h2>Notifications</h2>
+              <p>Choose which reminders you want LIFEOS to send.</p>
+            </div>
+          </div>
+
+          <div class="settings-card">
+
+            <div class="settings-toggle-row">
+              <div class="settings-option-copy">
+                <strong>Browser notifications</strong>
+                <p id="notificationStatus" aria-live="polite">
+                  Checking browser notification permission...
+                </p>
+              </div>
+
+              <label class="settings-switch">
+                <input
+                  type="checkbox"
+                  id="notificationToggle"
+                  name="notifications"
+                >
+                <span class="settings-switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <div class="settings-toggle-row">
+              <div class="settings-option-copy">
+                <strong>Task reminders</strong>
+                <p>Allow reminders for tasks you need to complete.</p>
+              </div>
+
+              <label class="settings-switch">
+                <input
+                  type="checkbox"
+                  id="settingsTaskReminders"
+                  name="taskReminders"
+                  checked
+                >
+                <span class="settings-switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <div class="settings-toggle-row">
+              <div class="settings-option-copy">
+                <strong>Focus session alerts</strong>
+                <p>Get a notification when a focus session or break ends.</p>
+              </div>
+
+              <label class="settings-switch">
+                <input
+                  type="checkbox"
+                  id="settingsFocusAlerts"
+                  name="focusAlerts"
+                  checked
+                >
+                <span class="settings-switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="settings-notification-action">
+              <button
+                type="button"
+                class="settings-secondary-button"
+                id="enableNotifications"
+              >
+                <i data-lucide="bell-ring"></i>
+                Request notification permission
+              </button>
+
+              <small>
+                Your browser may ask you to allow notifications.
+              </small>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SAVE BAR -->
+        <div class="settings-save-area">
+
+          <div class="settings-save-copy">
+            <span class="settings-save-icon">
+              <i data-lucide="shield-check"></i>
+            </span>
+
+            <div>
+              <strong>Your preferences, your choice.</strong>
+              <p id="settingsFeedback" role="status" aria-live="polite">
+                Changes are saved when you select Save preferences.
+              </p>
+            </div>
+          </div>
+
+          <div class="settings-save-actions">
+            <button
+              type="button"
+              class="settings-reset-button"
+              id="resetSettings"
+            >
+              Reset
+            </button>
+
+            <button
+              type="submit"
+              class="settings-primary-button"
+              id="saveSettings"
+            >
+              <i data-lucide="check"></i>
+              Save preferences
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+
+      <!-- DATA MANAGEMENT -->
+      <section class="settings-section" id="dataSettings">
+
+        <div class="settings-section-heading">
+          <span class="settings-section-icon">
+            <i data-lucide="database"></i>
+          </span>
+
+          <div>
+            <span class="settings-section-kicker">05 / YOUR INFORMATION</span>
+            <h2>Data management</h2>
+            <p>Keep a backup of your personal LIFEOS information.</p>
+          </div>
+        </div>
+
+        <div class="settings-card">
+
+          <div class="settings-data-row">
+            <div class="settings-data-icon">
+              <i data-lucide="download"></i>
+            </div>
+
+            <div class="settings-option-copy">
+              <strong>Export your data</strong>
+              <p>Download a backup of your LIFEOS information as a JSON file.</p>
+            </div>
+
+            <button
+              type="button"
+              class="settings-secondary-button"
+              id="exportData"
+            >
+              Export
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+          </div>
+
+          <div class="settings-divider"></div>
+
+          <div class="settings-data-row">
+            <div class="settings-data-icon">
+              <i data-lucide="upload"></i>
+            </div>
+
+            <div class="settings-option-copy">
+              <strong>Import a backup</strong>
+              <p>Restore information from a LIFEOS JSON backup file.</p>
+            </div>
+
+            <button
+              type="button"
+              class="settings-secondary-button"
+              id="importData"
+            >
+              Import
+              <i data-lucide="arrow-down-to-line"></i>
+            </button>
+          </div>
+
+          <input
+            type="file"
+            id="importFile"
+            accept=".json,application/json"
+            hidden
+          >
+
+          <p class="settings-data-note">
+            Importing a backup may replace existing information. Review the
+            confirmation before proceeding.
+          </p>
+
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="settings-about">
+        <div class="settings-about-mark">
+          <i data-lucide="sprout"></i>
+        </div>
+
+        <div>
+          <strong>LIFEOS</strong>
+          <p>A little more organized, one day at a time.</p>
+        </div>
+
+        <span class="settings-version">Personal workspace</span>
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<script src="../js/settings.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+
+    menuToggle?.addEventListener("click", () => {
+      const isOpen = sidebar?.classList.toggle("open") ?? false;
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+    });
+
+    const currentDate = document.getElementById("currentDate");
+
+    if (currentDate) {
+      currentDate.textContent = new Intl.DateTimeFormat("en", {
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+      }).format(new Date());
+    }
+  });
+</script>
+
+</body>
+</html>

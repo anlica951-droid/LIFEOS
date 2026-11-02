@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f5ef">
+
+  <title>Focus | LIFEOS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/focus.css">
+</head>
+
+<body>
+
+  <div class="app-layout">
+
+    <aside class="sidebar" id="sidebar">
+
+      <a href="../index.html" class="brand">
+        <span class="brand-icon"><i data-lucide="sprout"></i></span>
+        <span class="brand-name">LIFEOS</span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <a href="../index.html" class="nav-link">
+          <i data-lucide="layout-dashboard"></i><span>Home</span>
+        </a>
+        <a href="calendar.html" class="nav-link">
+          <i data-lucide="calendar-days"></i><span>Calendar</span>
+        </a>
+        <a href="tasks.html" class="nav-link">
+          <i data-lucide="check-square"></i><span>Tasks</span>
+        </a>
+        <a href="journal.html" class="nav-link">
+          <i data-lucide="book-heart"></i><span>Journal</span>
+        </a>
+        <a href="focus.html" class="nav-link active" aria-current="page">
+          <i data-lucide="timer"></i><span>Focus</span>
+        </a>
+        <a href="progress.html" class="nav-link">
+          <i data-lucide="chart-no-axes-column-increasing"></i><span>Progress</span>
+        </a>
+        <a href="notes.html" class="nav-link">
+          <i data-lucide="notebook-pen"></i><span>Notes</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-label">PREFERENCES</div>
+
+      <nav class="sidebar-nav" aria-label="Preferences">
+        <a href="settings.html" class="nav-link">
+          <i data-lucide="settings-2"></i><span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-profile">
+          <div class="profile-avatar">
+            <i data-lucide="user-round"></i>
+          </div>
+          <div class="profile-info">
+            <strong>My LIFEOS</strong>
+            <span>Personal workspace</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <main class="main-content">
+
+      <header class="topbar">
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Open navigation"
+          aria-controls="sidebar"
+          aria-expanded="false"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="topbar-breadcrumb">
+          <span>Workspace</span>
+          <i data-lucide="chevron-right"></i>
+          <strong>Focus</strong>
+        </div>
+
+        <a href="settings.html" class="profile-button" aria-label="Settings">
+          <i data-lucide="user-round"></i>
+        </a>
+      </header>
+
+      <div class="page-content focus-page">
+
+        <section class="focus-heading">
+          <div>
+            <span class="eyebrow">SLOW DOWN. FOCUS.</span>
+            <h1>Focus time</h1>
+            <p>A little progress is still progress.</p>
+          </div>
+        </section>
+
+        <!-- MAIN TIMER -->
+        <section class="focus-main-card">
+
+          <span class="focus-overline" id="focusTimerLabel">
+            YOUR FOCUS SESSION
+          </span>
+
+          <div class="focus-timer-ring" id="timerProgress">
+            <div class="focus-timer-inner">
+              <strong id="timerDisplay" role="timer" aria-live="off">25:00</strong>
+              <span>minutes</span>
+            </div>
+          </div>
+
+          <p class="focus-message">Make this moment count.</p>
+
+          <div class="focus-duration-options" aria-label="Choose focus duration">
+            <button type="button" class="focus-preset" data-duration="15" aria-pressed="false">15 min</button>
+            <button type="button" class="focus-preset active" data-duration="25" aria-pressed="true">25 min</button>
+            <button type="button" class="focus-preset" data-duration="45" aria-pressed="false">45 min</button>
+            <button type="button" class="focus-preset" data-duration="60" aria-pressed="false">60 min</button>
+          </div>
+
+          <input type="hidden" id="focusDuration" value="25">
+
+          <div class="focus-controls">
+            <button type="button" class="focus-start" id="timerStart">
+              <i data-lucide="play"></i>
+              <span>Start focus</span>
+            </button>
+
+            <button type="button" class="focus-pause" id="timerPause" disabled>
+              <i data-lucide="pause"></i>
+              <span>Pause</span>
+            </button>
+
+            <button type="button" class="focus-reset" id="timerReset" aria-label="Reset timer" title="Reset timer">
+              <i data-lucide="rotate-ccw"></i>
+            </button>
+          </div>
+
+        </section>
+
+        <!-- SMALL STATISTICS -->
+        <section class="focus-statistics">
+
+          <div class="focus-stat-item">
+            <span class="focus-stat-icon"><i data-lucide="check-circle-2"></i></span>
+            <div>
+              <span>Completed sessions</span>
+              <strong id="focusSessionCount">0</strong>
+            </div>
+          </div>
+
+          <div class="focus-stat-item">
+            <span class="focus-stat-icon"><i data-lucide="clock-3"></i></span>
+            <div>
+              <span>Total focus time</span>
+              <strong id="totalFocusTime">0 min</strong>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- SESSION HISTORY -->
+        <section class="focus-history">
+
+          <div class="focus-history-heading">
+            <div>
+              <span class="eyebrow">YOUR ACTIVITY</span>
+              <h2>Recent sessions</h2>
+            </div>
+          </div>
+
+          <div id="focusSessionHistory" class="focus-session-history" aria-live="polite">
+            <!-- Generated by focus.js -->
+          </div>
+
+        </section>
+
+        <div
+          class="feedback-message"
+          id="focusFeedback"
+          role="status"
+          hidden
+        ></div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/focus.js"></script>
+  <script src="../js/theme.js"></script>
+
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+
+    menuToggle?.addEventListener("click", () => {
+      const isOpen = sidebar.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+    });
+  </script>
+
+</body>
+</html>

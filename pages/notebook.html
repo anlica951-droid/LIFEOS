@@ -1,0 +1,411 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#f5f3e9">
+  <meta name="description" content="Your personal LIFEOS notebook.">
+
+  <title>My Little Notebook | LIFEOS</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/notebook.css">
+</head>
+
+<body class="notebook-page">
+
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">
+          <i data-lucide="sprout"></i>
+        </span>
+        <span class="brand-name">LIFEOS</span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+
+        <a href="../index.html" class="nav-link">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="calendar.html" class="nav-link">
+          <i data-lucide="calendar-days"></i>
+          <span>Calendar</span>
+        </a>
+
+        <a href="tasks.html" class="nav-link">
+          <i data-lucide="check-square"></i>
+          <span>Tasks</span>
+        </a>
+
+        <a href="journal.html" class="nav-link active" aria-current="page">
+          <i data-lucide="book-heart"></i>
+          <span>Journal</span>
+        </a>
+
+        <a href="focus.html" class="nav-link">
+          <i data-lucide="timer"></i>
+          <span>Focus</span>
+        </a>
+
+        <a href="progress.html" class="nav-link">
+          <i data-lucide="chart-no-axes-column-increasing"></i>
+          <span>Progress</span>
+        </a>
+
+        <a href="notes.html" class="nav-link">
+          <i data-lucide="notebook-pen"></i>
+          <span>Notes</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-label">PREFERENCES</div>
+
+      <nav class="sidebar-nav" aria-label="Preferences">
+        <a href="settings.html" class="nav-link">
+          <i data-lucide="settings-2"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-profile">
+          <div class="profile-avatar">
+            <i data-lucide="user-round"></i>
+          </div>
+
+          <div class="profile-info">
+            <strong>My LIFEOS</strong>
+            <span>Personal workspace</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Open navigation"
+          aria-controls="sidebar"
+          aria-expanded="false"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="topbar-breadcrumb">
+          <span>Workspace</span>
+          <i data-lucide="chevron-right"></i>
+          <a href="journal.html">My Journal</a>
+          <i data-lucide="chevron-right"></i>
+          <strong>My Notebook</strong>
+        </div>
+
+        <a href="settings.html" class="profile-button" aria-label="Settings">
+          <i data-lucide="user-round"></i>
+        </a>
+
+      </header>
+
+      <!-- NOTEBOOK CONTENT -->
+      <div class="page-content notebook-content">
+
+        <!-- INTRODUCTION -->
+        <section class="notebook-intro">
+
+          <div>
+            <a href="journal.html" class="back-to-journal">
+              <i data-lucide="arrow-left"></i>
+              Back to Journal
+            </a>
+
+            <span class="notebook-overline">
+              <i data-lucide="flower-2"></i>
+              YOUR PRIVATE LITTLE CORNER
+            </span>
+
+            <h1>My Little <em>Notebook</em></h1>
+
+            <p>
+              Open a page, let your thoughts flow,
+              and keep the moments that matter.
+            </p>
+          </div>
+
+          <div class="notebook-date-display">
+            <span>TODAY'S DATE</span>
+            <strong id="notebookToday"></strong>
+          </div>
+
+        </section>
+
+        <!-- NOTEBOOK TOOLBAR -->
+        <section class="notebook-toolbar">
+
+          <div class="notebook-toolbar-left">
+            <span class="notebook-status">
+              <i data-lucide="book-open"></i>
+              YOUR OPEN NOTEBOOK
+            </span>
+
+            <span class="notebook-saved-status" id="notebookStatus">
+              Ready for a new page
+            </span>
+          </div>
+
+          <div class="notebook-toolbar-actions">
+
+            <button
+              type="button"
+              class="notebook-tool-button"
+              id="newNotebookEntry"
+            >
+              <i data-lucide="plus"></i>
+              New page
+            </button>
+
+            <button
+              type="button"
+              class="notebook-save-button"
+              id="saveNotebookEntry"
+            >
+              <i data-lucide="bookmark"></i>
+              Save page
+            </button>
+
+          </div>
+
+        </section>
+
+        <!-- OPEN NOTEBOOK -->
+        <section class="open-notebook" aria-label="Open personal notebook">
+
+          <!-- LEFT PAGE: SAVED ENTRIES -->
+          <div class="notebook-page-sheet notebook-left-page">
+
+            <div class="notebook-page-inner">
+
+              <div class="notebook-page-heading">
+                <span class="page-kicker">A COLLECTION OF MOMENTS</span>
+                <h2>Little Memories</h2>
+                <p>Every page holds a piece of your story.</p>
+              </div>
+
+              <div class="notebook-memory-search">
+                <i data-lucide="search"></i>
+                <input
+                  type="search"
+                  id="notebookSearch"
+                  placeholder="Find a memory..."
+                  aria-label="Search notebook entries"
+                >
+              </div>
+
+              <div
+                class="notebook-memory-list"
+                id="notebookEntries"
+                aria-live="polite"
+              >
+                <!-- Saved entries generated by notebook.js -->
+              </div>
+
+              <div class="notebook-page-number">
+                <span>MY MEMORIES</span>
+                <strong id="notebookMemoryCount">00</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- CENTER SPINE -->
+          <div class="notebook-center-fold" aria-hidden="true">
+            <div class="notebook-spine-shadow"></div>
+          </div>
+
+          <!-- RIGHT PAGE: WRITING AREA -->
+          <div class="notebook-page-sheet notebook-right-page">
+
+            <div class="notebook-page-inner">
+
+              <div class="notebook-writing-header">
+
+                <div>
+                  <span class="page-kicker">A FRESH PAGE</span>
+                  <h2 id="notebookPageHeading">Dear Diary,</h2>
+                </div>
+
+                <button
+                  type="button"
+                  class="notebook-bookmark"
+                  id="notebookFavorite"
+                  aria-label="Bookmark this entry"
+                  aria-pressed="false"
+                  title="Bookmark this entry"
+                >
+                  <i data-lucide="bookmark"></i>
+                </button>
+
+              </div>
+
+              <div class="notebook-entry-details">
+
+                <label class="notebook-date-field">
+                  <span>DATE</span>
+                  <input
+                    type="date"
+                    id="notebookDate"
+                    aria-label="Entry date"
+                  >
+                </label>
+
+                <label class="notebook-mood-field">
+                  <span>MOOD</span>
+                  <select id="notebookMood" aria-label="Today's mood">
+                    <option value="">Choose a mood</option>
+                    <option value="Happy">Happy</option>
+                    <option value="Calm">Calm</option>
+                    <option value="Okay">Okay</option>
+                    <option value="Tired">Tired</option>
+                    <option value="Stressed">Stressed</option>
+                    <option value="Grateful">Grateful</option>
+                  </select>
+                </label>
+
+              </div>
+
+              <label class="notebook-title-field">
+                <span>PAGE TITLE</span>
+                <input
+                  type="text"
+                  id="notebookTitle"
+                  maxlength="120"
+                  placeholder="Give this memory a name..."
+                >
+              </label>
+
+              <div class="notebook-lined-paper">
+                <textarea
+                  id="notebookWriting"
+                  maxlength="10000"
+                  placeholder="Dear diary,
+
+Today, I want to remember..."
+                  aria-label="Write your journal entry"
+                ></textarea>
+              </div>
+
+              <div class="notebook-writing-footer">
+                <span id="notebookWordCount">0 words</span>
+                <span>Take your time. This page is yours.</span>
+              </div>
+
+              <div class="notebook-page-navigation">
+
+                <button
+                  type="button"
+                  id="previousNotebookPage"
+                  class="page-nav-button"
+                  disabled
+                >
+                  <i data-lucide="chevron-left"></i>
+                  Previous
+                </button>
+
+                <span id="notebookPageNumber">NEW PAGE</span>
+
+                <button
+                  type="button"
+                  id="nextNotebookPage"
+                  class="page-nav-button"
+                  disabled
+                >
+                  Next
+                  <i data-lucide="chevron-right"></i>
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- DECORATIVE BOOKMARK -->
+          <div class="notebook-ribbon" aria-hidden="true"></div>
+
+        </section>
+
+        <!-- NOTEBOOK FOOTNOTE -->
+        <footer class="notebook-footer">
+          <i data-lucide="flower-2"></i>
+          <span>Some moments deserve their own page.</span>
+          <i data-lucide="flower-2"></i>
+        </footer>
+
+        <div
+          class="feedback-message"
+          id="notebookFeedback"
+          role="status"
+          hidden
+        ></div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- NOTEBOOK SCRIPT -->
+  <script src="../js/notebook.js"></script>
+  <script src="../js/theme.js"></script>
+
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+
+    menuToggle?.addEventListener("click", () => {
+      const isOpen = sidebar.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+    });
+  </script>
+
+</body>
+</html>
+```

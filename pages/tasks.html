@@ -1,0 +1,330 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f5ef">
+  <meta name="description" content="Organize and manage your daily tasks with LIFEOS.">
+
+  <title>Tasks | LIFEOS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../js/theme.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/tasks.css">
+</head>
+
+<body class="tasks-page">
+
+  <div class="app-layout">
+
+    <aside class="sidebar" id="sidebar">
+      <a href="../index.html" class="brand">
+        <span class="brand-icon"><i data-lucide="sprout"></i></span>
+        <span class="brand-name">LIFEOS</span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <a href="../index.html" class="nav-link">
+          <i data-lucide="layout-dashboard"></i><span>Home</span>
+        </a>
+        <a href="calendar.html" class="nav-link">
+          <i data-lucide="calendar-days"></i><span>Calendar</span>
+        </a>
+        <a href="tasks.html" class="nav-link active" aria-current="page">
+          <i data-lucide="check-square"></i><span>Tasks</span>
+        </a>
+        <a href="journal.html" class="nav-link">
+          <i data-lucide="book-heart"></i><span>Journal</span>
+        </a>
+        <a href="focus.html" class="nav-link">
+          <i data-lucide="timer"></i><span>Focus</span>
+        </a>
+        <a href="progress.html" class="nav-link">
+          <i data-lucide="chart-no-axes-column-increasing"></i><span>Progress</span>
+        </a>
+        <a href="notes.html" class="nav-link">
+          <i data-lucide="notebook-pen"></i><span>Notes</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-label">PREFERENCES</div>
+
+      <nav class="sidebar-nav" aria-label="Preferences">
+        <a href="settings.html" class="nav-link">
+          <i data-lucide="settings-2"></i><span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-profile">
+          <div class="profile-avatar"><i data-lucide="user-round"></i></div>
+          <div class="profile-info">
+            <strong>My LIFEOS</strong>
+            <span>Personal workspace</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <header class="topbar">
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Open navigation"
+          aria-controls="sidebar"
+          aria-expanded="false"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="topbar-breadcrumb">
+          <span>Workspace</span>
+          <i data-lucide="chevron-right"></i>
+          <strong>Tasks</strong>
+        </div>
+
+        <a href="settings.html" class="profile-button" aria-label="Settings">
+          <i data-lucide="user-round"></i>
+        </a>
+      </header>
+
+      <div class="page-content tasks-content">
+
+        <section class="tasks-intro">
+          <div class="tasks-intro-copy">
+            <span class="tasks-eyebrow">A LITTLE PROGRESS, EVERY DAY</span>
+            <h1>Make room for <em>what matters.</em></h1>
+            <p>Keep your plans organized, take things one step at a time, and celebrate every little accomplishment.</p>
+          </div>
+
+          <button type="button" class="tasks-add-button" id="openTaskDialog">
+            <i data-lucide="plus"></i>
+            <span>New task</span>
+          </button>
+        </section>
+
+        <section class="tasks-overview" aria-label="Task overview">
+
+          <article class="tasks-stat-card">
+            <div class="tasks-stat-top">
+              <span class="tasks-stat-icon"><i data-lucide="layers-3"></i></span>
+              <span class="tasks-stat-caption">YOUR LIST</span>
+            </div>
+            <strong id="taskCount">0</strong>
+            <span class="tasks-stat-label">Total tasks</span>
+          </article>
+
+          <article class="tasks-stat-card">
+            <div class="tasks-stat-top">
+              <span class="tasks-stat-icon completed-icon"><i data-lucide="check-check"></i></span>
+              <span class="tasks-stat-caption">ACCOMPLISHED</span>
+            </div>
+            <strong id="completedCount">0</strong>
+            <span class="tasks-stat-label">Completed</span>
+          </article>
+
+          <article class="tasks-stat-card">
+            <div class="tasks-stat-top">
+              <span class="tasks-stat-icon pending-icon"><i data-lucide="hourglass"></i></span>
+              <span class="tasks-stat-caption">IN PROGRESS</span>
+            </div>
+            <strong id="pendingCount">0</strong>
+            <span class="tasks-stat-label">Still pending</span>
+          </article>
+
+        </section>
+
+        <section class="tasks-workspace">
+
+          <div class="tasks-section-heading">
+            <div>
+              <span class="tasks-eyebrow">YOUR PERSONAL SPACE</span>
+              <h2>Task overview</h2>
+              <p>Every small step brings you closer.</p>
+            </div>
+            <span class="tasks-heading-decoration"><i data-lucide="sprout"></i></span>
+          </div>
+
+          <div class="tasks-toolbar">
+
+            <div class="tasks-search">
+              <i data-lucide="search"></i>
+              <input
+                type="search"
+                id="taskSearch"
+                placeholder="Find a task..."
+                aria-label="Search tasks"
+              >
+            </div>
+
+            <div class="tasks-toolbar-selects">
+              <label class="visually-hidden" for="taskFilter">Filter tasks</label>
+              <select id="taskFilter">
+                <option value="all">All tasks</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+                <option value="today">Due today</option>
+                <option value="upcoming">Upcoming</option>
+              </select>
+
+              <label class="visually-hidden" for="taskSort">Sort tasks</label>
+              <select id="taskSort">
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
+                <option value="alphabetical">Alphabetical</option>
+                <option value="dueDate">Due date</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="tasks-list" id="tasksList" aria-live="polite">
+            <!-- Tasks generated by tasks.js -->
+          </div>
+
+        </section>
+
+        <div class="feedback-message" id="taskFeedback" role="status" hidden></div>
+
+        <p class="tasks-footer-note">
+          <i data-lucide="leaf"></i>
+          Progress is progress, no matter how small.
+        </p>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ADD / EDIT TASK MODAL -->
+  <dialog class="app-dialog tasks-dialog" id="taskDialog">
+    <form id="taskForm" class="dialog-form tasks-dialog-form">
+
+      <div class="tasks-dialog-top">
+        <div class="tasks-dialog-symbol">
+          <i data-lucide="notebook-pen"></i>
+        </div>
+
+        <button
+          type="button"
+          class="tasks-dialog-close"
+          id="closeTaskDialog"
+          aria-label="Close dialog"
+        >
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="tasks-dialog-heading">
+        <span class="tasks-eyebrow">MAKE IT HAPPEN</span>
+        <h2 data-dialog-title>Create a task</h2>
+        <p>Give your next step a name. You can figure out the rest as you go.</p>
+      </div>
+
+      <div class="tasks-form-fields">
+
+        <div class="form-group">
+          <label for="taskName">What needs to get done?</label>
+          <input
+            type="text"
+            id="taskName"
+            name="name"
+            placeholder="e.g. Finish my assignment"
+            maxlength="120"
+            required
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="tasks-form-row">
+
+          <div class="form-group">
+            <label for="taskDate">Due date</label>
+            <div class="tasks-input-wrap">
+              <i data-lucide="calendar-days"></i>
+              <input type="date" id="taskDate" name="date">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="taskTime">Time <span>(optional)</span></label>
+            <div class="tasks-input-wrap">
+              <i data-lucide="clock-3"></i>
+              <input type="time" id="taskTime" name="time">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="taskCategory">Choose a category</label>
+          <div class="tasks-select-wrap">
+            <i data-lucide="folder"></i>
+            <select id="taskCategory" name="category">
+              <option value="Personal">Personal</option>
+              <option value="School">School</option>
+              <option value="Work">Work</option>
+              <option value="Health">Health</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tasks-dialog-actions">
+        <button type="button" class="tasks-cancel-button" id="cancelTask">
+          Cancel
+        </button>
+        <button type="submit" class="tasks-save-button">
+          <i data-lucide="plus"></i>
+          <span>Add task</span>
+        </button>
+      </div>
+
+      <p class="tasks-dialog-footnote">
+        <i data-lucide="sprout"></i>
+        One thing at a time.
+      </p>
+
+    </form>
+  </dialog>
+
+  <script src="../js/tasks.js"></script>
+ 
+
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+
+    menuToggle?.addEventListener("click", () => {
+      const isOpen = sidebar.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+    });
+  </script>
+
+</body>
+</html>
+```

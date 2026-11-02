@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f5ef">
+
+    <title>Notes | LIFEOS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <a href="../index.html" class="brand">
+            <span class="brand-mark"><i data-lucide="sprout"></i></span>
+            <span class="brand-name">LIFEOS</span>
+        </a>
+
+        <p class="sidebar-label">WORKSPACE</p>
+
+        <nav class="sidebar-nav">
+            <a href="../index.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Home</span>
+            </a>
+
+            <a href="calendar.html" class="nav-link">
+                <i data-lucide="calendar-days"></i>
+                <span>Calendar</span>
+            </a>
+
+            <a href="tasks.html" class="nav-link">
+                <i data-lucide="check-square"></i>
+                <span>Tasks</span>
+            </a>
+
+            <a href="journal.html" class="nav-link">
+                <i data-lucide="book-heart"></i>
+                <span>Journal</span>
+            </a>
+
+            <a href="focus.html" class="nav-link">
+                <i data-lucide="timer"></i>
+                <span>Focus</span>
+            </a>
+
+            <a href="progress.html" class="nav-link">
+                <i data-lucide="chart-no-axes-column-increasing"></i>
+                <span>Progress</span>
+            </a>
+
+            <a href="notes.html" class="nav-link active" aria-current="page">
+                <i data-lucide="notebook-pen"></i>
+                <span>Notes</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="nav-link">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+
+            <div class="sidebar-profile">
+                <div class="profile-avatar">L</div>
+                <div class="profile-info">
+                    <strong>My Space</strong>
+                    <span>Personal dashboard</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <div class="topbar-breadcrumb">
+                <span>Workspace</span>
+                <i data-lucide="chevron-right"></i>
+                <strong>Notes</strong>
+            </div>
+
+            <div class="topbar-actions">
+                <span class="topbar-date" id="currentDate"></span>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL SPACE</p>
+                    <h1>Notes</h1>
+                    <p class="page-description">
+                        Keep your thoughts, ideas, and important information in one place.
+                    </p>
+                </div>
+
+                <button class="primary-button" id="openNoteDialog" type="button">
+                    <i data-lucide="plus"></i>
+                    New note
+                </button>
+            </div>
+
+            <!-- NOTE STATISTICS -->
+            <section class="stats-grid">
+                <article class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="notebook-text"></i>
+                    </div>
+                    <div>
+                        <span class="stat-label">Total notes</span>
+                        <strong class="stat-value" id="noteCount">0</strong>
+                    </div>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="bookmark"></i>
+                    </div>
+                    <div>
+                        <span class="stat-label">Pinned notes</span>
+                        <strong class="stat-value" id="pinnedCount">0</strong>
+                    </div>
+                </article>
+            </section>
+
+            <!-- SEARCH AND FILTERS -->
+            <section class="content-section">
+                <div class="section-toolbar">
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input
+                            type="search"
+                            id="noteSearch"
+                            placeholder="Search your notes..."
+                            aria-label="Search notes"
+                        >
+                    </div>
+
+                    <select id="noteFilter" class="filter-select" aria-label="Filter notes">
+                        <option value="all">All notes</option>
+                        <option value="pinned">Pinned</option>
+                        <option value="unpinned">Unpinned</option>
+                        <option value="General">General</option>
+                        <option value="School">School</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Ideas">Ideas</option>
+                        <option value="Reminders">Reminders</option>
+                    </select>
+                </div>
+
+                <!-- NOTES LIST -->
+                <div class="notes-grid" id="notesList">
+                    <!-- Notes are rendered here by notes.js -->
+                </div>
+
+                <p class="feedback-message" id="noteFeedback" role="status" aria-live="polite"></p>
+            </section>
+
+        </section>
+    </main>
+</div>
+
+<!-- NOTE DIALOG -->
+<dialog class="app-dialog" id="noteDialog">
+    <div class="dialog-header">
+        <div>
+            <p class="eyebrow">YOUR PERSONAL SPACE</p>
+            <h2 data-dialog-title>New note</h2>
+        </div>
+
+        <button
+            type="button"
+            class="icon-button"
+            id="closeNoteDialog"
+            aria-label="Close dialog"
+        >
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+
+    <form id="noteForm">
+        <div class="form-group">
+            <label for="noteTitle">Note title</label>
+            <input
+                type="text"
+                id="noteTitle"
+                name="title"
+                placeholder="Give your note a title"
+                maxlength="100"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="noteCategory">Category</label>
+            <select id="noteCategory" name="category" required>
+                <option value="General">General</option>
+                <option value="School">School</option>
+                <option value="Personal">Personal</option>
+                <option value="Ideas">Ideas</option>
+                <option value="Reminders">Reminders</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="noteContent">Your note</label>
+            <textarea
+                id="noteContent"
+                name="content"
+                rows="7"
+                placeholder="Write something worth remembering..."
+                required
+            ></textarea>
+        </div>
+
+        <div class="dialog-actions">
+            <button type="button" class="secondary-button" id="cancelNote">
+                Cancel
+            </button>
+
+            <button type="submit" class="primary-button">
+                <i data-lucide="save"></i>
+                Save note
+            </button>
+        </div>
+    </form>
+</dialog>
+
+<script src="../js/notes.js"></script>
+<script src="../js/theme.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+
+        const menuToggle = document.getElementById("menuToggle");
+        const sidebar = document.getElementById("sidebar");
+
+        menuToggle?.addEventListener("click", () => {
+            sidebar?.classList.toggle("open");
+        });
+
+        const currentDate = document.getElementById("currentDate");
+
+        if (currentDate) {
+            currentDate.textContent = new Intl.DateTimeFormat("en", {
+                weekday: "long",
+                month: "long",
+                day: "numeric"
+            }).format(new Date());
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,445 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#f5f3e9">
+  <meta name="description" content="A personal space to write, reflect, and remember with LIFEOS.">
+
+  <title>My Journal | LIFEOS</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../js/theme.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/journal.css">
+</head>
+
+<body class="journal-page">
+
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <a href="../index.html" class="brand">
+        <span class="brand-icon">
+          <i data-lucide="sprout"></i>
+        </span>
+        <span class="brand-name">LIFEOS</span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+
+        <a href="../index.html" class="nav-link">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="calendar.html" class="nav-link">
+          <i data-lucide="calendar-days"></i>
+          <span>Calendar</span>
+        </a>
+
+        <a href="tasks.html" class="nav-link">
+          <i data-lucide="check-square"></i>
+          <span>Tasks</span>
+        </a>
+
+        <a href="journal.html" class="nav-link active" aria-current="page">
+          <i data-lucide="book-heart"></i>
+          <span>Journal</span>
+        </a>
+
+        <a href="focus.html" class="nav-link">
+          <i data-lucide="timer"></i>
+          <span>Focus</span>
+        </a>
+
+        <a href="progress.html" class="nav-link">
+          <i data-lucide="chart-no-axes-column-increasing"></i>
+          <span>Progress</span>
+        </a>
+
+        <a href="notes.html" class="nav-link">
+          <i data-lucide="notebook-pen"></i>
+          <span>Notes</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-label">PREFERENCES</div>
+
+      <nav class="sidebar-nav" aria-label="Preferences">
+        <a href="settings.html" class="nav-link">
+          <i data-lucide="settings-2"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-profile">
+          <div class="profile-avatar">
+            <i data-lucide="user-round"></i>
+          </div>
+
+          <div class="profile-info">
+            <strong>My LIFEOS</strong>
+            <span>Personal workspace</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Open navigation"
+          aria-controls="sidebar"
+          aria-expanded="false"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="topbar-breadcrumb">
+          <span>Workspace</span>
+          <i data-lucide="chevron-right"></i>
+          <strong>My Journal</strong>
+        </div>
+
+        <a href="settings.html" class="profile-button" aria-label="Settings">
+          <i data-lucide="user-round"></i>
+        </a>
+
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <div class="page-content journal-content">
+
+        <!-- NOTEBOOK HERO -->
+        <section class="journal-hero">
+
+          <div class="journal-hero-copy">
+
+            <span class="journal-overline">
+              <i data-lucide="sparkles"></i>
+              YOUR PERSONAL CORNER
+            </span>
+
+            <h1>Dear Diary<span>,</span></h1>
+
+            <p>
+              A little space to pause, let your thoughts wander,
+              and keep the moments you don't want to forget.
+            </p>
+
+            <div class="journal-hero-note">
+              <i data-lucide="feather"></i>
+              <span>Write your story, one page at a time.</span>
+            </div>
+
+          </div>
+
+          <a
+  href="notebook.html"
+  class="journal-cover-art"
+  aria-label="Open My Little Journal notebook"
+  title="Open your notebook"
+>
+
+  <div class="cover-decoration cover-decoration-one"></div>
+  <div class="cover-decoration cover-decoration-two"></div>
+
+  <div class="journal-book">
+    <div class="journal-book-spine"></div>
+
+    <div class="journal-book-content">
+      <i data-lucide="flower-2"></i>
+      <span class="book-small-title">MY LITTLE</span>
+      <span class="book-main-title">Journal</span>
+      <span class="book-subtitle">thoughts & memories</span>
+      <div class="book-line"></div>
+    </div>
+  </div>
+
+  <span class="cover-caption">Click to open your little notebook ↗</span>
+
+</a>
+        </section>
+
+        <!-- WRITING PROMPT -->
+        <section class="journal-prompt">
+
+          <div class="prompt-icon">
+            <i data-lucide="lightbulb"></i>
+          </div>
+
+          <div class="prompt-copy">
+            <span>AN IDEA TO GET YOU STARTED</span>
+            <h2>What is one little thing that made today special?</h2>
+            <p>You don't need the perfect words. Just start somewhere.</p>
+          </div>
+
+          <div class="prompt-decoration" aria-hidden="true">
+            <i data-lucide="flower-2"></i>
+          </div>
+
+        </section>
+
+        <!-- JOURNAL WORKSPACE -->
+        <section class="journal-workspace">
+
+          <div class="journal-section-heading">
+
+            <div>
+              <span class="journal-overline">THE PAGES OF YOUR LIFE</span>
+              <h2>Your journal entries</h2>
+              <p>Every entry is a little piece of your story.</p>
+            </div>
+
+            <button
+              type="button"
+              class="journal-new-button"
+              id="openJournalDialog"
+            >
+              <i data-lucide="plus"></i>
+              <span>Write a new entry</span>
+            </button>
+
+          </div>
+
+          <!-- JOURNAL PAPER -->
+          <div class="journal-paper">
+
+            <div class="journal-paper-header">
+              <div class="paper-heading">
+                <i data-lucide="book-open"></i>
+                <span>MY COLLECTION</span>
+              </div>
+
+              <div class="journal-entry-count">
+                <strong id="journalCount">0</strong>
+                <span>pages written</span>
+              </div>
+            </div>
+
+            <!-- SEARCH AND FILTER -->
+            <div class="journal-toolbar">
+
+              <div class="journal-search">
+                <i data-lucide="search"></i>
+
+                <input
+                  type="search"
+                  id="journalSearch"
+                  placeholder="Find a memory or thought..."
+                  aria-label="Search journal entries"
+                >
+              </div>
+
+              <label class="visually-hidden" for="journalFilter">
+                Filter journal entries
+              </label>
+
+              <select id="journalFilter">
+                <option value="all">All entries</option>
+                <option value="today">Today</option>
+                <option value="thisMonth">This month</option>
+                <option value="withMood">With mood</option>
+              </select>
+
+            </div>
+
+            <!-- GENERATED JOURNAL ENTRIES -->
+            <div
+              class="journal-list"
+              id="journalList"
+              aria-live="polite"
+            >
+              <!-- Entries generated by journal.js -->
+            </div>
+
+            <div class="journal-paper-footer">
+              <span>Made of thoughts, moments, and memories.</span>
+              <i data-lucide="flower-2"></i>
+            </div>
+
+          </div>
+
+        </section>
+
+        <div
+          class="feedback-message"
+          id="journalFeedback"
+          role="status"
+          hidden
+        ></div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- NEW / EDIT JOURNAL ENTRY -->
+  <dialog class="app-dialog journal-dialog" id="journalDialog">
+
+    <form id="journalForm" class="dialog-form">
+
+      <div class="journal-dialog-header">
+
+        <div>
+          <span class="journal-overline">A FRESH PAGE</span>
+          <h2 data-dialog-title>Dear Diary,</h2>
+          <p>Take your time. This page is yours.</p>
+        </div>
+
+        <button
+          type="button"
+          class="icon-button"
+          id="closeJournalDialog"
+          aria-label="Close dialog"
+        >
+          <i data-lucide="x"></i>
+        </button>
+
+      </div>
+
+      <div class="journal-dialog-body">
+
+        <div class="form-group">
+          <label for="journalTitle">Give this page a title</label>
+
+          <input
+            type="text"
+            id="journalTitle"
+            name="title"
+            placeholder="A day worth remembering..."
+            maxlength="120"
+            required
+          >
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="journalDate">Date</label>
+
+            <input
+              type="date"
+              id="journalDate"
+              name="date"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="journalMood">Today's mood</label>
+
+            <select id="journalMood" name="mood">
+              <option value="">Choose a mood</option>
+              <option value="Happy">Happy</option>
+              <option value="Calm">Calm</option>
+              <option value="Okay">Okay</option>
+              <option value="Tired">Tired</option>
+              <option value="Stressed">Stressed</option>
+              <option value="Grateful">Grateful</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-group journal-writing-group">
+
+          <label for="journalContent">Your thoughts</label>
+
+          <div class="journal-writing-paper">
+            <textarea
+              id="journalContent"
+              name="content"
+              rows="10"
+              maxlength="10000"
+              placeholder="Dear diary,
+
+Today, I..."
+              required
+            ></textarea>
+          </div>
+
+          <span class="journal-writing-hint">
+            There are no rules here. Just write.
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="dialog-actions">
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          id="cancelJournal"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="journal-save-button"
+        >
+          <i data-lucide="book-heart"></i>
+          Save this page
+        </button>
+
+      </div>
+
+    </form>
+
+  </dialog>
+
+  <!-- SCRIPTS -->
+  <script src="../js/journal.js"></script>
+
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+
+    menuToggle?.addEventListener("click", () => {
+      const isOpen = sidebar.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+    });
+  </script>
+
+</body>
+</html>
