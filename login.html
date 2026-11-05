@@ -1,0 +1,263 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to LIFEOS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            font-family: 'DM Sans', sans-serif;
+            color: #303A35;
+            background:
+                radial-gradient(circle at top left, #e5eee4, transparent 45%),
+                linear-gradient(135deg, #f7f7ef, #edf2e9);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+            padding: 42px;
+            border: 1px solid rgba(255,255,255,.8);
+            border-radius: 26px;
+            background: rgba(255,255,255,.76);
+            box-shadow: 0 20px 60px rgba(48,58,53,.09);
+            backdrop-filter: blur(18px);
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            color: #526b57;
+            letter-spacing: 2px;
+        }
+
+        .brand p {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #89948a;
+        }
+
+        .tabs {
+            display: flex;
+            padding: 5px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            background: #edf1e9;
+        }
+
+        .tab {
+            flex: 1;
+            border: none;
+            padding: 11px;
+            border-radius: 9px;
+            background: transparent;
+            color: #778276;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            color: #526b57;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05);
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #e1e7dd;
+            border-radius: 11px;
+            outline: none;
+            background: #fbfcf9;
+            color: #303A35;
+            font: inherit;
+        }
+
+        .field input:focus {
+            border-color: #829b83;
+            box-shadow: 0 0 0 3px rgba(130,155,131,.12);
+        }
+
+        .primary-btn, .google-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 11px;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .primary-btn {
+            border: none;
+            background: #607b63;
+            color: white;
+            margin-top: 5px;
+        }
+
+        .primary-btn:hover {
+            background: #4e6952;
+        }
+
+        .google-btn {
+            margin-top: 15px;
+            border: 1px solid #e1e7dd;
+            background: white;
+            color: #465448;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0 5px;
+            color: #a0a99f;
+            font-size: 12px;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e9e1;
+        }
+
+        .feedback {
+            min-height: 20px;
+            margin-top: 14px;
+            text-align: center;
+            font-size: 13px;
+            color: #9b594e;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 25px;
+            text-align: center;
+            color: #718471;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media(max-width: 480px) {
+            .login-card {
+                padding: 30px 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="login-card">
+
+        <div class="brand">
+            <h1>LIFEOS</h1>
+            <p>A little more balance, one day at a time.</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" id="loginTab" type="button">
+                Sign In
+            </button>
+            <button class="tab" id="registerTab" type="button">
+                Create Account
+            </button>
+        </div>
+
+        <form id="authForm">
+
+            <div class="field" id="nameField" hidden>
+                <label for="displayName">Your name</label>
+                <input
+                    type="text"
+                    id="displayName"
+                    placeholder="Enter your name"
+                    autocomplete="name"
+                >
+            </div>
+
+            <div class="field">
+                <label for="email">Email address</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    minlength="6"
+                    required
+                >
+            </div>
+
+            <button class="primary-btn" id="submitBtn" type="submit">
+                Sign In
+            </button>
+
+            <div class="divider">OR</div>
+
+            <button class="google-btn" id="googleBtn" type="button">
+                Continue with Google
+            </button>
+
+            <p class="feedback" id="feedback" role="status"></p>
+
+        </form>
+
+        <a href="index.html" class="back-link">
+            ← Back to LIFEOS
+        </a>
+
+    </main>
+
+    <script type="module" src="js/auth.js"></script>
+
+</body>
+</html>
+```

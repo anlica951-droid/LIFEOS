@@ -26,8 +26,11 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
+        <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
+    <i data-lucide="chevron-left"></i>
+</button>
 
-        <a href="../index.html" class="brand">
+        <a href="../dashboard.html" class="brand">
             <span class="brand-icon">
                 <i data-lucide="sprout"></i>
             </span>
@@ -38,7 +41,7 @@
 
         <nav class="sidebar-nav">
 
-            <a href="../index.html" class="side-link">
+            <a href="../dashboard.html" class="side-link">
                 <i data-lucide="house"></i>
                 <span>Home</span>
             </a>
@@ -306,6 +309,36 @@
         }
     });
 </script>
+<script>
+(() => {
+    const button = document.getElementById("sidebarCollapse");
+    if (!button) return;
 
+    const STORAGE_KEY = "lifeos_sidebar_collapsed";
+
+    function updateSidebar(collapsed) {
+        document.body.classList.toggle("sidebar-collapsed", collapsed);
+
+        button.setAttribute(
+            "aria-label",
+            collapsed ? "Expand sidebar" : "Collapse sidebar"
+        );
+
+        button.innerHTML = collapsed
+            ? '<i data-lucide="chevron-right"></i>'
+            : '<i data-lucide="chevron-left"></i>';
+
+        if (window.lucide) window.lucide.createIcons();
+    }
+
+    updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
+
+    button.addEventListener("click", () => {
+        const collapsed = !document.body.classList.contains("sidebar-collapsed");
+        localStorage.setItem(STORAGE_KEY, String(collapsed));
+        updateSidebar(collapsed);
+    });
+})();
+</script>
 </body>
 </html>

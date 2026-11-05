@@ -2227,3 +2227,75 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 html[data-theme="light"] {
     color-scheme: light;
 }
+/* SIDEBAR COLLAPSE BUTTON */
+
+.sidebar {
+    position: fixed;
+}
+
+.sidebar-collapse {
+    position: absolute;
+    top: 32px;
+    right: -15px;
+    z-index: 1001;
+
+    width: 30px;
+    height: 30px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--border);
+    border-radius: 50%;
+
+    background: #fffefa;
+    color: var(--green-dark);
+
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(48, 58, 53, 0.10);
+}
+
+.sidebar-collapse:hover {
+    background: var(--sage-pale);
+}
+
+.sidebar-collapse svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* COLLAPSED SIDEBAR */
+
+body.sidebar-collapsed {
+    --sidebar-width: 86px;
+}
+
+body.sidebar-collapsed .sidebar {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+body.sidebar-collapsed .brand {
+    padding-left: 8px;
+}
+
+body.sidebar-collapsed .brand-name,
+body.sidebar-collapsed .sidebar-label,
+body.sidebar-collapsed .side-link span,
+body.sidebar-collapsed .sidebar-quote,
+body.sidebar-collapsed .sidebar-version {
+    display: none;
+}
+
+body.sidebar-collapsed .side-link {
+    justify-content: center;
+    padding: 0;
+}
+
+body.sidebar-collapsed .side-link:hover {
+    transform: none;
+}
+
+body.sidebar-collapsed .sidebar-collapse svg {
+    transform: rotate(180deg);
+}

@@ -1,639 +1,673 @@
-
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f5ef">
+  <meta name="description" content="LIFEOS is your personal space to organize tasks, reflect, and grow.">
 
-    <title>LIFEOS | Your Personal Space</title>
-    <meta name="description" content="Your personal space for planning, focus, and growth.">
+  <title>LIFEOS | Make Space for What Matters</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/pages.css">
-    <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    :root {
+      --bg: #f5f5ef;
+      --surface: #fffefa;
+      --text: #303a35;
+      --muted: #7d867d;
+      --green: #718875;
+      --green-dark: #526b57;
+      --border: rgba(48, 58, 53, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(190, 207, 183, 0.27), transparent 30%),
+        radial-gradient(circle at 5% 75%, rgba(222, 222, 200, 0.25), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .landing-nav {
+      width: min(1160px, calc(100% - 48px));
+      margin: auto;
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .landing-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 29px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--green-dark);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color .2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--green-dark);
+    }
+
+    .nav-button {
+      padding: 12px 23px;
+      border-radius: 30px;
+      background: var(--green-dark);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      transition: .2s ease;
+    }
+
+    .nav-button:hover {
+      background: var(--green);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      width: min(1160px, calc(100% - 48px));
+      min-height: 650px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 55px;
+      padding: 55px 0 85px;
+    }
+
+    .hero-content {
+      max-width: 570px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 15px;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, .55);
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 27px;
+    }
+
+    .eyebrow span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(48px, 6vw, 76px);
+      line-height: 1.12;
+      font-weight: 600;
+      letter-spacing: -2px;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 em {
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    .hero-description {
+      max-width: 470px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .primary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 27px;
+      border-radius: 30px;
+      background: var(--green-dark);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 9px 22px rgba(82, 107, 87, .16);
+      transition: .2s ease;
+    }
+
+    .primary-button:hover {
+      background: var(--green);
+      transform: translateY(-3px);
+    }
+
+    .text-button {
+      color: var(--green-dark);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .text-button:hover {
+      text-decoration: underline;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .visual-glow {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: rgba(181, 200, 174, .28);
+      filter: blur(5px);
+    }
+
+    .preview-card {
+      position: relative;
+      width: min(100%, 420px);
+      padding: 29px;
+      border: 1px solid rgba(255, 255, 255, .85);
+      border-radius: 25px;
+      background: rgba(255, 255, 255, .72);
+      box-shadow: 0 25px 70px rgba(55, 72, 59, .11);
+      backdrop-filter: blur(18px);
+      transform: rotate(2deg);
+    }
+
+    .preview-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 27px;
+    }
+
+    .preview-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .preview-date {
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .preview-card h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 27px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .preview-subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    .preview-task {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 15px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .task-check {
+      width: 21px;
+      height: 21px;
+      flex-shrink: 0;
+      border: 1.5px solid #a4b49f;
+      border-radius: 7px;
+    }
+
+    .task-check.done {
+      background: var(--green);
+      border-color: var(--green);
+      position: relative;
+    }
+
+    .task-check.done::after {
+      content: "✓";
+      position: absolute;
+      color: white;
+      font-size: 13px;
+      left: 4px;
+      top: 0;
+    }
+
+    .task-info {
+      flex: 1;
+    }
+
+    .task-info strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .task-info small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .task-tag {
+      padding: 5px 9px;
+      border-radius: 20px;
+      background: #edf1e9;
+      color: var(--green-dark);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .preview-footer {
+      margin-top: 15px;
+      padding: 16px;
+      border-radius: 15px;
+      background: #f0f2e9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-footer span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .preview-footer strong {
+      color: var(--green-dark);
+      font-size: 14px;
+    }
+
+    .floating-note {
+      position: absolute;
+      right: -5px;
+      bottom: 45px;
+      padding: 16px 20px;
+      border: 1px solid rgba(255, 255, 255, .8);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .88);
+      box-shadow: 0 15px 35px rgba(55, 72, 59, .09);
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 700;
+      transform: rotate(-4deg);
+    }
+
+    .features {
+      width: min(1160px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 45px 0 100px;
+      text-align: center;
+    }
+
+    .section-eyebrow {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .features h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(30px, 4vw, 43px);
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 480px;
+      margin: 0 auto 42px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      text-align: left;
+    }
+
+    .feature-card {
+      padding: 25px 22px;
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      background: rgba(255, 255, 255, .55);
+      transition: .2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, .85);
+      box-shadow: 0 15px 35px rgba(55, 72, 59, .06);
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 19px;
+      border-radius: 13px;
+      background: #e9eee5;
+      color: var(--green-dark);
+      font-size: 19px;
+    }
+
+    .feature-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 19px;
+      margin-bottom: 9px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .landing-footer {
+      padding: 25px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 850px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding-top: 65px;
+      }
+
+      .hero-content {
+        max-width: 650px;
+        text-align: center;
+        margin: auto;
+      }
+
+      .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        min-height: 420px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .landing-nav {
+        width: calc(100% - 32px);
+        min-height: 75px;
+      }
+
+      .landing-brand {
+        font-size: 25px;
+      }
+
+      .nav-actions {
+        gap: 14px;
+      }
+
+      .nav-link {
+        font-size: 12px;
+      }
+
+      .nav-button {
+        padding: 10px 15px;
+        font-size: 12px;
+      }
+
+      .hero {
+        width: calc(100% - 36px);
+        padding: 55px 0 60px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .hero-actions {
+        gap: 17px;
+      }
+
+      .primary-button {
+        padding: 13px 20px;
+        font-size: 12px;
+      }
+
+      .text-button {
+        font-size: 12px;
+      }
+
+      .hero-visual {
+        min-height: 370px;
+      }
+
+      .preview-card {
+        padding: 21px;
+      }
+
+      .preview-card h2 {
+        font-size: 23px;
+      }
+
+      .floating-note {
+        right: -3px;
+        bottom: 15px;
+        font-size: 10px;
+      }
+
+      .features {
+        width: calc(100% - 36px);
+        padding-bottom: 65px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="app-container">
+  <header class="landing-nav">
+    <a href="index.html" class="landing-brand">LIFEOS.</a>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
+    <nav class="nav-actions" aria-label="Main navigation">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="login.html" class="nav-link">Sign In</a>
+      <a href="login.html" class="nav-button">Get Started</a>
+    </nav>
+  </header>
 
-        <a href="./" class="brand">
-            <span class="brand-icon">
-                <i data-lucide="sprout"></i>
-            </span>
-            <span class="brand-name">LIFEOS</span>
-        </a>
-
-        <div class="sidebar-label">YOUR SPACE</div>
-
-        <nav class="sidebar-nav">
-
-            <a href="./" class="side-link active">
-                <i data-lucide="house"></i>
-                <span>Home</span>
-            </a>
-
-            <a href="pages/calendar.html" class="side-link">
-                <i data-lucide="calendar-days"></i>
-                <span>Calendar</span>
-            </a>
-
-            <a href="pages/tasks.html" class="side-link">
-                <i data-lucide="list-checks"></i>
-                <span>My Tasks</span>
-            </a>
-
-            <a href="pages/journal.html" class="side-link">
-                <i data-lucide="book-heart"></i>
-                <span>Mood & Journal</span>
-            </a>
-
-            <a href="pages/focus.html" class="side-link">
-                <i data-lucide="timer"></i>
-                <span>Focus Room</span>
-            </a>
-
-            <a href="pages/progress.html" class="side-link">
-                <i data-lucide="chart-no-axes-combined"></i>
-                <span>My Progress</span>
-            </a>
-
-            <a href="pages/notes.html" class="side-link">
-                <i data-lucide="notebook-pen"></i>
-                <span>My Notes</span>
-            </a>
-
-        </nav>
-
-        <div class="sidebar-bottom">
-
-            <a href="pages/settings.html" class="side-link">
-                <i data-lucide="settings"></i>
-                <span>Settings</span>
-            </a>
-
-            <div class="sidebar-quote">
-                <i data-lucide="leaf"></i>
-                <p>Small steps every day lead to beautiful changes.</p>
-            </div>
-
-            <div class="sidebar-version">
-                LIFEOS <span>PERSONAL EDITION</span>
-            </div>
-
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span></span>
+          YOUR PERSONAL SPACE
         </div>
 
-    </aside>
+        <h1>Make space for <em>what matters.</em></h1>
 
-
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
-
-        <!-- TOPBAR -->
-        <header class="topbar">
-
-            <button
-                class="menu-toggle"
-                id="menuToggle"
-                type="button"
-                aria-label="Toggle navigation"
-            >
-                <i data-lucide="menu"></i>
-            </button>
-
-            <div class="topbar-heading">
-                <span class="topbar-overline">YOUR PERSONAL SPACE</span>
-                <span class="topbar-page">Home</span>
-            </div>
-
-            <div class="topbar-spacer"></div>
-
-            <label class="search-container">
-                <i data-lucide="search"></i>
-                <input
-                    type="search"
-                    id="searchInput"
-                    placeholder="Search your space..."
-                    aria-label="Search LIFEOS"
-                >
-            </label>
-
-           <div class="notification-wrapper">
-    <button
-    class="icon-button notification-button"
-    id="notificationBtn"
-    type="button"
-    aria-label="Notifications"
-    aria-expanded="false"
-    aria-controls="notificationPanel"
->
-    <i data-lucide="bell"></i>
-    <span class="notification-dot" hidden></span>
-</button>
-
-    <div class="notification-panel" id="notificationPanel" hidden>
-        <div class="notification-header">
-            <div>
-                <h3>Notifications</h3>
-                <p>Your latest updates</p>
-            </div>
-
-            <button
-                type="button"
-                id="closeNotifications"
-                aria-label="Close notifications"
-            >
-                <i data-lucide="x"></i>
-            </button>
-        </div>
-
-        <div class="notification-content" id="notificationList">
-            <div class="notification-empty">
-                <i data-lucide="bell-ring"></i>
-                <strong>You're all caught up!</strong>
-                <p>New updates will appear here.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-            <a href="pages/settings.html" class="profile-button">
-                <span class="profile-avatar">A</span>
-                <span class="profile-name">My Space</span>
-                <i data-lucide="chevron-down"></i>
-            </a>
-
-        </header>
-
-
-        <!-- HOMEPAGE DASHBOARD -->
-        <section class="dashboard">
-
-            <!-- WELCOME HEADING -->
-            <div class="dashboard-heading">
-
-                <div>
-                    <p class="eyebrow">A LITTLE SPACE FOR YOU</p>
-
-                    <h1>Make today meaningful.</h1>
-
-                    <p class="section-subtitle">
-                        A little progress is still progress. Take your day one step at a time.
-                    </p>
-                </div>
-
-                <div class="today-date">
-                    <span class="today-date-icon">
-                        <i data-lucide="calendar-days"></i>
-                    </span>
-
-                    <div>
-                        <span class="today-date-label">TODAY</span>
-                        <strong id="todayDate">Your day, your pace</strong>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- WELCOME AND VERSE -->
-            <section class="welcome-card">
-
-                <div class="welcome-decoration welcome-decoration-one"></div>
-                <div class="welcome-decoration welcome-decoration-two"></div>
-
-                <div class="welcome-content">
-
-                    <span class="welcome-label">
-                        <span class="welcome-label-dot"></span>
-                        <span id="greetingLabel">A GENTLE START TO YOUR DAY</span>
-                    </span>
-
-                    <h2 id="greetingTitle">Good morning!</h2>
-
-                    <p class="welcome-description" id="taskSummary">
-                        Let's make today meaningful.
-                    </p>
-
-                    <div class="welcome-message">
-                        <span class="welcome-message-line"></span>
-                        <p>You're doing better than you think. ♡</p>
-                    </div>
-
-                    <a href="pages/tasks.html" class="welcome-button">
-                        Plan my day
-                        <i data-lucide="arrow-up-right"></i>
-                    </a>
-
-                </div>
-
-                
-<div class="verse-card">
-
-    <div class="verse-card-top">
-        <span class="verse-icon">
-            <i data-lucide="book-open"></i>
-        </span>
-        <span>DAILY BIBLE VERSE</span>
-    </div>
-
-    <p class="verse-text" id="dailyVerseText">
-        Loading your daily verse...
-    </p>
-
-    <p class="verse-reference" id="dailyVerseReference">
-        LIFEOS DAILY VERSE
-    </p>
-
-    <div class="verse-divider"></div>
-
-    <div class="verse-card-bottom">
-        <p class="verse-footer" id="dailyVerseMessage">
-            A little reminder for your day. ♡
+        <p class="hero-description">
+          A little more clarity. A little more balance.
+          LIFEOS brings your tasks, thoughts, routines, and
+          personal growth together in one peaceful space.
         </p>
 
-        <a href="pages/verses.html" class="verse-history-link">
-            Verse history
-            <i data-lucide="arrow-up-right"></i>
-        </a>
-    </div>
+        <div class="hero-actions">
+          <a href="login.html" class="primary-button">Start your journey →</a>
+          <a href="#features" class="text-button">Explore LIFEOS</a>
+        </div>
+      </div>
 
-</div>
+      <div class="hero-visual">
+        <div class="visual-glow"></div>
 
+        <div class="preview-card">
+          <div class="preview-top">
+            <span class="preview-label">YOUR DAILY SPACE</span>
+            <span class="preview-date">A FRESH START</span>
+          </div>
 
-                <div class="welcome-plant">
-                    <i data-lucide="sprout"></i>
-                </div>
+          <h2>A day with purpose.</h2>
+          <p class="preview-subtitle">Small steps make meaningful progress.</p>
 
-            </section>
-
-
-            <!-- SMALL DASHBOARD PREVIEWS -->
-            <div class="dashboard-grid hero-grid">
-
-                <!-- CALENDAR PREVIEW -->
-                <section class="card mini-calendar-card">
-
-                    <div class="card-heading">
-
-                        <div>
-                            <p class="card-overline">YOUR SCHEDULE</p>
-                            <h2 id="calendarTitle">November 2026</h2>
-                        </div>
-
-                        <div class="calendar-controls">
-
-                            <button
-                                id="prevMonth"
-                                class="icon-button"
-                                type="button"
-                                aria-label="Previous month"
-                            >
-                                <i data-lucide="chevron-left"></i>
-                            </button>
-
-                            <button
-                                id="nextMonth"
-                                class="icon-button"
-                                type="button"
-                                aria-label="Next month"
-                            >
-                                <i data-lucide="chevron-right"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    <div class="calendar-weekdays">
-                        <span>Sun</span>
-                        <span>Mon</span>
-                        <span>Tue</span>
-                        <span>Wed</span>
-                        <span>Thu</span>
-                        <span>Fri</span>
-                        <span>Sat</span>
-                    </div>
-
-                    <div class="calendar-days" id="calendarDays"></div>
-
-                    <a href="pages/calendar.html" class="text-link">
-                        View full calendar
-                        <i data-lucide="arrow-up-right"></i>
-                    </a>
-
-                </section>
-
-
-                <!-- TASK PREVIEW -->
-                <section class="card tasks-card">
-
-                    <div class="card-heading">
-
-                        <div>
-                            <p class="card-overline">ONE STEP AT A TIME</p>
-                            <h2>Today's Tasks</h2>
-                        </div>
-
-                        <a href="pages/tasks.html" class="small-action">
-                            View all
-                            <i data-lucide="arrow-up-right"></i>
-                        </a>
-
-                    </div>
-
-                    <div class="task-list" id="tasksList">
-                        <!-- Homepage task preview loaded by app.js -->
-                    </div>
-
-                    <div class="task-card-footer">
-
-                        <div class="task-completion">
-                            <span class="completion-indicator"></span>
-                            <span>
-                                <strong id="completedCount">0</strong>
-                                tasks completed
-                            </span>
-                        </div>
-
-                        <a href="pages/tasks.html">Manage tasks</a>
-
-                    </div>
-
-                </section>
-
+          <div class="preview-task">
+            <div class="task-check done"></div>
+            <div class="task-info">
+              <strong>Plan your day</strong>
+              <small>Personal routine</small>
             </div>
+            <span class="task-tag">Done</span>
+          </div>
 
-
-            <!-- FOCUS AND PROGRESS -->
-            <div class="dashboard-grid middle-grid">
-
-                <!-- FOCUS PREVIEW -->
-                <section class="card focus-card">
-
-                    <div class="card-heading">
-
-                        <div>
-                            <p class="card-overline">A LITTLE TIME FOR YOURSELF</p>
-                            <h2>Focus Room</h2>
-                        </div>
-
-                        <span class="focus-status-pill">
-                            <i data-lucide="sparkles"></i>
-                            25 MIN
-                        </span>
-
-                    </div>
-
-                    <p class="card-description">
-                        Clear your mind and focus on one thing at a time.
-                    </p>
-
-                    <div class="timer-preview">
-
-                        <div class="timer-ring">
-                            <div class="timer-ring-inner">
-                                <span class="timer-display" id="timerDisplay">
-                                    25:00
-                                </span>
-
-                                <span class="timer-caption">
-                                    TIME TO FOCUS
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="timer-controls">
-
-                            <button
-                                class="primary-button"
-                                id="timerStart"
-                                type="button"
-                            >
-                                <i data-lucide="play"></i>
-                                <span>Start session</span>
-                            </button>
-
-                            <button
-                                class="secondary-button"
-                                id="timerReset"
-                                type="button"
-                                aria-label="Reset timer"
-                            >
-                                <i data-lucide="rotate-ccw"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    <a href="pages/focus.html" class="text-link">
-                        Open Focus Room
-                        <i data-lucide="arrow-up-right"></i>
-                    </a>
-
-                </section>
-
-
-                <!-- PROGRESS PREVIEW -->
-                <section class="card progress-card">
-
-                    <div class="card-heading">
-
-                        <div>
-                            <p class="card-overline">EVERY STEP COUNTS</p>
-                            <h2>Your Progress</h2>
-                        </div>
-
-                        <a href="pages/progress.html" class="small-action">
-                            View details
-                            <i data-lucide="arrow-up-right"></i>
-                        </a>
-
-                    </div>
-
-                    <div class="progress-stats">
-
-                        <div class="stat-item">
-
-                            <div class="stat-icon completed-icon">
-                                <i data-lucide="check"></i>
-                            </div>
-
-                            <strong id="progressTasksDone">0</strong>
-                            <span>Tasks done</span>
-
-                        </div>
-
-                        <div class="stat-item">
-
-                            <div class="stat-icon streak-icon">
-                                <i data-lucide="flame"></i>
-                            </div>
-
-                            <strong id="progressStreak">0</strong>
-                            <span>Day streak</span>
-
-                        </div>
-
-                        <div class="stat-item">
-
-                            <div class="stat-icon goal-icon">
-                                <i data-lucide="star"></i>
-                            </div>
-
-                            <strong id="progressGoal">0%</strong>
-                            <span>Goal progress</span>
-
-                        </div>
-
-                    </div>
-
-                    <div class="progress-bar-container">
-                        <div class="progress-bar">
-                            <div
-                                class="progress-fill"
-                                id="progressFill"
-                            ></div>
-                        </div>
-                    </div>
-
-                    <p class="progress-caption">
-                        Little by little, you're getting there.
-                    </p>
-
-                </section>
-
+          <div class="preview-task">
+            <div class="task-check"></div>
+            <div class="task-info">
+              <strong>Work on your goals</strong>
+              <small>Personal growth</small>
             </div>
+            <span class="task-tag">Today</span>
+          </div>
 
-
-            <!-- SMALL NOTES LINK -->
-            <a href="pages/notes.html" class="notes-shortcut">
-
-                <span class="notes-shortcut-icon">
-                    <i data-lucide="notebook-pen"></i>
-                </span>
-
-                <span class="notes-shortcut-text">
-                    <strong>Have something to remember?</strong>
-                    <small>Keep your ideas and reminders in My Notes.</small>
-                </span>
-
-                <i data-lucide="arrow-up-right"></i>
-
-            </a>
-
-
-            <!-- FOOTER -->
-            <footer class="dashboard-footer">
-
-                <span>Made with care, for a life well lived. ♡</span>
-                <span>LIFEOS © 2026</span>
-
-            </footer>
-
-        </section>
-
-    </main>
-
-</div>
-
-
-<!-- ADD TASK DIALOG -->
-<dialog class="task-dialog" id="taskDialog">
-
-    <form id="newTaskForm" class="dialog-content">
-
-        <div class="dialog-heading">
-
-            <div>
-                <p class="eyebrow">MAKE IT HAPPEN</p>
-                <h2>Add a new task</h2>
+          <div class="preview-task">
+            <div class="task-check"></div>
+            <div class="task-info">
+              <strong>Write in your journal</strong>
+              <small>Take a moment for yourself</small>
             </div>
+            <span class="task-tag">Daily</span>
+          </div>
 
-            <button
-                type="button"
-                class="icon-button"
-                id="closeTaskDialog"
-                aria-label="Close"
-            >
-                <i data-lucide="x"></i>
-            </button>
-
+          <div class="preview-footer">
+            <span>Your progress matters</span>
+            <strong>One step at a time.</strong>
+          </div>
         </div>
 
-        <label for="newTaskName">Task name</label>
+        <div class="floating-note">✦ Make today meaningful</div>
+      </div>
+    </section>
 
-        <input
-            type="text"
-            id="newTaskName"
-            placeholder="What do you need to do?"
-            maxlength="120"
-            required
-        >
+    <section class="features" id="features">
+      <p class="section-eyebrow">A SPACE FOR EVERY PART OF YOU</p>
 
-        <label for="newTaskTime">Time</label>
+      <h2>Everything in its place.</h2>
 
-        <input type="time" id="newTaskTime">
+      <p class="section-description">
+        Organize your responsibilities, make time for yourself,
+        and keep moving toward the person you want to become.
+      </p>
 
-        <div class="dialog-actions">
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon">✓</div>
+          <h3>Tasks</h3>
+          <p>Keep track of your responsibilities and turn your plans into manageable steps.</p>
+        </article>
 
-            <button
-                type="button"
-                class="secondary-button"
-                id="cancelTask"
-            >
-                Cancel
-            </button>
+        <article class="feature-card">
+          <div class="feature-icon">▦</div>
+          <h3>Calendar</h3>
+          <p>See what's ahead and give your time a little more structure.</p>
+        </article>
 
-            <button type="submit" class="primary-button">
-                <i data-lucide="plus"></i>
-                Add task
-            </button>
+        <article class="feature-card">
+          <div class="feature-icon">✎</div>
+          <h3>Journal</h3>
+          <p>Make room for your thoughts, feelings, reflections, and everyday moments.</p>
+        </article>
 
-        </div>
+        <article class="feature-card">
+          <div class="feature-icon">✧</div>
+          <h3>Personal Growth</h3>
+          <p>Reflect on your progress and appreciate the small things you're accomplishing.</p>
+        </article>
+      </div>
+    </section>
+  </main>
 
-    </form>
-
-</dialog>
-
-
-<!-- APPLICATION SCRIPT -->
-<script src="js/app.js"></script>
-<script src="js/search.js"></script>
-<script src="js/verses.js"></script>
-<script src="js/theme.js"></script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        if (window.lucide) {
-            window.lucide.createIcons();
-        }
-
-        const dateElement = document.getElementById("todayDate");
-
-        if (dateElement) {
-            dateElement.textContent = new Intl.DateTimeFormat("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric"
-            }).format(new Date());
-        }
-    });
-</script>
+  <footer class="landing-footer">
+    © 2026 LIFEOS. Make space for what matters.
+  </footer>
 
 </body>
 </html>
+```

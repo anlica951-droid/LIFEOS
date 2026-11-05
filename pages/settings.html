@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -28,7 +29,11 @@
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
 
-    <a href="../index.html" class="brand">
+    <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
+      <i data-lucide="chevron-left"></i>
+    </button>
+
+    <a href="../dashboard.html" class="brand">
       <span class="brand-icon"><i data-lucide="sprout"></i></span>
       <span class="brand-name">LIFEOS</span>
     </a>
@@ -36,7 +41,8 @@
     <p class="sidebar-label">WORKSPACE</p>
 
     <nav class="sidebar-nav" aria-label="Main navigation">
-      <a href="../index.html" class="nav-link">
+
+      <a href="../dashboard.html" class="nav-link">
         <i data-lucide="layout-dashboard"></i>
         <span>Home</span>
       </a>
@@ -70,9 +76,11 @@
         <i data-lucide="notebook-pen"></i>
         <span>Notes</span>
       </a>
+
     </nav>
 
     <div class="sidebar-bottom">
+
       <a href="settings.html" class="nav-link active" aria-current="page">
         <i data-lucide="settings-2"></i>
         <span>Settings</span>
@@ -82,11 +90,13 @@
         <div class="profile-avatar">
           <i data-lucide="user-round"></i>
         </div>
+
         <div class="profile-info">
           <strong>My LIFEOS</strong>
           <span>Personal workspace</span>
         </div>
       </div>
+
     </div>
 
   </aside>
@@ -160,27 +170,14 @@
 
               <div class="settings-field">
                 <label for="settingsDisplayName">Display name</label>
-                <input
-                  type="text"
-                  id="settingsDisplayName"
-                  name="displayName"
-                  maxlength="40"
-                  placeholder="What should LIFEOS call you?"
-                >
+                <input type="text" id="settingsDisplayName" name="displayName" maxlength="40" placeholder="What should LIFEOS call you?">
                 <small>Used for your personal dashboard greeting.</small>
               </div>
 
               <div class="settings-field">
                 <label for="settingsDailyGoal">Daily task goal</label>
                 <div class="settings-input-suffix">
-                  <input
-                    type="number"
-                    id="settingsDailyGoal"
-                    name="dailyGoal"
-                    min="1"
-                    max="50"
-                    value="3"
-                  >
+                  <input type="number" id="settingsDailyGoal" name="dailyGoal" min="1" max="50" value="3">
                   <span>tasks / day</span>
                 </div>
                 <small>A small daily target can help you stay organized.</small>
@@ -207,7 +204,6 @@
               </div>
 
             </div>
-
           </div>
         </section>
 
@@ -286,11 +282,7 @@
               </div>
 
               <label class="settings-switch">
-                <input
-                  type="checkbox"
-                  id="settingsAutoStartFocus"
-                  name="autoStartFocus"
-                >
+                <input type="checkbox" id="settingsAutoStartFocus" name="autoStartFocus">
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
@@ -304,12 +296,7 @@
               </div>
 
               <label class="settings-switch">
-                <input
-                  type="checkbox"
-                  id="settingsAutoStartBreak"
-                  name="autoStartBreak"
-                  checked
-                >
+                <input type="checkbox" id="settingsAutoStartBreak" name="autoStartBreak" checked>
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
@@ -337,20 +324,12 @@
             <div class="settings-theme-options">
 
               <label class="theme-choice">
-                <input
-                  type="radio"
-                  name="appearance"
-                  id="themeLight"
-                  value="light"
-                  checked
-                >
+                <input type="radio" name="appearance" id="themeLight" value="light" checked>
 
                 <span class="theme-preview theme-preview-light">
                   <span class="theme-preview-top"></span>
                   <span class="theme-preview-content">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                   </span>
                 </span>
 
@@ -365,19 +344,12 @@
               </label>
 
               <label class="theme-choice">
-                <input
-                  type="radio"
-                  name="appearance"
-                  id="themeDark"
-                  value="dark"
-                >
+                <input type="radio" name="appearance" id="themeDark" value="dark">
 
                 <span class="theme-preview theme-preview-dark">
                   <span class="theme-preview-top"></span>
                   <span class="theme-preview-content">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                   </span>
                 </span>
 
@@ -392,19 +364,12 @@
               </label>
 
               <label class="theme-choice">
-                <input
-                  type="radio"
-                  name="appearance"
-                  id="themeSystem"
-                  value="system"
-                >
+                <input type="radio" name="appearance" id="themeSystem" value="system">
 
                 <span class="theme-preview theme-preview-system">
                   <span class="theme-preview-top"></span>
                   <span class="theme-preview-content">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                   </span>
                 </span>
 
@@ -453,11 +418,7 @@
               </div>
 
               <label class="settings-switch">
-                <input
-                  type="checkbox"
-                  id="notificationToggle"
-                  name="notifications"
-                >
+                <input type="checkbox" id="notificationToggle" name="notifications">
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
@@ -471,12 +432,7 @@
               </div>
 
               <label class="settings-switch">
-                <input
-                  type="checkbox"
-                  id="settingsTaskReminders"
-                  name="taskReminders"
-                  checked
-                >
+                <input type="checkbox" id="settingsTaskReminders" name="taskReminders" checked>
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
@@ -490,29 +446,18 @@
               </div>
 
               <label class="settings-switch">
-                <input
-                  type="checkbox"
-                  id="settingsFocusAlerts"
-                  name="focusAlerts"
-                  checked
-                >
+                <input type="checkbox" id="settingsFocusAlerts" name="focusAlerts" checked>
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
 
             <div class="settings-notification-action">
-              <button
-                type="button"
-                class="settings-secondary-button"
-                id="enableNotifications"
-              >
+              <button type="button" class="settings-secondary-button" id="enableNotifications">
                 <i data-lucide="bell-ring"></i>
                 Request notification permission
               </button>
 
-              <small>
-                Your browser may ask you to allow notifications.
-              </small>
+              <small>Your browser may ask you to allow notifications.</small>
             </div>
 
           </div>
@@ -535,19 +480,11 @@
           </div>
 
           <div class="settings-save-actions">
-            <button
-              type="button"
-              class="settings-reset-button"
-              id="resetSettings"
-            >
+            <button type="button" class="settings-reset-button" id="resetSettings">
               Reset
             </button>
 
-            <button
-              type="submit"
-              class="settings-primary-button"
-              id="saveSettings"
-            >
+            <button type="submit" class="settings-primary-button" id="saveSettings">
               <i data-lucide="check"></i>
               Save preferences
             </button>
@@ -584,11 +521,7 @@
               <p>Download a backup of your LIFEOS information as a JSON file.</p>
             </div>
 
-            <button
-              type="button"
-              class="settings-secondary-button"
-              id="exportData"
-            >
+            <button type="button" class="settings-secondary-button" id="exportData">
               Export
               <i data-lucide="arrow-up-right"></i>
             </button>
@@ -606,27 +539,64 @@
               <p>Restore information from a LIFEOS JSON backup file.</p>
             </div>
 
-            <button
-              type="button"
-              class="settings-secondary-button"
-              id="importData"
-            >
+            <button type="button" class="settings-secondary-button" id="importData">
               Import
               <i data-lucide="arrow-down-to-line"></i>
             </button>
           </div>
 
-          <input
-            type="file"
-            id="importFile"
-            accept=".json,application/json"
-            hidden
-          >
+          <input type="file" id="importFile" accept=".json,application/json" hidden>
 
           <p class="settings-data-note">
             Importing a backup may replace existing information. Review the
             confirmation before proceeding.
           </p>
+
+        </div>
+      </section>
+
+      <!-- ACCOUNT & SIGN OUT -->
+      <section class="settings-section" id="accountSettings">
+
+        <div class="settings-section-heading">
+          <span class="settings-section-icon">
+            <i data-lucide="shield-check"></i>
+          </span>
+
+          <div>
+            <span class="settings-section-kicker">06 / ACCOUNT</span>
+            <h2>Account & security</h2>
+            <p>Manage your LIFEOS session and account access.</p>
+          </div>
+        </div>
+
+        <div class="settings-card">
+
+          <div class="settings-data-row">
+            <div class="settings-data-icon">
+              <i data-lucide="log-out"></i>
+            </div>
+
+            <div class="settings-option-copy">
+              <strong>Sign out of LIFEOS</strong>
+              <p>
+                Securely sign out of your account on this device.
+                You can sign in again whenever you return.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              class="settings-secondary-button"
+              id="signOutButton"
+              style="color: #a65349; border-color: #e7c9c2;"
+            >
+              <i data-lucide="log-out"></i>
+              Sign Out
+            </button>
+          </div>
+
+          <p id="signOutFeedback" role="status" aria-live="polite"></p>
 
         </div>
       </section>
@@ -650,8 +620,10 @@
 
 </div>
 
+<!-- EXISTING SETTINGS FUNCTIONALITY -->
 <script src="../js/settings.js"></script>
 
+<!-- EXISTING PAGE FUNCTIONALITY -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     if (window.lucide) {
@@ -663,6 +635,7 @@
 
     menuToggle?.addEventListener("click", () => {
       const isOpen = sidebar?.classList.toggle("open") ?? false;
+
       menuToggle.setAttribute("aria-expanded", String(isOpen));
       menuToggle.setAttribute(
         "aria-label",
@@ -678,6 +651,74 @@
         month: "long",
         day: "numeric"
       }).format(new Date());
+    }
+  });
+</script>
+
+<!-- SIDEBAR COLLAPSE -->
+<script>
+(() => {
+    const button = document.getElementById("sidebarCollapse");
+    if (!button) return;
+
+    const STORAGE_KEY = "lifeos_sidebar_collapsed";
+
+    function updateSidebar(collapsed) {
+        document.body.classList.toggle("sidebar-collapsed", collapsed);
+
+        button.setAttribute(
+            "aria-label",
+            collapsed ? "Expand sidebar" : "Collapse sidebar"
+        );
+
+        button.innerHTML = collapsed
+            ? '<i data-lucide="chevron-right"></i>'
+            : '<i data-lucide="chevron-left"></i>';
+
+        if (window.lucide) window.lucide.createIcons();
+    }
+
+    updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
+
+    button.addEventListener("click", () => {
+        const collapsed = !document.body.classList.contains("sidebar-collapsed");
+
+        localStorage.setItem(STORAGE_KEY, String(collapsed));
+        updateSidebar(collapsed);
+    });
+})();
+</script>
+
+<!-- SUPABASE SIGN OUT -->
+<script type="module">
+  import { supabase } from "../js/supabase.js";
+
+  const signOutButton = document.getElementById("signOutButton");
+  const signOutFeedback = document.getElementById("signOutFeedback");
+
+  signOutButton?.addEventListener("click", async () => {
+
+    const confirmed = window.confirm(
+      "Are you sure you want to sign out of LIFEOS?"
+    );
+
+    if (!confirmed) return;
+
+    signOutButton.disabled = true;
+    signOutFeedback.textContent = "Signing out...";
+
+    try {
+      const { error } = await supabase.auth.signOut();
+
+      if (error) throw error;
+
+      window.location.href = "../index.html";
+
+    } catch (error) {
+      signOutFeedback.textContent =
+        error.message || "Unable to sign out. Please try again.";
+
+      signOutButton.disabled = false;
     }
   });
 </script>
