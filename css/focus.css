@@ -359,3 +359,145 @@
     min-width: 135px;
   }
 }
+
+/* =========================================
+   STUDY SESSIONS UPGRADE
+   ========================================= */
+
+.study-details-card {
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(169, 189, 158, 0.25);
+  border-radius: 24px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 28px rgba(52, 76, 61, 0.045);
+}
+
+.study-details-heading {
+  margin-bottom: 22px;
+}
+
+.study-details-heading h2 {
+  margin: 7px 0 0;
+  font-family: "Playfair Display", serif;
+  font-size: 1.45rem;
+  color: #344c3d;
+}
+
+.study-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.study-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.study-field-full {
+  grid-column: 1 / -1;
+}
+
+.study-field label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #344c3d;
+}
+
+.study-field input,
+.study-field select,
+.study-field textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 15px;
+  border: 1px solid #dce5d8;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #303a32;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.study-field textarea {
+  resize: vertical;
+  min-height: 85px;
+}
+
+.study-field input:focus,
+.study-field select:focus,
+.study-field textarea:focus {
+  border-color: #8fa98a;
+  box-shadow: 0 0 0 3px rgba(169, 189, 158, 0.18);
+}
+
+.study-mode-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.study-mode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 17px;
+  border: 1px solid #dce5d8;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #617c62;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.study-mode:hover {
+  background: #edf3e9;
+  border-color: #a9bd9e;
+}
+
+.study-mode.active {
+  background: #617c62;
+  border-color: #617c62;
+  color: white;
+}
+
+.study-mode i {
+  width: 17px;
+  height: 17px;
+}
+
+.focus-statistics {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 650px) {
+  .study-details-card {
+    padding: 20px;
+  }
+
+  .study-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .study-field-full {
+    grid-column: auto;
+  }
+
+  .study-mode-options {
+    gap: 7px;
+  }
+
+  .study-mode {
+    padding: 10px 12px;
+    font-size: 0.82rem;
+  }
+}

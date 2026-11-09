@@ -37,6 +37,8 @@
       <span class="brand-icon"><i data-lucide="sprout"></i></span>
       <span class="brand-name">LIFEOS</span>
     </a>
+   
+
 
     <p class="sidebar-label">WORKSPACE</p>
 
@@ -46,7 +48,11 @@
         <i data-lucide="layout-dashboard"></i>
         <span>Home</span>
       </a>
-
+       <a href="subjects.html" class="nav-link">
+    <i data-lucide="graduation-cap"></i>
+    <span>Academics</span>
+</a>
+       
       <a href="calendar.html" class="nav-link">
         <i data-lucide="calendar-days"></i>
         <span>Calendar</span>
@@ -71,6 +77,7 @@
         <i data-lucide="chart-no-axes-column-increasing"></i>
         <span>Progress</span>
       </a>
+     
 
       <a href="notes.html" class="nav-link">
         <i data-lucide="notebook-pen"></i>
@@ -555,51 +562,7 @@
         </div>
       </section>
 
-      <!-- ACCOUNT & SIGN OUT -->
-      <section class="settings-section" id="accountSettings">
-
-        <div class="settings-section-heading">
-          <span class="settings-section-icon">
-            <i data-lucide="shield-check"></i>
-          </span>
-
-          <div>
-            <span class="settings-section-kicker">06 / ACCOUNT</span>
-            <h2>Account & security</h2>
-            <p>Manage your LIFEOS session and account access.</p>
-          </div>
-        </div>
-
-        <div class="settings-card">
-
-          <div class="settings-data-row">
-            <div class="settings-data-icon">
-              <i data-lucide="log-out"></i>
-            </div>
-
-            <div class="settings-option-copy">
-              <strong>Sign out of LIFEOS</strong>
-              <p>
-                Securely sign out of your account on this device.
-                You can sign in again whenever you return.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              class="settings-secondary-button"
-              id="signOutButton"
-              style="color: #a65349; border-color: #e7c9c2;"
-            >
-              <i data-lucide="log-out"></i>
-              Sign Out
-            </button>
-          </div>
-
-          <p id="signOutFeedback" role="status" aria-live="polite"></p>
-
-        </div>
-      </section>
+      
 
       <!-- ABOUT -->
       <section class="settings-about">
@@ -687,40 +650,9 @@
         updateSidebar(collapsed);
     });
 })();
-</script>
 
-<!-- SUPABASE SIGN OUT -->
-<script type="module">
-  import { supabase } from "../js/supabase.js";
 
-  const signOutButton = document.getElementById("signOutButton");
-  const signOutFeedback = document.getElementById("signOutFeedback");
 
-  signOutButton?.addEventListener("click", async () => {
-
-    const confirmed = window.confirm(
-      "Are you sure you want to sign out of LIFEOS?"
-    );
-
-    if (!confirmed) return;
-
-    signOutButton.disabled = true;
-    signOutFeedback.textContent = "Signing out...";
-
-    try {
-      const { error } = await supabase.auth.signOut();
-
-      if (error) throw error;
-
-      window.location.href = "../index.html";
-
-    } catch (error) {
-      signOutFeedback.textContent =
-        error.message || "Unable to sign out. Please try again.";
-
-      signOutButton.disabled = false;
-    }
-  });
 </script>
 
 </body>

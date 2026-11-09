@@ -1,12 +1,13 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f5f5ef">
-  <meta name="description" content="Track your personal growth and activity with LIFEOS.">
+  <meta name="description" content="View your LIFEOS activity and progress.">
 
-  <title>Progress | LIFEOS</title>
+  <title>My Progress | LIFEOS</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,12 +27,20 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-      <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
-    <i data-lucide="chevron-left"></i>
-</button>
+
+      <button
+        class="sidebar-collapse"
+        id="sidebarCollapse"
+        type="button"
+        aria-label="Collapse sidebar"
+      >
+        <i data-lucide="chevron-left"></i>
+      </button>
 
       <a href="../dashboard.html" class="brand">
-        <span class="brand-icon"><i data-lucide="sprout"></i></span>
+        <span class="brand-icon">
+          <i data-lucide="sprout"></i>
+        </span>
         <span class="brand-name">LIFEOS</span>
       </a>
 
@@ -42,6 +51,11 @@
         <a href="../dashboard.html" class="nav-link">
           <i data-lucide="layout-dashboard"></i>
           <span>Home</span>
+        </a>
+
+        <a href="subjects.html" class="nav-link">
+          <i data-lucide="graduation-cap"></i>
+          <span>Academics</span>
         </a>
 
         <a href="calendar.html" class="nav-link">
@@ -87,21 +101,26 @@
 
       <div class="sidebar-bottom">
         <div class="sidebar-profile">
+
           <div class="profile-avatar">
             <i data-lucide="user-round"></i>
           </div>
+
           <div class="profile-info">
             <strong>My LIFEOS</strong>
             <span>Personal workspace</span>
           </div>
+
         </div>
       </div>
 
     </aside>
 
+
     <!-- MAIN CONTENT -->
     <main class="main-content">
 
+      <!-- TOPBAR -->
       <header class="topbar">
 
         <button
@@ -118,7 +137,7 @@
         <div class="topbar-breadcrumb">
           <span>Workspace</span>
           <i data-lucide="chevron-right"></i>
-          <strong>Progress</strong>
+          <strong>My Progress</strong>
         </div>
 
         <a href="settings.html" class="profile-button" aria-label="Settings">
@@ -127,382 +146,140 @@
 
       </header>
 
+
+      <!-- PAGE CONTENT -->
       <div class="page-content progress-content">
 
         <!-- PAGE HEADER -->
         <section class="progress-welcome">
 
           <div>
-            <span class="eyebrow">YOUR PERSONAL DASHBOARD</span>
-            <h1>Your progress, <em>your pace.</em></h1>
-            <p>
-              Every little step counts. Take a look at how far you've come.
-            </p>
+            <span class="eyebrow">YOUR JOURNEY</span>
+            <h1>My <em>Progress</em></h1>
+            <p>A simple view of the little steps you're taking.</p>
           </div>
 
-          <button type="button" class="btn btn-secondary" id="refreshProgress">
+          <button
+            type="button"
+            class="progress-refresh"
+            id="refreshProgress"
+            aria-label="Refresh progress"
+            title="Refresh progress"
+          >
             <i data-lucide="refresh-cw"></i>
-            Refresh
           </button>
 
         </section>
 
-        <!-- MAIN PROGRESS HERO -->
-        <section class="progress-hero">
 
-          <div class="progress-hero-copy">
+        <!-- ACTIVITY OVERVIEW -->
+        <section class="progress-panel activity-panel">
 
-            <span class="progress-label">
-              <i data-lucide="sparkles"></i>
-              YOUR JOURNEY
-            </span>
+          <div class="activity-heading">
 
-            <h2>Growth is made of little things.</h2>
-
-            <p>
-              Your activity tells a story. Keep showing up, even on the
-              quieter days.
-            </p>
-
-            <div class="progress-hero-stats">
-
-              <div>
-                <strong id="progressCompletedTasks">0</strong>
-                <span>Tasks completed</span>
-              </div>
-
-              <div class="progress-hero-divider"></div>
-
-              <div>
-                <strong id="progressCurrentStreak">0 days</strong>
-                <span>Current streak</span>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="progress-hero-visual">
-
-            <div class="progress-circle" id="progressCircle">
-
-              <div class="progress-circle-inner">
-                <strong id="taskCompletionRate">0%</strong>
-                <span>COMPLETED</span>
-              </div>
-
-            </div>
-
-            <div class="progress-circle-caption">
-              <i data-lucide="trending-up"></i>
-              <span>Your completion rate</span>
-            </div>
-
-          </div>
-
-        </section>
-
-        <!-- QUICK STATISTICS -->
-        <section class="progress-stat-grid">
-
-          <article class="progress-stat-card">
-            <div class="progress-stat-top">
-              <span>Total tasks</span>
-              <span class="progress-stat-icon">
-                <i data-lucide="layers"></i>
-              </span>
-            </div>
-            <strong id="progressTotalTasks">0</strong>
-            <small>Tasks you've added</small>
-          </article>
-
-          <article class="progress-stat-card">
-            <div class="progress-stat-top">
-              <span>Completed</span>
-              <span class="progress-stat-icon green">
-                <i data-lucide="check-circle-2"></i>
-              </span>
-            </div>
-            <strong id="progressCompletedTasksSecondary">0</strong>
-            <small>Finished tasks</small>
-          </article>
-
-          <article class="progress-stat-card">
-            <div class="progress-stat-top">
-              <span>Still pending</span>
-              <span class="progress-stat-icon amber">
-                <i data-lucide="clock-3"></i>
-              </span>
-            </div>
-            <strong id="progressPendingTasks">0</strong>
-            <small>Tasks to work on</small>
-          </article>
-
-          <article class="progress-stat-card">
-            <div class="progress-stat-top">
-              <span>Focus sessions</span>
-              <span class="progress-stat-icon purple">
-                <i data-lucide="timer"></i>
-              </span>
-            </div>
-            <strong id="progressFocusSessions">0</strong>
-            <small>Completed sessions</small>
-          </article>
-
-        </section>
-
-        <!-- ACTIVITY TREND + WEEKLY CHART -->
-        <section class="progress-main-grid">
-
-          <article class="progress-panel activity-panel">
-
-            <div class="progress-panel-heading">
-              <div>
-                <span class="eyebrow">ACTIVITY INSIGHTS</span>
-                <h2>Your activity trend</h2>
-                <p>See how your activity is changing.</p>
-              </div>
-
-              <span class="trend-icon" id="progressTrendIcon">
-                <i data-lucide="trending-up"></i>
-              </span>
-            </div>
-
-            <div class="trend-summary" id="progressTrendSummary">
-
-              <div class="trend-main">
-                <strong id="progressTrendLabel">Getting started</strong>
-                <span id="progressTrendDescription">
-                  Your activity trend will appear as you build your routine.
-                </span>
-              </div>
-
-              <span class="trend-change" id="progressTrendValue">
-                —
-              </span>
-
-            </div>
-
-            <div class="trend-chart" id="progressTrendChart">
-              <!-- Trend visualization generated by progress.js -->
-            </div>
-
-            <div class="trend-chart-labels">
-              <span>Previous period</span>
-              <span>Current period</span>
-            </div>
-
-          </article>
-
-          <article class="progress-panel weekly-panel">
-
-            <div class="progress-panel-heading">
-              <div>
-                <span class="eyebrow">LAST 7 DAYS</span>
-                <h2>Weekly activity</h2>
-                <p>Your day-by-day activity.</p>
-              </div>
-
-              <span class="weekly-icon">
-                <i data-lucide="calendar-days"></i>
-              </span>
+            <div>
+              <h2>Activity Overview</h2>
+              <p id="activityPeriodLabel">Your activity this week</p>
             </div>
 
             <div
-              id="weeklyActivityChart"
-              class="weekly-activity-chart"
-              aria-label="Weekly activity chart"
+              class="activity-selector"
+              role="group"
+              aria-label="Choose activity period"
             >
-              <!-- Chart generated by progress.js -->
+
+              <button
+                type="button"
+                class="period-button"
+                data-period="daily"
+                aria-pressed="false"
+              >
+                Daily
+              </button>
+
+              <button
+                type="button"
+                class="period-button active"
+                data-period="weekly"
+                aria-pressed="true"
+              >
+                Weekly
+              </button>
+
+              <button
+                type="button"
+                class="period-button"
+                data-period="monthly"
+                aria-pressed="false"
+              >
+                Monthly
+              </button>
+
             </div>
 
-            <p
-              id="weeklyActivitySummary"
-              class="weekly-activity-summary"
-              aria-live="polite"
-            ></p>
+          </div>
 
-          </article>
+          <div
+            class="activity-chart"
+            id="activityChart"
+            aria-label="Activity chart"
+            aria-live="polite"
+          >
+            <div class="chart-loading">
+              Loading your activity...
+            </div>
+          </div>
+
+          <p class="activity-chart-caption">
+            Completed tasks and study sessions
+          </p>
 
         </section>
 
-        <!-- TASK COMPLETION -->
-        <section class="progress-panel task-progress-panel">
 
-          <div class="progress-panel-heading">
+        <!-- OVERALL COMPLETION -->
+        <section class="progress-panel completion-panel">
+
+          <div class="completion-heading">
+
             <div>
-              <span class="eyebrow">TASK MANAGEMENT</span>
-              <h2>Task completion</h2>
-              <p>A closer look at your tasks.</p>
+              <h2>Overall Completion</h2>
+              <p>Your completed tasks compared with all your tasks.</p>
             </div>
 
-            <span class="task-progress-icon">
-              <i data-lucide="list-checks"></i>
+            <strong id="overallCompletionRate">0%</strong>
+
+          </div>
+
+          <div
+            class="completion-track"
+            role="progressbar"
+            id="overallCompletionBar"
+            aria-label="Overall task completion"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <div
+              class="completion-fill"
+              id="overallCompletionFill"
+            ></div>
+          </div>
+
+          <div class="completion-footer">
+            <span id="completionDescription">
+              No tasks completed yet
+            </span>
+
+            <span id="completionTaskCount">
+              0 of 0 tasks
             </span>
           </div>
 
-          <div class="task-progress-content">
-
-            <div class="task-progress-main">
-              <div class="task-progress-number">
-                <strong id="taskCompletionRateSecondary">0%</strong>
-                <span>of all tasks completed</span>
-              </div>
-
-              <div class="progress-track">
-                <div
-                  class="progress-fill"
-                  id="taskProgressBar"
-                  style="width: 0%"
-                ></div>
-              </div>
-            </div>
-
-            <div class="task-progress-legend">
-
-              <div>
-                <span class="legend-dot completed-dot"></span>
-                <span>Completed</span>
-                <strong id="taskLegendCompleted">0</strong>
-              </div>
-
-              <div>
-                <span class="legend-dot pending-dot"></span>
-                <span>Pending</span>
-                <strong id="taskLegendPending">0</strong>
-              </div>
-
-            </div>
-
-          </div>
-
         </section>
 
-        <!-- FOCUS + JOURNAL -->
-        <section class="progress-bottom-grid">
 
-          <article class="progress-panel detail-panel">
-
-            <div class="progress-panel-heading">
-              <div>
-                <span class="eyebrow">FOCUS TIME</span>
-                <h2>Time invested</h2>
-              </div>
-
-              <span class="detail-icon focus-detail-icon">
-                <i data-lucide="timer"></i>
-              </span>
-            </div>
-
-            <div class="detail-number">
-              <strong id="progressFocusTime">0 min</strong>
-              <span>Total focus time</span>
-            </div>
-
-            <div class="detail-caption">
-              Every focused session is time invested in yourself.
-            </div>
-
-            <div class="progress-track">
-              <div
-                class="progress-fill focus-fill"
-                id="focusProgressBar"
-                style="width: 0%"
-              ></div>
-            </div>
-
-          </article>
-
-          <article class="progress-panel detail-panel">
-
-            <div class="progress-panel-heading">
-              <div>
-                <span class="eyebrow">SELF-REFLECTION</span>
-                <h2>Your journal</h2>
-              </div>
-
-              <span class="detail-icon journal-detail-icon">
-                <i data-lucide="book-heart"></i>
-              </span>
-            </div>
-
-            <div class="detail-number">
-              <strong id="progressJournalEntries">0</strong>
-              <span>Journal entries</span>
-            </div>
-
-            <div class="detail-caption">
-              Your thoughts, memories, and little moments along the way.
-            </div>
-
-            <a href="journal.html" class="progress-text-link">
-              Visit your journal
-              <i data-lucide="arrow-up-right"></i>
-            </a>
-
-          </article>
-
-        </section>
-
-        <!-- STREAKS -->
-        <section class="progress-panel streak-panel">
-
-          <div class="progress-panel-heading">
-            <div>
-              <span class="eyebrow">SHOWING UP MATTERS</span>
-              <h2>Your consistency</h2>
-              <p>Celebrate the routines you're building.</p>
-            </div>
-
-            <span class="streak-heading-icon">
-              <i data-lucide="flame"></i>
-            </span>
-          </div>
-
-          <div class="streak-stats">
-
-            <div class="streak-item">
-              <span class="streak-icon current-streak-icon">
-                <i data-lucide="flame"></i>
-              </span>
-              <div>
-                <span>Current streak</span>
-                <strong id="progressCurrentStreakSecondary">0 days</strong>
-              </div>
-            </div>
-
-            <div class="streak-divider"></div>
-
-            <div class="streak-item">
-              <span class="streak-icon longest-streak-icon">
-                <i data-lucide="trophy"></i>
-              </span>
-              <div>
-                <span>Longest streak</span>
-                <strong id="progressLongestStreak">0 days</strong>
-              </div>
-            </div>
-
-          </div>
-
-        </section>
-
-        <!-- MOTIVATION -->
-        <section class="progress-quote">
-
-          <span class="quote-icon">
-            <i data-lucide="sprout"></i>
-          </span>
-
-          <div>
-            <h2>Progress isn't always a straight line.</h2>
-            <p>
-              Some days you grow, some days you rest. Both are part of the journey.
-            </p>
-          </div>
-
-        </section>
-
+        <!-- FEEDBACK -->
         <div
           class="feedback-message"
           id="progressFeedback"
@@ -516,57 +293,91 @@
 
   </div>
 
-  <script src="../js/progress.js"></script>
+
+  <!-- APPLICATION SCRIPTS -->
   <script src="../js/theme.js"></script>
+  <script type="module" src="../js/progress.js"></script>
 
+  <!-- SIDEBAR AND ICONS -->
   <script>
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
+    document.addEventListener("DOMContentLoaded", () => {
 
-    const sidebar = document.getElementById("sidebar");
-    const menuToggle = document.getElementById("menuToggle");
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
 
-    menuToggle?.addEventListener("click", () => {
-      const isOpen = sidebar.classList.toggle("open");
+      const sidebar = document.getElementById("sidebar");
+      const menuToggle = document.getElementById("menuToggle");
+      const collapseButton = document.getElementById("sidebarCollapse");
 
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-      );
-    });
-  </script>
-<script>
-(() => {
-    const button = document.getElementById("sidebarCollapse");
-    if (!button) return;
+      const sidebarStorageKey = "lifeos_sidebar_collapsed";
 
-    const STORAGE_KEY = "lifeos_sidebar_collapsed";
+      // MOBILE SIDEBAR
+      menuToggle?.addEventListener("click", () => {
 
-    function updateSidebar(collapsed) {
-        document.body.classList.toggle("sidebar-collapsed", collapsed);
+        const isOpen = sidebar.classList.toggle("open");
 
-        button.setAttribute(
-            "aria-label",
-            collapsed ? "Expand sidebar" : "Collapse sidebar"
+        menuToggle.setAttribute(
+          "aria-expanded",
+          String(isOpen)
         );
 
-        button.innerHTML = collapsed
+        menuToggle.setAttribute(
+          "aria-label",
+          isOpen ? "Close navigation" : "Open navigation"
+        );
+
+      });
+
+      // DESKTOP SIDEBAR COLLAPSE
+      function updateSidebar(collapsed) {
+
+        document.body.classList.toggle(
+          "sidebar-collapsed",
+          collapsed
+        );
+
+        if (collapseButton) {
+
+          collapseButton.setAttribute(
+            "aria-label",
+            collapsed ? "Expand sidebar" : "Collapse sidebar"
+          );
+
+          collapseButton.innerHTML = collapsed
             ? '<i data-lucide="chevron-right"></i>'
             : '<i data-lucide="chevron-left"></i>';
 
-        if (window.lucide) window.lucide.createIcons();
-    }
+        }
 
-    updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
 
-    button.addEventListener("click", () => {
-        const collapsed = !document.body.classList.contains("sidebar-collapsed");
-        localStorage.setItem(STORAGE_KEY, String(collapsed));
+      }
+
+      // RESTORE SAVED SIDEBAR STATE
+      updateSidebar(
+        localStorage.getItem(sidebarStorageKey) === "true"
+      );
+
+      collapseButton?.addEventListener("click", () => {
+
+        const collapsed = !document.body.classList.contains(
+          "sidebar-collapsed"
+        );
+
+        localStorage.setItem(
+          sidebarStorageKey,
+          String(collapsed)
+        );
+
         updateSidebar(collapsed);
+
+      });
+
     });
-})();
-</script>
+  </script>
+
 </body>
 </html>

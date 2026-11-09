@@ -1,0 +1,1190 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f5ef">
+
+    <title>Academic Management | LIFEOS</title>
+    <meta name="description" content="Manage your subjects, class schedule, assignments, projects, exams, and grades in LIFEOS.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/subjects.css">
+    <link rel="stylesheet" href="../css/academic.css">
+    <link rel="stylesheet" href="../css/academic-work.css">
+    <link rel="stylesheet" href="../css/grades.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <button class="sidebar-collapse"
+                id="sidebarCollapse"
+                type="button"
+                aria-label="Collapse sidebar"
+                aria-expanded="true">
+            <i data-lucide="chevron-left"></i>
+        </button>
+
+        <a href="../dashboard.html" class="brand">
+            <span class="brand-icon">
+                <i data-lucide="sprout"></i>
+            </span>
+            <span class="brand-name">LIFEOS</span>
+        </a>
+
+        <div class="sidebar-label">YOUR SPACE</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="../dashboard.html" class="side-link">
+                <i data-lucide="house"></i>
+                <span>Home</span>
+            </a>
+
+            <a href="subjects.html" class="side-link active" aria-current="page">
+                <i data-lucide="graduation-cap"></i>
+                <span>Academics</span>
+            </a>
+
+            <a href="calendar.html" class="side-link">
+                <i data-lucide="calendar-days"></i>
+                <span>Calendar</span>
+            </a>
+
+            <a href="tasks.html" class="side-link">
+                <i data-lucide="list-checks"></i>
+                <span>My Tasks</span>
+            </a>
+
+            <a href="journal.html" class="side-link">
+                <i data-lucide="book-heart"></i>
+                <span>Mood & Journal</span>
+            </a>
+
+            <a href="focus.html" class="side-link">
+                <i data-lucide="timer"></i>
+                <span>Focus Room</span>
+            </a>
+
+            <a href="progress.html" class="side-link">
+                <i data-lucide="chart-no-axes-combined"></i>
+                <span>My Progress</span>
+            </a>
+
+            <a href="notes.html" class="side-link">
+                <i data-lucide="notebook-pen"></i>
+                <span>My Notes</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="side-link">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+
+            <div class="sidebar-quote">
+                <i data-lucide="leaf"></i>
+                <p>Small steps every day lead to beautiful changes.</p>
+            </div>
+
+            <div class="sidebar-version">
+                LIFEOS <span>PERSONAL EDITION</span>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div class="topbar-left">
+
+                <button class="menu-toggle"
+                        id="menuToggle"
+                        type="button"
+                        aria-label="Open navigation menu"
+                        aria-controls="sidebar"
+                        aria-expanded="false">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <p class="topbar-date" id="todayDate"></p>
+            </div>
+
+            <div class="topbar-right">
+                <span class="topbar-greeting">My Academic Space</span>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+
+                <div class="page-heading">
+                    <span class="page-eyebrow">ACADEMIC MANAGEMENT</span>
+                    <h1 class="page-title">Academic Management</h1>
+                    <p class="page-description">
+                        Organize your subjects, timetable, assignments, and academic deadlines.
+                    </p>
+                </div>
+
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="addSubjectBtn" type="button">
+                        <i data-lucide="plus"></i>
+                        Add Subject
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- ACADEMIC TABS -->
+            <div class="academic-tabs" role="tablist" aria-label="Academic sections">
+
+                <button class="academic-tab active"
+                        id="subjectsTab"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="subjectsPanel"
+                        data-tab="subjectsPanel">
+                    <i data-lucide="book-open"></i>
+                    My Subjects
+                </button>
+
+                <button class="academic-tab"
+                        id="scheduleTab"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="schedulePanel"
+                        data-tab="schedulePanel">
+                    <i data-lucide="calendar-days"></i>
+                    Class Schedule
+                </button>
+
+                <button class="academic-tab"
+                        id="academicWorkTab"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="academicWorkPanel"
+                        data-tab="academicWorkPanel">
+                    <i data-lucide="clipboard-list"></i>
+                    Academic Work
+                </button>
+
+                <button class="academic-tab"
+                        id="gradesTab"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="gradesPanel"
+                        data-tab="gradesPanel">
+                    <i data-lucide="graduation-cap"></i>
+                    Grades
+                </button>
+
+            </div>
+
+            <!-- ======================================
+                 SUBJECTS PANEL
+            ======================================= -->
+            <div class="academic-tab-panel active"
+                 id="subjectsPanel"
+                 role="tabpanel"
+                 aria-labelledby="subjectsTab">
+
+                <div class="stats-grid subjects-stats">
+
+                    <article class="stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="book-open"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="totalSubjects">0</span>
+                            <span class="stat-label">Total Subjects</span>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="calendar-days"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="scheduledSubjects">0</span>
+                            <span class="stat-label">With Schedules</span>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="graduation-cap"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="subjectsWithTeachers">0</span>
+                            <span class="stat-label">With Teachers</span>
+                        </div>
+                    </article>
+
+                </div>
+
+                <section class="page-card subjects-section">
+
+                    <div class="page-card-header">
+                        <div>
+                            <h2 class="page-card-title">Your Subjects</h2>
+                            <p class="page-card-subtitle">
+                                All your registered academic subjects in one place.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="page-toolbar subjects-toolbar">
+
+                        <div class="search-field">
+                            <i data-lucide="search"></i>
+                            <input type="search"
+                                   id="subjectSearch"
+                                   placeholder="Search your subjects..."
+                                   aria-label="Search subjects">
+                        </div>
+
+                        <select id="subjectSort"
+                                class="form-control"
+                                aria-label="Sort subjects">
+                            <option value="newest">Recently added</option>
+                            <option value="oldest">Oldest first</option>
+                            <option value="name">Name A–Z</option>
+                        </select>
+
+                    </div>
+
+                    <div class="subjects-loading" id="subjectsLoading">
+                        <i data-lucide="loader-circle"></i>
+                        <p>Loading your subjects...</p>
+                    </div>
+
+                    <div class="subjects-grid" id="subjectsGrid"></div>
+
+                    <div class="subjects-empty" id="subjectsEmpty" hidden>
+                        <div class="subjects-empty-icon">
+                            <i data-lucide="book-open"></i>
+                        </div>
+
+                        <h3>No subjects yet</h3>
+                        <p>
+                            Add your first subject to start organizing your academic life.
+                        </p>
+
+                        <button class="btn btn-primary"
+                                id="emptyAddSubjectBtn"
+                                type="button">
+                            <i data-lucide="plus"></i>
+                            Add Your First Subject
+                        </button>
+                    </div>
+
+                    <p class="subjects-feedback"
+                       id="subjectsFeedback"
+                       role="status"
+                       aria-live="polite"></p>
+
+                </section>
+
+            </div>
+
+            <!-- ======================================
+                 CLASS SCHEDULE PANEL
+            ======================================= -->
+            <div class="academic-tab-panel"
+                 id="schedulePanel"
+                 role="tabpanel"
+                 aria-labelledby="scheduleTab"
+                 hidden>
+
+                <div class="schedule-heading">
+
+                    <div>
+                        <span class="page-eyebrow">YOUR WEEK AT A GLANCE</span>
+                        <h2>My Class Schedule</h2>
+                        <p>Keep your class times, subjects, and locations organized.</p>
+                    </div>
+
+                    <button class="btn btn-primary" id="addScheduleBtn" type="button">
+                        <i data-lucide="plus"></i>
+                        Add Class
+                    </button>
+
+                </div>
+
+                <div class="schedule-stats">
+
+                    <article class="schedule-stat-card">
+                        <div class="schedule-stat-icon">
+                            <i data-lucide="calendar-check"></i>
+                        </div>
+                        <div>
+                            <span>Total classes</span>
+                            <strong id="totalClasses">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="schedule-stat-card">
+                        <div class="schedule-stat-icon">
+                            <i data-lucide="book-open"></i>
+                        </div>
+                        <div>
+                            <span>Subjects scheduled</span>
+                            <strong id="scheduleScheduledSubjects">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="schedule-stat-card">
+                        <div class="schedule-stat-icon">
+                            <i data-lucide="calendar-range"></i>
+                        </div>
+                        <div>
+                            <span>Active days</span>
+                            <strong id="activeDays">0</strong>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="schedule-toolbar">
+                    <div>
+                        <h3>Your weekly timetable</h3>
+                        <p>Classes are arranged by day and start time.</p>
+                    </div>
+
+                    <button class="schedule-refresh"
+                            id="refreshSchedules"
+                            type="button">
+                        <i data-lucide="refresh-cw"></i>
+                        Refresh
+                    </button>
+                </div>
+
+                <p class="schedule-feedback"
+                   id="scheduleFeedback"
+                   role="status"
+                   aria-live="polite"></p>
+
+                <div class="schedule-loading" id="scheduleLoading">
+                    <i data-lucide="loader-circle"></i>
+                    <p>Loading your class schedules...</p>
+                </div>
+
+                <div class="schedule-week" id="scheduleWeek"></div>
+
+                <div class="schedule-empty" id="scheduleEmpty" hidden>
+                    <div class="schedule-empty-icon">
+                        <i data-lucide="calendar-plus"></i>
+                    </div>
+
+                    <h3>Your timetable is ready to be built</h3>
+                    <p>Add your first class to start organizing your week.</p>
+
+                    <button class="btn btn-primary"
+                            id="emptyAddScheduleBtn"
+                            type="button">
+                        <i data-lucide="plus"></i>
+                        Add Your First Class
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- ======================================
+                 ACADEMIC WORK PANEL
+            ======================================= -->
+            <div class="academic-tab-panel"
+                 id="academicWorkPanel"
+                 role="tabpanel"
+                 aria-labelledby="academicWorkTab"
+                 hidden>
+
+                <div class="aw-heading">
+
+                    <div>
+                        <span class="page-eyebrow">YOUR ACADEMIC RESPONSIBILITIES</span>
+                        <h2>Assignments & Assessments</h2>
+                        <p>
+                            Keep track of your assignments, projects, quizzes, and exams.
+                        </p>
+                    </div>
+
+                    <button class="btn btn-primary" id="awAddButton" type="button">
+                        <i data-lucide="plus"></i>
+                        Add Academic Work
+                    </button>
+
+                </div>
+
+                <div class="aw-stats">
+
+                    <article class="aw-stat-card">
+                        <div class="aw-stat-icon">
+                            <i data-lucide="clipboard-list"></i>
+                        </div>
+                        <div>
+                            <span>Total items</span>
+                            <strong id="awTotal">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="aw-stat-card">
+                        <div class="aw-stat-icon">
+                            <i data-lucide="clock-3"></i>
+                        </div>
+                        <div>
+                            <span>Pending</span>
+                            <strong id="awPending">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="aw-stat-card">
+                        <div class="aw-stat-icon">
+                            <i data-lucide="loader-circle"></i>
+                        </div>
+                        <div>
+                            <span>In progress</span>
+                            <strong id="awProgress">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="aw-stat-card">
+                        <div class="aw-stat-icon">
+                            <i data-lucide="circle-check"></i>
+                        </div>
+                        <div>
+                            <span>Completed</span>
+                            <strong id="awCompleted">0</strong>
+                        </div>
+                    </article>
+
+                </div>
+
+                <section class="page-card aw-section">
+
+                    <div class="aw-section-heading">
+                        <div>
+                            <h3>Your Academic Work</h3>
+                            <p>Manage your academic requirements in one place.</p>
+                        </div>
+                    </div>
+
+                    <div class="aw-toolbar">
+
+                        <div class="search-field">
+                            <i data-lucide="search"></i>
+                            <input type="search"
+                                   id="awSearch"
+                                   placeholder="Search academic work..."
+                                   aria-label="Search academic work">
+                        </div>
+
+                        <select id="awFilter"
+                                class="form-control"
+                                aria-label="Filter by type">
+                            <option value="all">All types</option>
+                            <option value="assignment">Assignments</option>
+                            <option value="project">Projects</option>
+                            <option value="quiz">Quizzes</option>
+                            <option value="exam">Exams</option>
+                            <option value="other">Other</option>
+                        </select>
+
+                        <select id="awStatusFilter"
+                                class="form-control"
+                                aria-label="Filter by status">
+                            <option value="all">All statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="in_progress">In progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+
+                    </div>
+
+                    <p class="aw-feedback"
+                       id="awFeedback"
+                       role="status"
+                       aria-live="polite"></p>
+
+                    <div class="aw-loading" id="awLoading">
+                        <i data-lucide="loader-circle"></i>
+                        <p>Loading your academic work...</p>
+                    </div>
+
+                    <div class="aw-list" id="awList"></div>
+
+                    <div class="aw-empty" id="awEmpty" hidden>
+                        <div class="aw-empty-icon">
+                            <i data-lucide="clipboard-check"></i>
+                        </div>
+
+                        <h3>No academic work found</h3>
+                        <p>
+                            Add an assignment, project, quiz, or exam to get started.
+                        </p>
+
+                        <button class="btn btn-primary"
+                                id="awEmptyAddButton"
+                                type="button">
+                            <i data-lucide="plus"></i>
+                            Add Academic Work
+                        </button>
+                    </div>
+
+                </section>
+
+            </div>
+
+            <!-- ======================================
+                 GRADES PANEL
+                 IMPORTANT: This is separate from
+                 the Academic Work panel.
+            ======================================= -->
+            <div class="academic-tab-panel"
+                 id="gradesPanel"
+                 role="tabpanel"
+                 aria-labelledby="gradesTab"
+                 hidden>
+
+                <div class="grades-header">
+                    <div>
+                        <h2>Grades & Performance</h2>
+                        <p>Track your scores and understand your academic progress.</p>
+                    </div>
+                </div>
+
+                <div class="grades-stats">
+
+                    <div class="grades-stat-card">
+                        <span>Total Records</span>
+                        <h3 id="gradesTotal">0</h3>
+                    </div>
+
+                    <div class="grades-stat-card">
+                        <span>Graded Items</span>
+                        <h3 id="gradesGraded">0</h3>
+                    </div>
+
+                    <div class="grades-stat-card">
+                        <span>Average Score</span>
+                        <h3 id="gradesAverage">—</h3>
+                    </div>
+
+                </div>
+
+                <div class="grades-toolbar">
+                    <label for="gradesSubject">Select Subject</label>
+                    <select id="gradesSubject">
+                        <option value="">Loading subjects...</option>
+                    </select>
+                </div>
+
+                <!-- GRADE CATEGORIES -->
+                <section class="grades-section">
+
+                    <div class="grades-section-header">
+                        <div>
+                            <h3>Grade Categories</h3>
+                            <p>Organize your grading components and their weights.</p>
+                        </div>
+
+                        <button type="button" id="addGradeCategoryBtn">
+                            <i data-lucide="plus"></i>
+                            Add Category
+                        </button>
+                    </div>
+
+                    <div id="gradeCategoriesList"></div>
+
+                    <p id="gradeCategoriesEmpty" hidden>
+                        No grade categories added for this subject yet.
+                    </p>
+
+                </section>
+
+                <!-- SCORE RECORDS -->
+                <section class="grades-section">
+
+                    <div class="grades-section-header">
+                        <div>
+                            <h3>Score Records</h3>
+                            <p>Record your scores for assignments, quizzes, and exams.</p>
+                        </div>
+
+                        <button type="button" id="addGradeScoreBtn">
+                            <i data-lucide="plus"></i>
+                            Record Score
+                        </button>
+                    </div>
+
+                    <div id="gradesRecordsList"></div>
+
+                    <p id="gradesRecordsEmpty" hidden>
+                        No graded academic work available yet.
+                    </p>
+
+                </section>
+
+                <div id="gradesFeedback" aria-live="polite"></div>
+
+            </div>
+            <!-- END GRADES PANEL -->
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- MOBILE SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ======================================
+     SUBJECT MODAL
+======================================= -->
+<div class="subject-modal" id="subjectModal" aria-hidden="true">
+
+    <div class="subject-modal-backdrop" id="modalBackdrop"></div>
+
+    <section class="subject-modal-content"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="subjectModalTitle">
+
+        <div class="subject-modal-header">
+            <div>
+                <span class="page-eyebrow">ACADEMIC MANAGEMENT</span>
+                <h2 id="subjectModalTitle">Add a Subject</h2>
+                <p>Enter the details of your academic subject.</p>
+            </div>
+
+            <button class="btn-icon"
+                    id="closeSubjectModal"
+                    type="button"
+                    aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <form id="subjectForm">
+
+            <input type="hidden" id="subjectId">
+
+            <div class="form-group">
+                <label class="form-label" for="subjectName">
+                    Subject Name <span>*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="subjectName"
+                       placeholder="e.g. General Mathematics"
+                       maxlength="100"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="subjectCode">Subject Code</label>
+                <input type="text"
+                       class="form-control"
+                       id="subjectCode"
+                       placeholder="e.g. MATH101"
+                       maxlength="30">
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label class="form-label" for="teacherName">
+                        Teacher / Instructor
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           id="teacherName"
+                           placeholder="Teacher's name"
+                           maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="subjectRoom">Room</label>
+                    <input type="text"
+                           class="form-control"
+                           id="subjectRoom"
+                           placeholder="e.g. Room 204"
+                           maxlength="50">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="subjectColor">Subject Color</label>
+                <select class="form-control" id="subjectColor">
+                    <option value="#8FA98A">Sage Green</option>
+                    <option value="#8CA6B8">Dusty Blue</option>
+                    <option value="#B39BC8">Soft Lavender</option>
+                    <option value="#D2AD83">Warm Beige</option>
+                    <option value="#C78F91">Muted Rose</option>
+                    <option value="#A5A5A0">Soft Gray</option>
+                </select>
+            </div>
+
+            <div class="subject-form-feedback"
+                 id="subjectFormFeedback"
+                 role="alert"></div>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary"
+                        id="cancelSubjectBtn"
+                        type="button">
+                    Cancel
+                </button>
+
+                <button class="btn btn-primary"
+                        id="saveSubjectBtn"
+                        type="submit">
+                    Save Subject
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+</div>
+
+<!-- ======================================
+     CLASS SCHEDULE MODAL
+======================================= -->
+<div class="schedule-modal" id="scheduleModal" aria-hidden="true">
+
+    <div class="schedule-modal-backdrop" id="scheduleModalBackdrop"></div>
+
+    <section class="schedule-modal-panel"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="scheduleModalTitle">
+
+        <div class="schedule-modal-header">
+            <div>
+                <span class="page-eyebrow">ACADEMIC MANAGEMENT</span>
+                <h2 id="scheduleModalTitle">Add a Class</h2>
+            </div>
+
+            <button class="schedule-icon-button"
+                    id="closeScheduleModal"
+                    type="button"
+                    aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <form id="scheduleForm">
+
+            <input type="hidden" id="scheduleId">
+
+            <div class="schedule-form-group">
+                <label for="scheduleSubject">Subject</label>
+                <select id="scheduleSubject" required>
+                    <option value="">Choose a subject</option>
+                </select>
+            </div>
+
+            <div class="schedule-form-group">
+                <label for="scheduleDay">Day</label>
+                <select id="scheduleDay" required>
+                    <option value="">Choose a day</option>
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                    <option value="6">Saturday</option>
+                    <option value="0">Sunday</option>
+                </select>
+            </div>
+
+            <div class="schedule-time-row">
+
+                <div class="schedule-form-group">
+                    <label for="scheduleStart">Start time</label>
+                    <input type="time" id="scheduleStart" required>
+                </div>
+
+                <div class="schedule-form-group">
+                    <label for="scheduleEnd">End time</label>
+                    <input type="time" id="scheduleEnd" required>
+                </div>
+
+            </div>
+
+            <div class="schedule-form-group">
+                <label for="scheduleLocation">
+                    Room / Location <span>(optional)</span>
+                </label>
+                <input type="text"
+                       id="scheduleLocation"
+                       maxlength="120"
+                       placeholder="e.g. Room 204">
+            </div>
+
+            <p class="schedule-form-feedback"
+               id="scheduleFormFeedback"
+               role="alert"></p>
+
+            <div class="schedule-modal-actions">
+                <button class="btn btn-secondary"
+                        id="cancelScheduleBtn"
+                        type="button">
+                    Cancel
+                </button>
+
+                <button class="btn btn-primary"
+                        id="saveScheduleBtn"
+                        type="submit">
+                    Save Class
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+</div>
+
+<!-- ======================================
+     ACADEMIC WORK MODAL
+======================================= -->
+<div class="aw-modal" id="awDialog" aria-hidden="true">
+
+    <div class="aw-modal-backdrop" id="awBackdrop"></div>
+
+    <section class="aw-modal-panel"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="awDialogTitle">
+
+        <div class="aw-modal-header">
+
+            <div>
+                <span class="page-eyebrow">ACADEMIC MANAGEMENT</span>
+                <h2 id="awDialogTitle">Add Academic Work</h2>
+                <p>Enter the details of your academic requirement.</p>
+            </div>
+
+            <button class="aw-close-button"
+                    id="awClose"
+                    type="button"
+                    aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+
+        </div>
+
+        <form id="awForm">
+
+            <input type="hidden" id="awId">
+
+            <div class="aw-form-group">
+                <label for="awTitle">Title <span>*</span></label>
+                <input type="text"
+                       id="awTitle"
+                       maxlength="150"
+                       placeholder="e.g. Research Paper"
+                       required>
+            </div>
+
+            <div class="aw-form-row">
+
+                <div class="aw-form-group">
+                    <label for="awSubject">Subject <span>*</span></label>
+                    <select id="awSubject" required>
+                        <option value="">Choose a subject</option>
+                    </select>
+                </div>
+
+                <div class="aw-form-group">
+                    <label for="awType">Type <span>*</span></label>
+                    <select id="awType" required>
+                        <option value="assignment">Assignment</option>
+                        <option value="project">Project</option>
+                        <option value="quiz">Quiz</option>
+                        <option value="exam">Exam</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="aw-form-group">
+                <label for="awDescription">Description</label>
+                <textarea id="awDescription"
+                          rows="3"
+                          maxlength="2000"
+                          placeholder="Add instructions or other details..."></textarea>
+            </div>
+
+            <div class="aw-form-row">
+
+                <div class="aw-form-group">
+                    <label for="awDue">Due date and time</label>
+                    <input type="datetime-local" id="awDue">
+                </div>
+
+                <div class="aw-form-group">
+                    <label for="awPriority">Priority</label>
+                    <select id="awPriority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="aw-form-group">
+                <label for="awStatus">Status</label>
+                <select id="awStatus">
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+            <p class="aw-form-feedback"
+               id="awFormFeedback"
+               role="alert"></p>
+
+            <div class="aw-modal-actions">
+
+                <button class="btn btn-secondary"
+                        id="awCancel"
+                        type="button">
+                    Cancel
+                </button>
+
+                <button class="btn btn-primary"
+                        id="awSave"
+                        type="submit">
+                    Save Academic Work
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+</div>
+
+<!-- ======================================
+     GRADE CATEGORY MODAL
+======================================= -->
+<div class="grades-modal" id="gradeCategoryModal" aria-hidden="true">
+
+    <div class="grades-modal-backdrop" id="gradeCategoryBackdrop"></div>
+
+    <section class="grades-modal-panel"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="gradeCategoryModalTitle">
+
+        <div class="grades-modal-header">
+            <h2 id="gradeCategoryModalTitle">Add Grade Category</h2>
+
+            <button type="button" id="closeGradeCategoryModal">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <form id="gradeCategoryForm">
+
+            <input type="hidden" id="gradeCategoryId">
+
+            <label for="gradeCategoryName">Category Name</label>
+            <input type="text"
+                   id="gradeCategoryName"
+                   placeholder="e.g. Quizzes"
+                   required>
+
+            <label for="gradeCategoryWeight">Weight (%)</label>
+            <input type="number"
+                   id="gradeCategoryWeight"
+                   min="0"
+                   max="100"
+                   step="0.01"
+                   placeholder="e.g. 30"
+                   required>
+
+            <div class="grades-form-actions">
+
+                <button type="button" id="cancelGradeCategory">
+                    Cancel
+                </button>
+
+                <button type="submit" id="saveGradeCategory">
+                    Save Category
+                </button>
+
+            </div>
+
+            <p id="gradeCategoryFeedback"></p>
+
+        </form>
+
+    </section>
+</div>
+
+<!-- ======================================
+     GRADE SCORE MODAL
+======================================= -->
+<div class="grades-modal" id="gradeScoreModal" aria-hidden="true">
+
+    <div class="grades-modal-backdrop" id="gradeScoreBackdrop"></div>
+
+    <section class="grades-modal-panel"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="gradeScoreModalTitle">
+
+        <div class="grades-modal-header">
+            <h2 id="gradeScoreModalTitle">Record Score</h2>
+
+            <button type="button" id="closeGradeScoreModal">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <form id="gradeScoreForm">
+
+            <input type="hidden" id="gradeScoreItemId">
+
+            <label for="gradeScoreItem">Academic Work</label>
+            <select id="gradeScoreItem" required>
+                <option value="">Select academic work</option>
+            </select>
+
+            <label for="gradeScoreCategory">Grade Category</label>
+            <select id="gradeScoreCategory" required>
+                <option value="">Select category</option>
+            </select>
+
+            <div class="grades-form-row">
+
+                <div>
+                    <label for="gradeScoreValue">Your Score</label>
+                    <input type="number"
+                           id="gradeScoreValue"
+                           min="0"
+                           step="0.01"
+                           required>
+                </div>
+
+                <div>
+                    <label for="gradeMaxScore">Maximum Score</label>
+                    <input type="number"
+                           id="gradeMaxScore"
+                           min="0.01"
+                           step="0.01"
+                           required>
+                </div>
+
+            </div>
+
+            <div class="grades-form-actions">
+
+                <button type="button" id="cancelGradeScore">
+                    Cancel
+                </button>
+
+                <button type="submit" id="saveGradeScore">
+                    Save Score
+                </button>
+
+            </div>
+
+            <p id="gradeScoreFeedback"></p>
+
+        </form>
+
+    </section>
+</div>
+
+<!-- ======================================
+     PAGE SCRIPTS
+======================================= -->
+<script>
+    const dateElement = document.getElementById("todayDate");
+
+    if (dateElement) {
+        dateElement.textContent = new Intl.DateTimeFormat("en", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        }).format(new Date());
+    }
+
+    // Academic tab switching
+    document.querySelectorAll(".academic-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+            const targetId = tab.dataset.tab;
+
+            document.querySelectorAll(".academic-tab").forEach(item => {
+                const active = item === tab;
+
+                item.classList.toggle("active", active);
+                item.setAttribute("aria-selected", String(active));
+            });
+
+            document.querySelectorAll(".academic-tab-panel").forEach(panel => {
+                const active = panel.id === targetId;
+
+                panel.classList.toggle("active", active);
+                panel.hidden = !active;
+            });
+
+            const addSubjectButton = document.getElementById("addSubjectBtn");
+
+            if (addSubjectButton) {
+                addSubjectButton.hidden = targetId !== "subjectsPanel";
+            }
+
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+    });
+
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+</script>
+
+<script src="../js/sidebar.js"></script>
+<script src="../js/app.js"></script>
+<script type="module" src="../js/subjects.js"></script>
+<script type="module" src="../js/academic-work.js"></script>
+<script type="module" src="../js/grades.js"></script>
+<span>Academics</span>
+</body>
+</html>

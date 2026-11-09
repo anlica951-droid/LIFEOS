@@ -1,0 +1,639 @@
+
+/* =========================================================
+   LIFEOS — ACADEMIC WORK
+   File: css/academic-work.css
+   Assignments, Projects, Quizzes, and Exams
+   ========================================================= */
+
+:root {
+    --aw-bg: #f5f6ef;
+    --aw-surface: rgba(255, 255, 255, 0.82);
+    --aw-border: rgba(97, 124, 98, 0.14);
+    --aw-sage: #a9bd9e;
+    --aw-green: #617c62;
+    --aw-dark: #344c3d;
+    --aw-text: #303a32;
+    --aw-muted: #829084;
+    --aw-radius: 20px;
+}
+
+/* Main panel */
+
+#academicWorkPanel {
+    width: 100%;
+    min-width: 0;
+    animation: awFadeIn 0.25s ease;
+}
+
+@keyframes awFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#academicWorkPanel * {
+    box-sizing: border-box;
+}
+
+/* Header and add button */
+
+.aw-header,
+.aw-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.aw-add-button,
+#awAddButton,
+#awEmptyAddButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 19px;
+    border: none;
+    border-radius: 13px;
+    background: var(--aw-dark);
+    color: #fff;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#awAddButton:hover,
+#awEmptyAddButton:hover {
+    background: var(--aw-green);
+    transform: translateY(-2px);
+}
+
+#awAddButton svg,
+#awEmptyAddButton svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* Statistics */
+
+.aw-stats,
+.aw-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin: 22px 0;
+}
+
+.aw-stat-card {
+    min-width: 0;
+    padding: 19px;
+    border: 1px solid var(--aw-border);
+    border-radius: var(--aw-radius);
+    background: var(--aw-surface);
+    box-shadow: 0 5px 20px rgba(45, 65, 48, 0.035);
+}
+
+.aw-stat-card p,
+.aw-stat-label {
+    margin: 0 0 9px;
+    color: var(--aw-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.aw-stat-card h3,
+.aw-stat-value {
+    margin: 0;
+    color: var(--aw-text);
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Search and filters */
+
+.aw-toolbar,
+.aw-filters {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+#awSearch,
+#awFilter,
+#awStatusFilter {
+    min-height: 43px;
+    padding: 0 14px;
+    border: 1px solid var(--aw-border);
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--aw-text);
+    font-family: inherit;
+    font-size: 13px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#awSearch {
+    flex: 1;
+    min-width: 180px;
+}
+
+#awFilter,
+#awStatusFilter {
+    min-width: 145px;
+    cursor: pointer;
+}
+
+#awSearch:focus,
+#awFilter:focus,
+#awStatusFilter:focus,
+#awForm input:focus,
+#awForm select:focus,
+#awForm textarea:focus {
+    border-color: var(--aw-green);
+    box-shadow: 0 0 0 3px rgba(97, 124, 98, 0.1);
+}
+
+/* Feedback */
+
+#awFeedback,
+#awFormFeedback {
+    display: none;
+    padding: 11px 14px;
+    margin: 12px 0;
+    border-radius: 11px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+#awFeedback:not(:empty),
+#awFormFeedback:not(:empty) {
+    display: block;
+}
+
+#awFeedback.success,
+#awFormFeedback.success {
+    background: #e8f1e6;
+    color: #426447;
+}
+
+#awFeedback.error,
+#awFormFeedback.error {
+    background: #f9e9e6;
+    color: #a14d43;
+}
+
+/* Loading and empty state */
+
+#awLoading {
+    padding: 35px 15px;
+    color: var(--aw-muted);
+    text-align: center;
+    font-size: 13px;
+}
+
+#awEmpty {
+    padding: 45px 20px;
+    border: 1px dashed rgba(97, 124, 98, 0.3);
+    border-radius: var(--aw-radius);
+    background: rgba(255, 255, 255, 0.45);
+    text-align: center;
+}
+
+#awEmpty h3 {
+    margin: 0 0 8px;
+    color: var(--aw-dark);
+    font-size: 17px;
+}
+
+#awEmpty p {
+    margin: 0 0 18px;
+    color: var(--aw-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Academic work list */
+
+#awList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 17px;
+}
+
+.aw-card {
+    position: relative;
+    min-width: 0;
+    padding: 19px;
+    border: 1px solid var(--aw-border);
+    border-radius: var(--aw-radius);
+    background: var(--aw-surface);
+    box-shadow: 0 5px 20px rgba(45, 65, 48, 0.035);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.aw-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(45, 65, 48, 0.07);
+}
+
+.aw-card-top,
+.aw-card-footer,
+.aw-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.aw-card-top {
+    margin-bottom: 13px;
+}
+
+.aw-card-type {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #eaf0e6;
+    color: var(--aw-dark);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.aw-card h3 {
+    margin: 0 0 8px;
+    color: var(--aw-text);
+    font-size: 16px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.aw-card-description {
+    margin: 0 0 15px;
+    color: var(--aw-muted);
+    font-size: 12px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+}
+
+.aw-card-subject,
+.aw-card-due {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--aw-muted);
+    font-size: 11px;
+}
+
+.aw-card-subject svg,
+.aw-card-due svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.aw-card-footer {
+    padding-top: 13px;
+    margin-top: 14px;
+    border-top: 1px solid var(--aw-border);
+}
+
+.aw-card-actions {
+    justify-content: flex-end;
+}
+
+.aw-card-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 10px;
+    border: 1px solid var(--aw-border);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--aw-dark);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.aw-card-actions button:hover {
+    background: #edf2e9;
+}
+
+.aw-card-actions button svg {
+    width: 13px;
+    height: 13px;
+}
+
+/* Status and priority labels */
+
+.aw-status,
+.aw-priority {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.aw-status.pending {
+    background: #f5efdf;
+    color: #94733b;
+}
+
+.aw-status.in_progress {
+    background: #e7edf6;
+    color: #54719b;
+}
+
+.aw-status.completed {
+    background: #e5f0e4;
+    color: #4d7651;
+}
+
+.aw-priority.low {
+    background: #edf1e9;
+    color: #687c61;
+}
+
+.aw-priority.medium {
+    background: #f5efdf;
+    color: #94733b;
+}
+
+.aw-priority.high {
+    background: #f8e9e5;
+    color: #ad5a4c;
+}
+
+.aw-overdue {
+    color: #bd5c4f !important;
+    font-weight: 700;
+}
+
+/* Modal */
+
+.aw-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.aw-modal.active {
+    display: flex;
+}
+
+.aw-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(31, 44, 34, 0.43);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.aw-modal-panel {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 540px);
+    max-height: min(90vh, 760px);
+    overflow-y: auto;
+    padding: 27px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 23px;
+    background: #fbfcf8;
+    box-shadow: 0 20px 65px rgba(25, 40, 28, 0.2);
+    animation: awModalIn 0.22s ease;
+}
+
+@keyframes awModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.985);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.aw-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.aw-modal-header h2 {
+    margin: 0;
+    color: var(--aw-dark);
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.aw-modal-header p {
+    margin: 6px 0 0;
+    color: var(--aw-muted);
+    font-size: 12px;
+}
+
+#awClose {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    border: 1px solid var(--aw-border);
+    border-radius: 11px;
+    background: #fff;
+    color: var(--aw-dark);
+    cursor: pointer;
+}
+
+#awClose:hover {
+    background: #edf2e9;
+}
+
+#awClose svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* Form */
+
+#awForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#awForm label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: var(--aw-text);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#awForm input,
+#awForm select,
+#awForm textarea {
+    width: 100%;
+    min-height: 43px;
+    padding: 11px 13px;
+    border: 1px solid var(--aw-border);
+    border-radius: 11px;
+    outline: none;
+    background: #fff;
+    color: var(--aw-text);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    transition: 0.2s ease;
+}
+
+#awForm textarea {
+    min-height: 95px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.aw-form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.aw-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 7px;
+}
+
+#awSave,
+#awCancel {
+    min-height: 42px;
+    padding: 0 18px;
+    border-radius: 11px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#awSave {
+    border: none;
+    background: var(--aw-dark);
+    color: #fff;
+}
+
+#awSave:hover {
+    background: var(--aw-green);
+}
+
+#awCancel {
+    border: 1px solid var(--aw-border);
+    background: #fff;
+    color: var(--aw-text);
+}
+
+#awCancel:hover {
+    background: #edf2e9;
+}
+
+#awSave:disabled,
+#awCancel:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+    .aw-stats,
+    .aw-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #awList {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .aw-stats,
+    .aw-stat-grid {
+        gap: 10px;
+    }
+
+    .aw-stat-card {
+        padding: 15px;
+    }
+
+    .aw-stat-card h3,
+    .aw-stat-value {
+        font-size: 23px;
+    }
+
+    .aw-toolbar,
+    .aw-filters {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    #awSearch,
+    #awFilter,
+    #awStatusFilter {
+        width: 100%;
+    }
+
+    .aw-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .aw-modal {
+        padding: 12px;
+    }
+
+    .aw-modal-panel {
+        padding: 21px 17px;
+        border-radius: 19px;
+    }
+
+    .aw-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    #awSave,
+    #awCancel {
+        width: 100%;
+    }
+}

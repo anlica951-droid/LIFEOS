@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f5f5ef">
 
-  <title>Focus | LIFEOS</title>
+  <title>Study Sessions | LIFEOS</title>
+  <meta name="description" content="Track your study sessions, focus time, and learning progress with LIFEOS.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,243 +23,427 @@
 
 <body>
 
-  <div class="app-layout">
+<div class="app-layout">
 
-    <aside class="sidebar" id="sidebar">
-      <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
-    <i data-lucide="chevron-left"></i>
-</button>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
 
-      <a href="../dashboard.html" class="brand">
-        <span class="brand-icon"><i data-lucide="sprout"></i></span>
-        <span class="brand-name">LIFEOS</span>
+    <button
+      class="sidebar-collapse"
+      id="sidebarCollapse"
+      type="button"
+      aria-label="Collapse sidebar"
+    >
+      <i data-lucide="chevron-left"></i>
+    </button>
+
+    <a href="../dashboard.html" class="brand">
+      <span class="brand-icon">
+        <i data-lucide="sprout"></i>
+      </span>
+      <span class="brand-name">LIFEOS</span>
+    </a>
+
+    <div class="sidebar-label">WORKSPACE</div>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+
+      <a href="../dashboard.html" class="nav-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Home</span>
       </a>
 
-      <div class="sidebar-label">WORKSPACE</div>
+      <a href="subjects.html" class="nav-link">
+        <i data-lucide="graduation-cap"></i>
+<span>Academics</span>      </a>
 
-      <nav class="sidebar-nav" aria-label="Main navigation">
-        <a href="../dashboard.html" class="nav-link">
-          <i data-lucide="layout-dashboard"></i><span>Home</span>
-        </a>
-        <a href="calendar.html" class="nav-link">
-          <i data-lucide="calendar-days"></i><span>Calendar</span>
-        </a>
-        <a href="tasks.html" class="nav-link">
-          <i data-lucide="check-square"></i><span>Tasks</span>
-        </a>
-        <a href="journal.html" class="nav-link">
-          <i data-lucide="book-heart"></i><span>Journal</span>
-        </a>
-        <a href="focus.html" class="nav-link active" aria-current="page">
-          <i data-lucide="timer"></i><span>Focus</span>
-        </a>
-        <a href="progress.html" class="nav-link">
-          <i data-lucide="chart-no-axes-column-increasing"></i><span>Progress</span>
-        </a>
-        <a href="notes.html" class="nav-link">
-          <i data-lucide="notebook-pen"></i><span>Notes</span>
-        </a>
-      </nav>
+      <a href="calendar.html" class="nav-link">
+        <i data-lucide="calendar-days"></i>
+        <span>Calendar</span>
+      </a>
 
-      <div class="sidebar-label">PREFERENCES</div>
+      <a href="tasks.html" class="nav-link">
+        <i data-lucide="check-square"></i>
+        <span>Tasks</span>
+      </a>
 
-      <nav class="sidebar-nav" aria-label="Preferences">
-        <a href="settings.html" class="nav-link">
-          <i data-lucide="settings-2"></i><span>Settings</span>
-        </a>
-      </nav>
+      <a href="journal.html" class="nav-link">
+        <i data-lucide="book-heart"></i>
+        <span>Journal</span>
+      </a>
 
-      <div class="sidebar-bottom">
-        <div class="sidebar-profile">
-          <div class="profile-avatar">
-            <i data-lucide="user-round"></i>
-          </div>
-          <div class="profile-info">
-            <strong>My LIFEOS</strong>
-            <span>Personal workspace</span>
-          </div>
+      <a href="focus.html" class="nav-link active" aria-current="page">
+        <i data-lucide="timer"></i>
+        <span>Study Sessions</span>
+      </a>
+
+      <a href="progress.html" class="nav-link">
+        <i data-lucide="chart-no-axes-column-increasing"></i>
+        <span>Progress</span>
+      </a>
+
+      <a href="notes.html" class="nav-link">
+        <i data-lucide="notebook-pen"></i>
+        <span>Notes</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-label">PREFERENCES</div>
+
+    <nav class="sidebar-nav" aria-label="Preferences">
+      <a href="settings.html" class="nav-link">
+        <i data-lucide="settings-2"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="sidebar-profile">
+        <div class="profile-avatar">
+          <i data-lucide="user-round"></i>
+        </div>
+
+        <div class="profile-info">
+          <strong>My LIFEOS</strong>
+          <span>Personal workspace</span>
         </div>
       </div>
+    </div>
 
-    </aside>
+  </aside>
 
-    <main class="main-content">
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
 
-      <header class="topbar">
-        <button
-          type="button"
-          class="menu-toggle"
-          id="menuToggle"
-          aria-label="Open navigation"
-          aria-controls="sidebar"
-          aria-expanded="false"
-        >
-          <i data-lucide="menu"></i>
-        </button>
+    <header class="topbar">
 
-        <div class="topbar-breadcrumb">
-          <span>Workspace</span>
-          <i data-lucide="chevron-right"></i>
-          <strong>Focus</strong>
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="topbar-breadcrumb">
+        <span>Workspace</span>
+        <i data-lucide="chevron-right"></i>
+        <strong>Study Sessions</strong>
+      </div>
+
+      <a href="settings.html" class="profile-button" aria-label="Settings">
+        <i data-lucide="user-round"></i>
+      </a>
+
+    </header>
+
+    <div class="page-content focus-page">
+
+      <!-- PAGE HEADING -->
+      <section class="focus-heading">
+        <div>
+          <span class="eyebrow">LEARN. PRACTICE. GROW.</span>
+          <h1>Study Sessions</h1>
+          <p>Make time for learning and keep track of your progress.</p>
+        </div>
+      </section>
+
+      <!-- STUDY DETAILS -->
+      <section class="study-details-card">
+
+        <div class="study-details-heading">
+          <span class="eyebrow">PLAN YOUR SESSION</span>
+          <h2>What are you studying today?</h2>
         </div>
 
-        <a href="settings.html" class="profile-button" aria-label="Settings">
-          <i data-lucide="user-round"></i>
-        </a>
-      </header>
+        <div class="study-details-grid">
 
-      <div class="page-content focus-page">
-
-        <section class="focus-heading">
-          <div>
-            <span class="eyebrow">SLOW DOWN. FOCUS.</span>
-            <h1>Focus time</h1>
-            <p>A little progress is still progress.</p>
-          </div>
-        </section>
-
-        <!-- MAIN TIMER -->
-        <section class="focus-main-card">
-
-          <span class="focus-overline" id="focusTimerLabel">
-            YOUR FOCUS SESSION
-          </span>
-
-          <div class="focus-timer-ring" id="timerProgress">
-            <div class="focus-timer-inner">
-              <strong id="timerDisplay" role="timer" aria-live="off">25:00</strong>
-              <span>minutes</span>
-            </div>
+          <div class="study-field">
+            <label for="studySubject">Subject</label>
+            <select id="studySubject">
+              <option value="">Loading subjects...</option>
+            </select>
           </div>
 
-          <p class="focus-message">Make this moment count.</p>
-
-          <div class="focus-duration-options" aria-label="Choose focus duration">
-            <button type="button" class="focus-preset" data-duration="15" aria-pressed="false">15 min</button>
-            <button type="button" class="focus-preset active" data-duration="25" aria-pressed="true">25 min</button>
-            <button type="button" class="focus-preset" data-duration="45" aria-pressed="false">45 min</button>
-            <button type="button" class="focus-preset" data-duration="60" aria-pressed="false">60 min</button>
+          <div class="study-field">
+            <label for="studyType">Study activity</label>
+            <select id="studyType">
+              <option value="general_study">General study</option>
+              <option value="reading">Reading</option>
+              <option value="reviewing">Reviewing</option>
+              <option value="assignment">Assignment</option>
+              <option value="exam_preparation">Exam preparation</option>
+            </select>
           </div>
 
-          <input type="hidden" id="focusDuration" value="25">
-
-          <div class="focus-controls">
-            <button type="button" class="focus-start" id="timerStart">
-              <i data-lucide="play"></i>
-              <span>Start focus</span>
-            </button>
-
-            <button type="button" class="focus-pause" id="timerPause" disabled>
-              <i data-lucide="pause"></i>
-              <span>Pause</span>
-            </button>
-
-            <button type="button" class="focus-reset" id="timerReset" aria-label="Reset timer" title="Reset timer">
-              <i data-lucide="rotate-ccw"></i>
-            </button>
+          <div class="study-field study-field-full">
+            <label for="studyTitle">Session title</label>
+            <input
+              type="text"
+              id="studyTitle"
+              maxlength="120"
+              placeholder="e.g. Review Chapter 3"
+            >
           </div>
 
-        </section>
-
-        <!-- SMALL STATISTICS -->
-        <section class="focus-statistics">
-
-          <div class="focus-stat-item">
-            <span class="focus-stat-icon"><i data-lucide="check-circle-2"></i></span>
-            <div>
-              <span>Completed sessions</span>
-              <strong id="focusSessionCount">0</strong>
-            </div>
+          <div class="study-field study-field-full">
+            <label for="studyNotes">Session notes (optional)</label>
+            <textarea
+              id="studyNotes"
+              rows="3"
+              maxlength="2000"
+              placeholder="What do you want to accomplish in this session?"
+            ></textarea>
           </div>
 
-          <div class="focus-stat-item">
-            <span class="focus-stat-icon"><i data-lucide="clock-3"></i></span>
-            <div>
-              <span>Total focus time</span>
-              <strong id="totalFocusTime">0 min</strong>
-            </div>
-          </div>
+        </div>
+      </section>
 
-        </section>
+      <!-- MAIN TIMER -->
+      <section class="focus-main-card">
 
-        <!-- SESSION HISTORY -->
-        <section class="focus-history">
+        <div class="study-mode-options" aria-label="Timer mode">
 
-          <div class="focus-history-heading">
-            <div>
-              <span class="eyebrow">YOUR ACTIVITY</span>
-              <h2>Recent sessions</h2>
-            </div>
-          </div>
+          <button
+            type="button"
+            class="study-mode active"
+            data-mode="focus"
+            aria-pressed="true"
+          >
+            <i data-lucide="book-open"></i>
+            Focus
+          </button>
 
-          <div id="focusSessionHistory" class="focus-session-history" aria-live="polite">
-            <!-- Generated by focus.js -->
-          </div>
+          <button
+            type="button"
+            class="study-mode"
+            data-mode="short_break"
+            aria-pressed="false"
+          >
+            <i data-lucide="coffee"></i>
+            Short break
+          </button>
 
-        </section>
+          <button
+            type="button"
+            class="study-mode"
+            data-mode="long_break"
+            aria-pressed="false"
+          >
+            <i data-lucide="armchair"></i>
+            Long break
+          </button>
+
+        </div>
+
+        <span class="focus-overline" id="focusTimerLabel">
+          YOUR STUDY SESSION
+        </span>
 
         <div
-          class="feedback-message"
-          id="focusFeedback"
-          role="status"
-          hidden
-        ></div>
+          class="focus-timer-ring"
+          id="timerProgress"
+          role="progressbar"
+          aria-label="Timer progress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
 
-      </div>
-    </main>
-  </div>
+          <div class="focus-timer-inner">
+            <strong id="timerDisplay" role="timer" aria-live="off">25:00</strong>
+            <span>minutes</span>
+          </div>
 
-  <script src="../js/focus.js"></script>
-  <script src="../js/theme.js"></script>
+        </div>
 
-  <script>
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
+        <p class="focus-message">Make this moment count.</p>
 
-    const sidebar = document.getElementById("sidebar");
-    const menuToggle = document.getElementById("menuToggle");
+        <!-- FOCUS DURATION -->
+        <div class="focus-duration-options" aria-label="Choose focus duration">
 
-    menuToggle?.addEventListener("click", () => {
-      const isOpen = sidebar.classList.toggle("open");
+          <button type="button" class="focus-preset" data-duration="15" aria-pressed="false">
+            15 min
+          </button>
 
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-      );
-    });
-  </script>
+          <button type="button" class="focus-preset active" data-duration="25" aria-pressed="true">
+            25 min
+          </button>
+
+          <button type="button" class="focus-preset" data-duration="45" aria-pressed="false">
+            45 min
+          </button>
+
+          <button type="button" class="focus-preset" data-duration="60" aria-pressed="false">
+            60 min
+          </button>
+
+        </div>
+
+        <input type="hidden" id="focusDuration" value="25">
+
+        <!-- TIMER CONTROLS -->
+        <div class="focus-controls">
+
+          <button type="button" class="focus-start" id="timerStart">
+            <i data-lucide="play"></i>
+            <span>Start studying</span>
+          </button>
+
+          <button type="button" class="focus-pause" id="timerPause" disabled>
+            <i data-lucide="pause"></i>
+            <span>Pause</span>
+          </button>
+
+          <button
+            type="button"
+            class="focus-reset"
+            id="timerReset"
+            aria-label="Reset timer"
+            title="Reset timer"
+          >
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- STATISTICS -->
+      <section class="focus-statistics">
+
+        <div class="focus-stat-item">
+          <span class="focus-stat-icon">
+            <i data-lucide="check-circle-2"></i>
+          </span>
+
+          <div>
+            <span>Completed sessions</span>
+            <strong id="focusSessionCount">0</strong>
+          </div>
+        </div>
+
+        <div class="focus-stat-item">
+          <span class="focus-stat-icon">
+            <i data-lucide="clock-3"></i>
+          </span>
+
+          <div>
+            <span>Total study time</span>
+            <strong id="totalFocusTime">0 min</strong>
+          </div>
+        </div>
+
+        <div class="focus-stat-item">
+          <span class="focus-stat-icon">
+            <i data-lucide="calendar-check"></i>
+          </span>
+
+          <div>
+            <span>This week's study time</span>
+            <strong id="weeklyStudyTime">0 min</strong>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- STUDY HISTORY -->
+      <section class="focus-history">
+
+        <div class="focus-history-heading">
+          <div>
+            <span class="eyebrow">YOUR ACTIVITY</span>
+            <h2>Study history</h2>
+          </div>
+        </div>
+
+        <div
+          id="focusSessionHistory"
+          class="focus-session-history"
+          aria-live="polite"
+        >
+          <div class="empty-state">
+            <div class="empty-state-icon">
+              <i data-lucide="book-open"></i>
+            </div>
+            <h3>Loading study sessions...</h3>
+            <p>Your completed sessions will appear here.</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- FEEDBACK -->
+      <div
+        class="feedback-message"
+        id="focusFeedback"
+        role="status"
+        hidden
+      ></div>
+
+    </div>
+  </main>
+</div>
+
+<!-- SCRIPTS -->
+<script src="../js/theme.js"></script>
+<script type="module" src="../js/focus.js"></script>
+
 <script>
-(() => {
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
+  // Mobile sidebar
+  const sidebar = document.getElementById("sidebar");
+  const menuToggle = document.getElementById("menuToggle");
+
+  menuToggle?.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation" : "Open navigation"
+    );
+  });
+
+  // Collapsible sidebar
+  (() => {
     const button = document.getElementById("sidebarCollapse");
     if (!button) return;
 
     const STORAGE_KEY = "lifeos_sidebar_collapsed";
 
     function updateSidebar(collapsed) {
-        document.body.classList.toggle("sidebar-collapsed", collapsed);
+      document.body.classList.toggle("sidebar-collapsed", collapsed);
 
-        button.setAttribute(
-            "aria-label",
-            collapsed ? "Expand sidebar" : "Collapse sidebar"
-        );
+      button.setAttribute(
+        "aria-label",
+        collapsed ? "Expand sidebar" : "Collapse sidebar"
+      );
 
-        button.innerHTML = collapsed
-            ? '<i data-lucide="chevron-right"></i>'
-            : '<i data-lucide="chevron-left"></i>';
+      button.innerHTML = collapsed
+        ? '<i data-lucide="chevron-right"></i>'
+        : '<i data-lucide="chevron-left"></i>';
 
-        if (window.lucide) window.lucide.createIcons();
+      if (window.lucide) window.lucide.createIcons();
     }
 
     updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
 
     button.addEventListener("click", () => {
-        const collapsed = !document.body.classList.contains("sidebar-collapsed");
-        localStorage.setItem(STORAGE_KEY, String(collapsed));
-        updateSidebar(collapsed);
+      const collapsed = !document.body.classList.contains("sidebar-collapsed");
+
+      localStorage.setItem(STORAGE_KEY, String(collapsed));
+      updateSidebar(collapsed);
     });
-})();
+  })();
 </script>
+
 </body>
 </html>

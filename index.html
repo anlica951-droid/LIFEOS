@@ -1,30 +1,30 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f5f5ef">
-  <meta name="description" content="LIFEOS is your personal space to organize tasks, reflect, and grow.">
+  <meta name="description" content="LIFEOS is a student life management platform for academic organization, tasks, study sessions, notes, and personal growth.">
 
-  <title>LIFEOS | Make Space for What Matters</title>
+  <title>LIFEOS | Student Life Management</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&family=Cormorant+Garamond:wght@600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #f5f5ef;
-      --surface: #fffefa;
+      --white: #fffefa;
       --text: #303a35;
-      --muted: #7d867d;
+      --muted: #788278;
       --green: #718875;
-      --green-dark: #526b57;
-      --border: rgba(48, 58, 53, 0.10);
+      --green-dark: #405b47;
+      --green-deep: #2d4434;
+      --sage: #e7ede3;
+      --border: rgba(48,58,53,.10);
+      --shadow: 0 20px 60px rgba(43,61,47,.10);
     }
 
     * {
@@ -35,16 +35,14 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 95px;
     }
 
     body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 85% 15%, rgba(190, 207, 183, 0.27), transparent 30%),
-        radial-gradient(circle at 5% 75%, rgba(222, 222, 200, 0.25), transparent 28%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
     }
 
     a {
@@ -52,370 +50,475 @@
       text-decoration: none;
     }
 
-    .landing-nav {
+    .container {
       width: min(1160px, calc(100% - 48px));
       margin: auto;
-      min-height: 88px;
+    }
+
+    /* NAVIGATION */
+
+    .landing-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245,245,239,.91);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 82px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 25px;
     }
 
-    .landing-brand {
-      font-family: "Playfair Display", serif;
-      font-size: 29px;
+    .brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 36px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       color: var(--green-dark);
+      flex-shrink: 0;
     }
 
-    .nav-actions {
+    .brand span {
+      color: var(--green);
+    }
+
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 32px;
     }
 
-    .nav-link {
-      font-size: 14px;
+    .nav-links a {
+      font-size: 13px;
       font-weight: 600;
       color: var(--muted);
-      transition: color .2s ease;
-    }
-
-    .nav-link:hover {
-      color: var(--green-dark);
-    }
-
-    .nav-button {
-      padding: 12px 23px;
-      border-radius: 30px;
-      background: var(--green-dark);
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
       transition: .2s ease;
     }
 
-    .nav-button:hover {
-      background: var(--green);
-      transform: translateY(-2px);
+    .nav-links a:hover {
+      color: var(--green-dark);
     }
+
+    .sign-in {
+      padding: 11px 20px;
+      border: 1px solid var(--green-dark);
+      border-radius: 30px;
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .sign-in:hover {
+      background: var(--green-dark);
+      color: white;
+    }
+
+    /* HERO */
 
     .hero {
-      width: min(1160px, calc(100% - 48px));
-      min-height: 650px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      align-items: center;
-      gap: 55px;
-      padding: 55px 0 85px;
+      padding: 75px 0 90px;
+      background:
+        radial-gradient(circle at 5% 15%, rgba(196,211,188,.34), transparent 35%),
+        radial-gradient(circle at 95% 90%, rgba(215,218,195,.28), transparent 30%);
     }
 
-    .hero-content {
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 65px;
+    }
+
+    .hero-copy {
       max-width: 570px;
     }
 
-    .eyebrow {
+    /* LIFEOS HERO BRAND */
+
+    .hero-brand {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 9px 15px;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      background: rgba(255, 255, 255, .55);
+      gap: 13px;
+      isolation: isolate;
+      margin: 0 0 20px -4px;
+    }
+
+    .hero-brand::before {
+      content: "";
+      position: absolute;
+      width: 118px;
+      height: 82px;
+      left: -19px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(169,189,158,.18);
+      border-radius: 48% 52% 62% 38%;
+      z-index: -1;
+    }
+
+    .hero-brand-icon {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hero-brand-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hero-brand h1 {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-size: clamp(72px, 8vw, 96px);
+      font-weight: 400;
+      letter-spacing: -2.8px;
+      line-height: .98;
       color: var(--green-dark);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 27px;
+      margin: 0;
     }
 
-    .eyebrow span {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-    }
-
-    .hero h1 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(48px, 6vw, 76px);
-      line-height: 1.12;
-      font-weight: 600;
-      letter-spacing: -2px;
-      margin-bottom: 25px;
-    }
-
-    .hero h1 em {
+    .hero-brand h1 span {
       color: var(--green);
-      font-weight: 500;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 22px;
     }
 
     .hero-description {
       max-width: 470px;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 14px;
       line-height: 1.9;
-      margin-bottom: 34px;
+      margin-bottom: 30px;
     }
 
     .hero-actions {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 24px;
+      flex-wrap: wrap;
     }
 
     .primary-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 15px 27px;
+      padding: 15px 26px;
       border-radius: 30px;
       background: var(--green-dark);
       color: white;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      box-shadow: 0 9px 22px rgba(82, 107, 87, .16);
+      box-shadow: 0 10px 25px rgba(64,91,71,.17);
       transition: .2s ease;
     }
 
     .primary-button:hover {
-      background: var(--green);
-      transform: translateY(-3px);
+      background: #617b65;
+      transform: translateY(-2px);
     }
 
-    .text-button {
+    .secondary-button {
       color: var(--green-dark);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
     }
 
-    .text-button:hover {
+    .secondary-button:hover {
       text-decoration: underline;
+    }
+
+    .hero-caption {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-top: 35px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .caption-line {
+      width: 35px;
+      height: 1px;
+      background: var(--green);
     }
 
     .hero-visual {
       position: relative;
-      min-height: 430px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 475px;
     }
 
-    .visual-glow {
+    .hero-photo {
       position: absolute;
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      background: rgba(181, 200, 174, .28);
-      filter: blur(5px);
+      inset: 0 15px 25px 20px;
+      overflow: hidden;
+      border-radius: 35px 35px 110px 35px;
+      box-shadow: var(--shadow);
     }
 
-    .preview-card {
-      position: relative;
-      width: min(100%, 420px);
-      padding: 29px;
-      border: 1px solid rgba(255, 255, 255, .85);
-      border-radius: 25px;
-      background: rgba(255, 255, 255, .72);
-      box-shadow: 0 25px 70px rgba(55, 72, 59, .11);
-      backdrop-filter: blur(18px);
-      transform: rotate(2deg);
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .preview-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 27px;
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(29,48,34,.02) 40%,
+        rgba(29,48,34,.48) 100%
+      );
     }
 
-    .preview-label {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
+    .photo-label {
+      position: absolute;
+      left: 30px;
+      bottom: 30px;
+      color: white;
     }
 
-    .preview-date {
-      color: var(--green-dark);
-      font-size: 12px;
+    .photo-label span {
+      display: block;
+      font-size: 10px;
       font-weight: 700;
-    }
-
-    .preview-card h2 {
-      font-family: "Playfair Display", serif;
-      font-size: 27px;
-      font-weight: 600;
+      letter-spacing: 2px;
       margin-bottom: 8px;
     }
 
-    .preview-subtitle {
+    .photo-label strong {
+      font-family: "Playfair Display", serif;
+      font-size: 27px;
+      font-weight: 500;
+    }
+
+    /* TWO-PHRASE FLOATING CARD */
+
+    .floating-card {
+      position: absolute;
+      right: -12px;
+      bottom: 0;
+      width: 220px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 20px;
+      background: rgba(255,255,255,.93);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(15px);
+    }
+
+    .floating-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      margin-bottom: 9px;
+    }
+
+    .floating-card strong {
+      display: block;
+      color: var(--green-dark);
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* INTRO STRIP */
+
+    .intro-strip {
+      padding: 25px 0;
+      background: var(--green-deep);
+      color: white;
+    }
+
+    .intro-strip-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .intro-strip p {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+    }
+
+    .intro-strip span {
+      color: #c5d4bf;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    /* SHARED SECTIONS */
+
+    .section {
+      padding: 90px 0;
+    }
+
+    .section-heading {
+      max-width: 620px;
+      margin-bottom: 40px;
+    }
+
+    .section-kicker {
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    .section-heading h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(34px, 4vw, 46px);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .section-heading p {
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* ABOUT */
+
+    .about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      align-items: center;
+      gap: 75px;
+    }
+
+    .about-image {
+      height: 420px;
+      overflow: hidden;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-copy .section-heading {
       margin-bottom: 25px;
     }
 
-    .preview-task {
+    .about-points {
+      display: grid;
+      gap: 20px;
+    }
+
+    .about-point {
       display: flex;
       align-items: center;
-      gap: 13px;
-      padding: 15px 0;
-      border-top: 1px solid var(--border);
+      gap: 14px;
     }
 
-    .task-check {
-      width: 21px;
-      height: 21px;
+    .point-icon {
+      width: 40px;
+      height: 40px;
       flex-shrink: 0;
-      border: 1.5px solid #a4b49f;
-      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: var(--sage);
+      color: var(--green-dark);
+      font-size: 16px;
     }
 
-    .task-check.done {
-      background: var(--green);
-      border-color: var(--green);
-      position: relative;
-    }
-
-    .task-check.done::after {
-      content: "✓";
-      position: absolute;
-      color: white;
-      font-size: 13px;
-      left: 4px;
-      top: 0;
-    }
-
-    .task-info {
-      flex: 1;
-    }
-
-    .task-info strong {
+    .about-point strong {
       display: block;
       font-size: 13px;
-      font-weight: 600;
+      margin-bottom: 4px;
     }
 
-    .task-info small {
-      display: block;
+    .about-point span {
       color: var(--muted);
       font-size: 11px;
-      margin-top: 4px;
+      line-height: 1.6;
     }
 
-    .task-tag {
-      padding: 5px 9px;
-      border-radius: 20px;
-      background: #edf1e9;
-      color: var(--green-dark);
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .preview-footer {
-      margin-top: 15px;
-      padding: 16px;
-      border-radius: 15px;
-      background: #f0f2e9;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .preview-footer span {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .preview-footer strong {
-      color: var(--green-dark);
-      font-size: 14px;
-    }
-
-    .floating-note {
-      position: absolute;
-      right: -5px;
-      bottom: 45px;
-      padding: 16px 20px;
-      border: 1px solid rgba(255, 255, 255, .8);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, .88);
-      box-shadow: 0 15px 35px rgba(55, 72, 59, .09);
-      color: var(--green-dark);
-      font-size: 12px;
-      font-weight: 700;
-      transform: rotate(-4deg);
-    }
+    /* FEATURES */
 
     .features {
-      width: min(1160px, calc(100% - 48px));
-      margin: 0 auto;
-      padding: 45px 0 100px;
+      background: var(--bg);
+    }
+
+    .features .section-heading {
       text-align: center;
-    }
-
-    .section-eyebrow {
-      color: var(--green);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .features h2 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(30px, 4vw, 43px);
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
-
-    .section-description {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.8;
-      max-width: 480px;
       margin: 0 auto 42px;
     }
 
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      text-align: left;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
     }
 
     .feature-card {
-      padding: 25px 22px;
+      padding: 27px;
+      min-height: 195px;
       border: 1px solid var(--border);
-      border-radius: 19px;
-      background: rgba(255, 255, 255, .55);
-      transition: .2s ease;
+      border-radius: 22px;
+      background: rgba(255,255,255,.68);
+      transition: .25s ease;
     }
 
     .feature-card:hover {
       transform: translateY(-5px);
-      background: rgba(255, 255, 255, .85);
-      box-shadow: 0 15px 35px rgba(55, 72, 59, .06);
+      background: white;
+      box-shadow: var(--shadow);
     }
 
     .feature-icon {
-      width: 42px;
-      height: 42px;
+      width: 45px;
+      height: 45px;
       display: grid;
       place-items: center;
-      margin-bottom: 19px;
-      border-radius: 13px;
-      background: #e9eee5;
+      border-radius: 15px;
+      background: var(--sage);
       color: var(--green-dark);
       font-size: 19px;
+      margin-bottom: 19px;
     }
 
     .feature-card h3 {
       font-family: "Playfair Display", serif;
-      font-size: 19px;
+      font-size: 20px;
+      font-weight: 600;
       margin-bottom: 9px;
     }
 
@@ -425,119 +528,427 @@
       line-height: 1.8;
     }
 
-    .landing-footer {
-      padding: 25px 24px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
+    .feature-number {
+      display: block;
+      color: #899989;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
     }
 
-    @media (max-width: 850px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 25px;
-        padding-top: 65px;
+    /* HOW IT WORKS */
+
+    .how {
+      background: var(--white);
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 35px;
+    }
+
+    .how-step {
+      padding-top: 10px;
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: white;
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .how-step h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .how-step p {
+      max-width: 300px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* CTA */
+
+    .cta-section {
+      padding: 80px 0;
+      background: var(--bg);
+    }
+
+    .cta-card {
+      position: relative;
+      overflow: hidden;
+      padding: 70px 35px;
+      border-radius: 30px;
+      background: linear-gradient(115deg, rgba(39,62,44,.96), rgba(87,116,88,.93));
+      color: white;
+      text-align: center;
+    }
+
+    .cta-card::before,
+    .cta-card::after {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 50%;
+    }
+
+    .cta-card::before {
+      top: -150px;
+      left: -80px;
+    }
+
+    .cta-card::after {
+      right: -100px;
+      bottom: -170px;
+      width: 350px;
+      height: 350px;
+    }
+
+    .cta-card .section-kicker {
+      color: #c8d8c1;
+    }
+
+    .cta-card h2 {
+      position: relative;
+      z-index: 1;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(34px, 4vw, 46px);
+      font-weight: 500;
+      margin-bottom: 25px;
+    }
+
+    .cta-button {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      padding: 15px 27px;
+      border-radius: 30px;
+      background: white;
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      background: #edf1e9;
+    }
+
+    /* FOOTER / CONTACT */
+
+    .footer {
+      padding: 45px 0 25px;
+      background: #293d30;
+      color: white;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 35px;
+    }
+
+    .footer-brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 38px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand span {
+      color: #b5c7ad;
+    }
+
+    .footer-about {
+      max-width: 300px;
+      color: rgba(255,255,255,.62);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer-column h4 {
+      font-size: 12px;
+      letter-spacing: 1px;
+      margin-bottom: 17px;
+    }
+
+    .footer-column a {
+      display: block;
+      width: fit-content;
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+      margin-bottom: 12px;
+      transition: .2s ease;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,.5);
+      font-size: 10px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .nav-links {
+        gap: 17px;
       }
 
-      .hero-content {
-        max-width: 650px;
+      .hero-grid {
+        gap: 35px;
+      }
+
+      .hero-visual {
+        min-height: 410px;
+      }
+
+      .about-grid {
+        gap: 40px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-brand h1 {
+        font-size: clamp(66px, 8vw, 82px);
+      }
+
+      .hero-brand-icon {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: calc(100% - 36px);
+      }
+
+      .nav-inner {
+        min-height: 72px;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 14px 0;
+      }
+
+      .brand {
+        font-size: 31px;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 22px;
+        padding: 8px 0 3px;
+        border-top: 1px solid var(--border);
+      }
+
+      .nav-links a {
+        font-size: 11px;
+      }
+
+      .sign-in {
+        padding: 9px 16px;
+        font-size: 11px;
+      }
+
+      .hero {
+        padding: 55px 0 65px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-copy {
         text-align: center;
         margin: auto;
+      }
+
+      .hero-brand {
+        gap: 10px;
+        margin-left: 0;
+      }
+
+      .hero-brand h1 {
+        font-size: 61px;
+        letter-spacing: -2px;
+      }
+
+      .hero-brand-icon {
+        width: 33px;
+        height: 33px;
+      }
+
+      .hero-brand::before {
+        width: 90px;
+        height: 65px;
+        left: -14px;
+      }
+
+      .hero-subtitle {
+        font-size: 12px;
+        letter-spacing: 1.5px;
       }
 
       .hero-description {
         margin-left: auto;
         margin-right: auto;
+        font-size: 13px;
       }
 
       .hero-actions {
         justify-content: center;
       }
 
-      .hero-visual {
-        min-height: 420px;
-      }
-
-      .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 520px) {
-      .landing-nav {
-        width: calc(100% - 32px);
-        min-height: 75px;
-      }
-
-      .landing-brand {
-        font-size: 25px;
-      }
-
-      .nav-actions {
-        gap: 14px;
-      }
-
-      .nav-link {
-        font-size: 12px;
-      }
-
-      .nav-button {
-        padding: 10px 15px;
-        font-size: 12px;
-      }
-
-      .hero {
-        width: calc(100% - 36px);
-        padding: 55px 0 60px;
-      }
-
-      .hero h1 {
-        font-size: 48px;
-      }
-
-      .hero-description {
-        font-size: 14px;
-      }
-
-      .hero-actions {
-        gap: 17px;
-      }
-
-      .primary-button {
-        padding: 13px 20px;
-        font-size: 12px;
-      }
-
-      .text-button {
-        font-size: 12px;
+      .hero-caption {
+        justify-content: center;
       }
 
       .hero-visual {
-        min-height: 370px;
+        min-height: 390px;
       }
 
-      .preview-card {
-        padding: 21px;
+      .hero-photo {
+        inset: 0 8px 25px 0;
+        border-radius: 25px 25px 75px 25px;
       }
 
-      .preview-card h2 {
-        font-size: 23px;
+      .floating-card {
+        right: -2px;
+        width: 190px;
       }
 
-      .floating-note {
-        right: -3px;
-        bottom: 15px;
-        font-size: 10px;
+      .intro-strip-inner {
+        justify-content: center;
+        text-align: center;
       }
 
-      .features {
-        width: calc(100% - 36px);
-        padding-bottom: 65px;
+      .intro-strip p {
+        font-size: 17px;
+      }
+
+      .section {
+        padding: 70px 0;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .about-image {
+        height: 320px;
       }
 
       .feature-grid {
         grid-template-columns: 1fr;
+      }
+
+      .feature-card {
+        min-height: auto;
+      }
+
+      .how-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .how-step p {
+        max-width: 100%;
+      }
+
+      .cta-section {
+        padding: 55px 0;
+      }
+
+      .cta-card {
+        padding: 55px 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+      }
+
+      .footer-main {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .nav-links {
+        gap: 13px;
+      }
+
+      .nav-links a {
+        font-size: 10px;
+      }
+
+      .hero-brand h1 {
+        font-size: 53px;
+      }
+
+      .hero-brand-icon {
+        width: 29px;
+        height: 29px;
+      }
+
+      .hero-visual {
+        min-height: 340px;
+      }
+
+      .floating-card {
+        width: 170px;
+        padding: 16px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-main {
+        grid-column: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
       }
     }
   </style>
@@ -545,129 +956,327 @@
 
 <body>
 
+  <!-- NAVIGATION -->
   <header class="landing-nav">
-    <a href="index.html" class="landing-brand">LIFEOS.</a>
+    <div class="container nav-inner">
 
-    <nav class="nav-actions" aria-label="Main navigation">
-      <a href="#features" class="nav-link">Features</a>
-      <a href="login.html" class="nav-link">Sign In</a>
-      <a href="login.html" class="nav-button">Get Started</a>
-    </nav>
+      <a href="index.html" class="brand">LIFEOS<span>.</span></a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="login.html" class="sign-in">Sign In</a>
+      </div>
+
+    </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero-content">
-        <div class="eyebrow">
-          <span></span>
-          YOUR PERSONAL SPACE
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+
+          <div class="hero-brand">
+            <span class="hero-brand-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <path
+                  d="M23 39C22 28 15 16 7 10C18 9 29 17 29 28C29 33 27 37 23 39Z"
+                  fill="#718875"
+                />
+                <path
+                  d="M25 38C25 25 31 14 42 7C44 20 39 32 25 38Z"
+                  fill="#405B47"
+                />
+                <path
+                  d="M24 42C24 29 25 19 29 11"
+                  stroke="#344C3D"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+
+            <h1>LIFEOS<span>.</span></h1>
+          </div>
+
+          <div class="hero-subtitle">
+            Student Life Management Platform
+          </div>
+
+          <p class="hero-description">
+            Your academics, tasks, and personal growth.
+            All in one place.
+          </p>
+
+          <div class="hero-actions">
+            <a href="login.html" class="primary-button">
+              Get Started &nbsp; ↗
+            </a>
+
+            <a href="#features" class="secondary-button">
+              Explore LIFEOS ↓
+            </a>
+          </div>
+
+          <div class="hero-caption">
+            <span class="caption-line"></span>
+            Your day, in better order.
+          </div>
+
         </div>
 
-        <h1>Make space for <em>what matters.</em></h1>
+        <div class="hero-visual">
 
-        <p class="hero-description">
-          A little more clarity. A little more balance.
-          LIFEOS brings your tasks, thoughts, routines, and
-          personal growth together in one peaceful space.
-        </p>
+          <div class="hero-photo">
+            <img
+              src="https://mapua.sgp1.cdn.digitaloceanspaces.com/modular-frame-tabs/XsHn9kjKaDQUUvC0EBWQ0r3LaDUdOC4dEmvAH5CY.webp"
+              alt="Students studying together in a university library"
+            >
 
-        <div class="hero-actions">
-          <a href="login.html" class="primary-button">Start your journey →</a>
-          <a href="#features" class="text-button">Explore LIFEOS</a>
-        </div>
-      </div>
+            <div class="photo-overlay"></div>
 
-      <div class="hero-visual">
-        <div class="visual-glow"></div>
-
-        <div class="preview-card">
-          <div class="preview-top">
-            <span class="preview-label">YOUR DAILY SPACE</span>
-            <span class="preview-date">A FRESH START</span>
-          </div>
-
-          <h2>A day with purpose.</h2>
-          <p class="preview-subtitle">Small steps make meaningful progress.</p>
-
-          <div class="preview-task">
-            <div class="task-check done"></div>
-            <div class="task-info">
-              <strong>Plan your day</strong>
-              <small>Personal routine</small>
+            <div class="photo-label">
+              <span>YOUR PERSONAL SPACE</span>
+              <strong>Stay organized.</strong>
             </div>
-            <span class="task-tag">Done</span>
           </div>
 
-          <div class="preview-task">
-            <div class="task-check"></div>
-            <div class="task-info">
-              <strong>Work on your goals</strong>
-              <small>Personal growth</small>
-            </div>
-            <span class="task-tag">Today</span>
-          </div>
-
-          <div class="preview-task">
-            <div class="task-check"></div>
-            <div class="task-info">
-              <strong>Write in your journal</strong>
-              <small>Take a moment for yourself</small>
-            </div>
-            <span class="task-tag">Daily</span>
-          </div>
-
-          <div class="preview-footer">
-            <span>Your progress matters</span>
+          <div class="floating-card">
+            <small>YOUR PERSONAL SPACE</small>
             <strong>One step at a time.</strong>
           </div>
+
         </div>
 
-        <div class="floating-note">✦ Make today meaningful</div>
       </div>
     </section>
 
-    <section class="features" id="features">
-      <p class="section-eyebrow">A SPACE FOR EVERY PART OF YOU</p>
-
-      <h2>Everything in its place.</h2>
-
-      <p class="section-description">
-        Organize your responsibilities, make time for yourself,
-        and keep moving toward the person you want to become.
-      </p>
-
-      <div class="feature-grid">
-        <article class="feature-card">
-          <div class="feature-icon">✓</div>
-          <h3>Tasks</h3>
-          <p>Keep track of your responsibilities and turn your plans into manageable steps.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="feature-icon">▦</div>
-          <h3>Calendar</h3>
-          <p>See what's ahead and give your time a little more structure.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="feature-icon">✎</div>
-          <h3>Journal</h3>
-          <p>Make room for your thoughts, feelings, reflections, and everyday moments.</p>
-        </article>
-
-        <article class="feature-card">
-          <div class="feature-icon">✧</div>
-          <h3>Personal Growth</h3>
-          <p>Reflect on your progress and appreciate the small things you're accomplishing.</p>
-        </article>
+    <!-- INTRO STRIP -->
+    <section class="intro-strip">
+      <div class="container intro-strip-inner">
+        <p>Your student life, in one organized space.</p>
+        <span>ACADEMICS · ORGANIZATION · STUDY</span>
       </div>
     </section>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about">
+      <div class="container about-grid">
+
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=85"
+            alt="Organized workspace with a laptop"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="about-copy">
+
+          <div class="section-heading">
+            <div class="section-kicker">ABOUT LIFEOS</div>
+            <h2>Everything in its place.</h2>
+            <p>
+              A personal space to manage your academic work,
+              everyday responsibilities, and study activities.
+            </p>
+          </div>
+
+          <div class="about-points">
+
+            <div class="about-point">
+              <div class="point-icon">✓</div>
+              <div>
+                <strong>Stay organized</strong>
+                <span>Manage your subjects, academic work, tasks, and schedules.</span>
+              </div>
+            </div>
+
+            <div class="about-point">
+              <div class="point-icon">✧</div>
+              <div>
+                <strong>Keep everything together</strong>
+                <span>Store your notes and personal journal entries in one place.</span>
+              </div>
+            </div>
+
+            <div class="about-point">
+              <div class="point-icon">↗</div>
+              <div>
+                <strong>Monitor your progress</strong>
+                <span>Review your completed tasks and study activity.</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section features" id="features">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-kicker">EXPLORE LIFEOS</div>
+          <h2>Made for your everyday life.</h2>
+          <p>
+            The tools you need to stay organized and keep learning.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+
+          <article class="feature-card">
+            <span class="feature-number">01 / ACADEMICS</span>
+            <div class="feature-icon">▤</div>
+            <h3>Academic Management</h3>
+            <p>
+              Manage your subjects, class schedules, academic work,
+              and grades.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-number">02 / ORGANIZATION</span>
+            <div class="feature-icon">◷</div>
+            <h3>Tasks & Calendar</h3>
+            <p>
+              Keep track of personal tasks, events, and important dates.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-number">03 / PERSONAL SPACE</span>
+            <div class="feature-icon">▧</div>
+            <h3>Notes & Journal</h3>
+            <p>
+              Save important notes and write personal reflections.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-number">04 / LEARNING</span>
+            <div class="feature-icon">◴</div>
+            <h3>Study Sessions</h3>
+            <p>
+              Choose a subject, focus on your studies, and review
+              your study history.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section how" id="how-it-works">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="section-kicker">HOW IT WORKS</div>
+          <h2>Simple. Organized. Yours.</h2>
+        </div>
+
+        <div class="how-grid">
+
+          <article class="how-step">
+            <div class="step-number">01</div>
+            <h3>Organize</h3>
+            <p>
+              Add your subjects, schedules, academic work, and tasks.
+            </p>
+          </article>
+
+          <article class="how-step">
+            <div class="step-number">02</div>
+            <h3>Get things done</h3>
+            <p>
+              Manage your responsibilities and record your study sessions.
+            </p>
+          </article>
+
+          <article class="how-step">
+            <div class="step-number">03</div>
+            <h3>Track your progress</h3>
+            <p>
+              Review your completed tasks and study activity.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="cta-section">
+      <div class="container">
+
+        <div class="cta-card">
+          <div class="section-kicker">YOUR SPACE STARTS HERE</div>
+
+          <h2>Make room for what matters.</h2>
+
+          <a href="login.html" class="cta-button">
+            Get Started with LIFEOS ↗
+          </a>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
-  <footer class="landing-footer">
-    © 2026 LIFEOS. Make space for what matters.
+  <!-- FOOTER / CONTACT -->
+  <footer class="footer" id="contact">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-main">
+          <div class="footer-brand">LIFEOS<span>.</span></div>
+
+          <p class="footer-about">
+            A student life management platform
+            for academics, organization, and study.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>EXPLORE</h4>
+          <a href="#home">Home</a>
+          <a href="#about">About LIFEOS</a>
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>GET STARTED</h4>
+          <a href="login.html">Sign In</a>
+          <a href="login.html">Create an Account</a>
+          <a href="login.html">Get Started</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 LIFEOS. All rights reserved.</span>
+        <span>Student Life Management Platform.</span>
+      </div>
+
+    </div>
   </footer>
 
 </body>
 </html>
-```

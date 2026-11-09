@@ -1,15 +1,22 @@
+
+/* =========================================================
+   LIFEOS — GLOBAL SIDEBAR
+   File: js/sidebar.js
+   ========================================================= */
+
 (() => {
     "use strict";
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const button = document.getElementById("sidebarCollapse");
+    const STORAGE_KEY = "lifeos_sidebar_collapsed";
 
-        if (!button) {
-            console.error("LIFEOS: Sidebar button not found.");
+    function initializeSidebar() {
+        const button = document.getElementById("sidebarCollapse");
+        const sidebar = document.getElementById("sidebar");
+
+        if (!button || !sidebar) {
+            console.warn("LIFEOS: Sidebar elements not found on this page.");
             return;
         }
-
-        const STORAGE_KEY = "lifeos_sidebar_collapsed";
 
         function updateSidebar(collapsed) {
             document.body.classList.toggle("sidebar-collapsed", collapsed);
@@ -18,6 +25,8 @@
                 "aria-label",
                 collapsed ? "Expand sidebar" : "Collapse sidebar"
             );
+
+            button.setAttribute("aria-expanded", String(!collapsed));
 
             button.innerHTML = collapsed
                 ? '<i data-lucide="chevron-right"></i>'
@@ -28,19 +37,38 @@
             }
         }
 
-        const savedState =
-            localStorage.getItem(STORAGE_KEY) === "true";
+        // Restore the saved sidebar state.
+        let savedState = false;
+
+        try {
+            savedState = localStorage.getItem(STORAGE_KEY) === "true";
+        } catch (error) {
+            console.warn("LIFEOS: Could not read sidebar preference.", error);
+        }
 
         updateSidebar(savedState);
 
+        // Toggle sidebar when clicked.
         button.addEventListener("click", () => {
-            const isCollapsed =
+            const collapsed =
                 document.body.classList.contains("sidebar-collapsed");
 
-            const newState = !isCollapsed;
+            const newState = !collapsed;
 
-            localStorage.setItem(STORAGE_KEY, String(newState));
             updateSidebar(newState);
+
+            try {
+                localStorage.setItem(STORAGE_KEY, String(newState));
+            } catch (error) {
+                console.warn("LIFEOS: Could not save sidebar preference.", error);
+            }
         });
-    });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializeSidebar);
+    } else {
+        initializeSidebar();
+    }
+
 })();
