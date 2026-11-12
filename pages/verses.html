@@ -1,12 +1,14 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f5ef">
+    <meta name="description" content="A personal collection of daily Bible verses and saved reminders.">
 
     <title>Bible Verse History | LIFEOS</title>
-    <meta name="description" content="A personal collection of daily Bible verses and saved reminders.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,9 +28,10 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
+
         <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
-    <i data-lucide="chevron-left"></i>
-</button>
+            <i data-lucide="chevron-left"></i>
+        </button>
 
         <a href="../dashboard.html" class="brand">
             <span class="brand-icon">
@@ -39,48 +42,49 @@
 
         <div class="sidebar-label">YOUR SPACE</div>
 
-        <nav class="sidebar-nav">
+        <nav class="sidebar-nav" aria-label="Main navigation">
 
-            <a href="../dashboard.html" class="side-link">
+            <a href="../dashboard.html" class="side-link nav-link">
                 <i data-lucide="house"></i>
                 <span>Home</span>
             </a>
-            <a href="subjects.html" class="side-link">
-    <i data-lucide="graduation-cap"></i>
-    <span>Academics</span>
-</a>
 
-            <a href="calendar.html" class="side-link">
+            <a href="subjects.html" class="side-link nav-link">
+                <i data-lucide="graduation-cap"></i>
+                <span>Academics</span>
+            </a>
+
+            <a href="calendar.html" class="side-link nav-link">
                 <i data-lucide="calendar-days"></i>
                 <span>Calendar</span>
             </a>
 
-            <a href="tasks.html" class="side-link">
+            <a href="tasks.html" class="side-link nav-link">
                 <i data-lucide="list-checks"></i>
                 <span>My Tasks</span>
             </a>
 
-            <a href="journal.html" class="side-link">
+            <a href="journal.html" class="side-link nav-link">
                 <i data-lucide="book-heart"></i>
-                <span>Mood & Journal</span>
+                <span>Mood &amp; Journal</span>
             </a>
 
-            <a href="focus.html" class="side-link">
+            <a href="focus.html" class="side-link nav-link">
                 <i data-lucide="timer"></i>
-                <span>Focus Room</span>
+                <span>Study Session</span>
             </a>
 
-            <a href="progress.html" class="side-link">
+            <a href="progress.html" class="side-link nav-link">
                 <i data-lucide="chart-no-axes-combined"></i>
                 <span>My Progress</span>
             </a>
 
-            <a href="notes.html" class="side-link">
+            <a href="notes.html" class="side-link nav-link">
                 <i data-lucide="notebook-pen"></i>
                 <span>My Notes</span>
             </a>
 
-            <a href="verses.html" class="side-link active" aria-current="page">
+            <a href="verses.html" class="side-link nav-link active" aria-current="page">
                 <i data-lucide="book-open"></i>
                 <span>Verse Collection</span>
             </a>
@@ -89,7 +93,7 @@
 
         <div class="sidebar-bottom">
 
-            <a href="settings.html" class="side-link">
+            <a href="settings.html" class="side-link nav-link">
                 <i data-lucide="settings"></i>
                 <span>Settings</span>
             </a>
@@ -313,6 +317,7 @@
         }
     });
 </script>
+
 <script>
 (() => {
     const button = document.getElementById("sidebarCollapse");
@@ -344,5 +349,7 @@
     });
 })();
 </script>
+
 </body>
 </html>
+

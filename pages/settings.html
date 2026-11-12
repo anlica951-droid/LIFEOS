@@ -34,79 +34,78 @@
     </button>
 
     <a href="../dashboard.html" class="brand">
-      <span class="brand-icon"><i data-lucide="sprout"></i></span>
+      <span class="brand-icon">
+        <i data-lucide="sprout"></i>
+      </span>
       <span class="brand-name">LIFEOS</span>
     </a>
-   
 
-
-    <p class="sidebar-label">WORKSPACE</p>
+    <div class="sidebar-label">YOUR SPACE</div>
 
     <nav class="sidebar-nav" aria-label="Main navigation">
 
-      <a href="../dashboard.html" class="nav-link">
-        <i data-lucide="layout-dashboard"></i>
+      <a href="../dashboard.html" class="side-link nav-link">
+        <i data-lucide="house"></i>
         <span>Home</span>
       </a>
-       <a href="subjects.html" class="nav-link">
-    <i data-lucide="graduation-cap"></i>
-    <span>Academics</span>
-</a>
-       
-      <a href="calendar.html" class="nav-link">
+
+      <a href="subjects.html" class="side-link nav-link">
+        <i data-lucide="graduation-cap"></i>
+        <span>Academics</span>
+      </a>
+
+      <a href="calendar.html" class="side-link nav-link">
         <i data-lucide="calendar-days"></i>
         <span>Calendar</span>
       </a>
 
-      <a href="tasks.html" class="nav-link">
-        <i data-lucide="check-square"></i>
-        <span>Tasks</span>
+      <a href="tasks.html" class="side-link nav-link">
+        <i data-lucide="list-checks"></i>
+        <span>My Tasks</span>
       </a>
 
-      <a href="journal.html" class="nav-link">
+      <a href="journal.html" class="side-link nav-link">
         <i data-lucide="book-heart"></i>
-        <span>Journal</span>
+        <span>Mood &amp; Journal</span>
       </a>
 
-      <a href="focus.html" class="nav-link">
+      <a href="focus.html" class="side-link nav-link">
         <i data-lucide="timer"></i>
-        <span>Focus</span>
+        <span>Study Session</span>
       </a>
 
-      <a href="progress.html" class="nav-link">
-        <i data-lucide="chart-no-axes-column-increasing"></i>
-        <span>Progress</span>
+      <a href="progress.html" class="side-link nav-link">
+        <i data-lucide="chart-no-axes-combined"></i>
+        <span>My Progress</span>
       </a>
-     
 
-      <a href="notes.html" class="nav-link">
+      <a href="notes.html" class="side-link nav-link">
         <i data-lucide="notebook-pen"></i>
-        <span>Notes</span>
+        <span>My Notes</span>
       </a>
 
     </nav>
 
     <div class="sidebar-bottom">
 
-      <a href="settings.html" class="nav-link active" aria-current="page">
-        <i data-lucide="settings-2"></i>
+      <a href="settings.html" class="side-link nav-link active" aria-current="page">
+        <i data-lucide="settings"></i>
         <span>Settings</span>
       </a>
 
-      <div class="sidebar-profile">
-        <div class="profile-avatar">
-          <i data-lucide="user-round"></i>
-        </div>
+      <div class="sidebar-quote">
+        <i data-lucide="leaf"></i>
+        <p>Small steps every day lead to beautiful changes.</p>
+      </div>
 
-        <div class="profile-info">
-          <strong>My LIFEOS</strong>
-          <span>Personal workspace</span>
-        </div>
+      <div class="sidebar-version">
+        LIFEOS <span>PERSONAL EDITION</span>
       </div>
 
     </div>
 
   </aside>
+
 
   <!-- MAIN CONTENT -->
   <main class="main-content">
@@ -136,6 +135,7 @@
 
     </header>
 
+
     <div class="page-content settings-content">
 
       <!-- PAGE INTRO -->
@@ -154,20 +154,21 @@
         </div>
       </section>
 
+
       <form id="settingsForm" autocomplete="on">
 
-        <!-- PERSONAL PREFERENCES -->
+        <!-- WORKSPACE PREFERENCES -->
         <section class="settings-section" id="personalSettings">
 
           <div class="settings-section-heading">
             <span class="settings-section-icon">
-              <i data-lucide="user-round"></i>
+              <i data-lucide="sliders-horizontal"></i>
             </span>
 
             <div>
-              <span class="settings-section-kicker">01 / PERSONAL</span>
-              <h2>Personal preferences</h2>
-              <p>Set up how your workspace feels and responds to you.</p>
+              <span class="settings-section-kicker">01 / WORKSPACE</span>
+              <h2>Workspace preferences</h2>
+              <p>Adjust how LIFEOS organizes your day.</p>
             </div>
           </div>
 
@@ -176,43 +177,51 @@
             <div class="settings-field-grid">
 
               <div class="settings-field">
-                <label for="settingsDisplayName">Display name</label>
-                <input type="text" id="settingsDisplayName" name="displayName" maxlength="40" placeholder="What should LIFEOS call you?">
-                <small>Used for your personal dashboard greeting.</small>
-              </div>
-
-              <div class="settings-field">
                 <label for="settingsDailyGoal">Daily task goal</label>
+
                 <div class="settings-input-suffix">
-                  <input type="number" id="settingsDailyGoal" name="dailyGoal" min="1" max="50" value="3">
+                  <input
+                    type="number"
+                    id="settingsDailyGoal"
+                    name="dailyGoal"
+                    min="1"
+                    max="50"
+                    value="3"
+                  >
                   <span>tasks / day</span>
                 </div>
+
                 <small>A small daily target can help you stay organized.</small>
               </div>
 
               <div class="settings-field">
                 <label for="settingsWeekStart">First day of the week</label>
+
                 <select id="settingsWeekStart" name="weekStart">
                   <option value="monday">Monday</option>
                   <option value="sunday">Sunday</option>
                 </select>
+
                 <small>Choose how your calendar week is displayed.</small>
               </div>
 
               <div class="settings-field">
                 <label for="settingsDateFormat">Date format</label>
+
                 <select id="settingsDateFormat" name="dateFormat">
                   <option value="long">November 3, 2026</option>
                   <option value="short">Nov 3, 2026</option>
                   <option value="numeric">11/03/2026</option>
                   <option value="day-first">03/11/2026</option>
                 </select>
+
                 <small>Choose your preferred date display.</small>
               </div>
 
             </div>
           </div>
         </section>
+
 
         <!-- FOCUS PREFERENCES -->
         <section class="settings-section" id="focusSettings">
@@ -235,6 +244,7 @@
 
               <div class="settings-field">
                 <label for="settingsFocusDuration">Focus session</label>
+
                 <select id="settingsFocusDuration" name="focusDuration">
                   <option value="15">15 minutes</option>
                   <option value="25" selected>25 minutes</option>
@@ -243,38 +253,45 @@
                   <option value="50">50 minutes</option>
                   <option value="60">60 minutes</option>
                 </select>
+
                 <small>How long you want each focus session to last.</small>
               </div>
 
               <div class="settings-field">
                 <label for="settingsShortBreak">Short break</label>
+
                 <select id="settingsShortBreak" name="shortBreak">
                   <option value="5" selected>5 minutes</option>
                   <option value="10">10 minutes</option>
                   <option value="15">15 minutes</option>
                 </select>
+
                 <small>Your quick rest between focus sessions.</small>
               </div>
 
               <div class="settings-field">
                 <label for="settingsLongBreak">Long break</label>
+
                 <select id="settingsLongBreak" name="longBreak">
                   <option value="15">15 minutes</option>
                   <option value="20" selected>20 minutes</option>
                   <option value="25">25 minutes</option>
                   <option value="30">30 minutes</option>
                 </select>
+
                 <small>A longer rest after several focus sessions.</small>
               </div>
 
               <div class="settings-field">
                 <label for="settingsLongBreakInterval">Long break interval</label>
+
                 <select id="settingsLongBreakInterval" name="longBreakInterval">
                   <option value="2">After 2 focus sessions</option>
                   <option value="3" selected>After 3 focus sessions</option>
                   <option value="4">After 4 focus sessions</option>
                   <option value="5">After 5 focus sessions</option>
                 </select>
+
                 <small>How many sessions before your long break.</small>
               </div>
 
@@ -289,7 +306,11 @@
               </div>
 
               <label class="settings-switch">
-                <input type="checkbox" id="settingsAutoStartFocus" name="autoStartFocus">
+                <input
+                  type="checkbox"
+                  id="settingsAutoStartFocus"
+                  name="autoStartFocus"
+                >
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
@@ -303,13 +324,19 @@
               </div>
 
               <label class="settings-switch">
-                <input type="checkbox" id="settingsAutoStartBreak" name="autoStartBreak" checked>
+                <input
+                  type="checkbox"
+                  id="settingsAutoStartBreak"
+                  name="autoStartBreak"
+                  checked
+                >
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
 
           </div>
         </section>
+
 
         <!-- APPEARANCE -->
         <section class="settings-section" id="appearanceSettings">
@@ -331,12 +358,20 @@
             <div class="settings-theme-options">
 
               <label class="theme-choice">
-                <input type="radio" name="appearance" id="themeLight" value="light" checked>
+                <input
+                  type="radio"
+                  name="appearance"
+                  id="themeLight"
+                  value="light"
+                  checked
+                >
 
                 <span class="theme-preview theme-preview-light">
                   <span class="theme-preview-top"></span>
                   <span class="theme-preview-content">
-                    <span></span><span></span><span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                   </span>
                 </span>
 
@@ -351,12 +386,19 @@
               </label>
 
               <label class="theme-choice">
-                <input type="radio" name="appearance" id="themeDark" value="dark">
+                <input
+                  type="radio"
+                  name="appearance"
+                  id="themeDark"
+                  value="dark"
+                >
 
                 <span class="theme-preview theme-preview-dark">
                   <span class="theme-preview-top"></span>
                   <span class="theme-preview-content">
-                    <span></span><span></span><span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                   </span>
                 </span>
 
@@ -371,12 +413,19 @@
               </label>
 
               <label class="theme-choice">
-                <input type="radio" name="appearance" id="themeSystem" value="system">
+                <input
+                  type="radio"
+                  name="appearance"
+                  id="themeSystem"
+                  value="system"
+                >
 
                 <span class="theme-preview theme-preview-system">
                   <span class="theme-preview-top"></span>
                   <span class="theme-preview-content">
-                    <span></span><span></span><span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                   </span>
                 </span>
 
@@ -398,6 +447,7 @@
 
           </div>
         </section>
+
 
         <!-- NOTIFICATIONS -->
         <section class="settings-section" id="notificationSettings">
@@ -425,7 +475,11 @@
               </div>
 
               <label class="settings-switch">
-                <input type="checkbox" id="notificationToggle" name="notifications">
+                <input
+                  type="checkbox"
+                  id="notificationToggle"
+                  name="notifications"
+                >
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
@@ -439,7 +493,12 @@
               </div>
 
               <label class="settings-switch">
-                <input type="checkbox" id="settingsTaskReminders" name="taskReminders" checked>
+                <input
+                  type="checkbox"
+                  id="settingsTaskReminders"
+                  name="taskReminders"
+                  checked
+                >
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
@@ -453,13 +512,22 @@
               </div>
 
               <label class="settings-switch">
-                <input type="checkbox" id="settingsFocusAlerts" name="focusAlerts" checked>
+                <input
+                  type="checkbox"
+                  id="settingsFocusAlerts"
+                  name="focusAlerts"
+                  checked
+                >
                 <span class="settings-switch-slider"></span>
               </label>
             </div>
 
             <div class="settings-notification-action">
-              <button type="button" class="settings-secondary-button" id="enableNotifications">
+              <button
+                type="button"
+                class="settings-secondary-button"
+                id="enableNotifications"
+              >
                 <i data-lucide="bell-ring"></i>
                 Request notification permission
               </button>
@@ -469,6 +537,7 @@
 
           </div>
         </section>
+
 
         <!-- SAVE BAR -->
         <div class="settings-save-area">
@@ -487,19 +556,30 @@
           </div>
 
           <div class="settings-save-actions">
-            <button type="button" class="settings-reset-button" id="resetSettings">
+
+            <button
+              type="button"
+              class="settings-reset-button"
+              id="resetSettings"
+            >
               Reset
             </button>
 
-            <button type="submit" class="settings-primary-button" id="saveSettings">
+            <button
+              type="submit"
+              class="settings-primary-button"
+              id="saveSettings"
+            >
               <i data-lucide="check"></i>
               Save preferences
             </button>
+
           </div>
 
         </div>
 
       </form>
+
 
       <!-- DATA MANAGEMENT -->
       <section class="settings-section" id="dataSettings">
@@ -519,6 +599,7 @@
         <div class="settings-card">
 
           <div class="settings-data-row">
+
             <div class="settings-data-icon">
               <i data-lucide="download"></i>
             </div>
@@ -528,15 +609,21 @@
               <p>Download a backup of your LIFEOS information as a JSON file.</p>
             </div>
 
-            <button type="button" class="settings-secondary-button" id="exportData">
+            <button
+              type="button"
+              class="settings-secondary-button"
+              id="exportData"
+            >
               Export
               <i data-lucide="arrow-up-right"></i>
             </button>
+
           </div>
 
           <div class="settings-divider"></div>
 
           <div class="settings-data-row">
+
             <div class="settings-data-icon">
               <i data-lucide="upload"></i>
             </div>
@@ -546,13 +633,23 @@
               <p>Restore information from a LIFEOS JSON backup file.</p>
             </div>
 
-            <button type="button" class="settings-secondary-button" id="importData">
+            <button
+              type="button"
+              class="settings-secondary-button"
+              id="importData"
+            >
               Import
               <i data-lucide="arrow-down-to-line"></i>
             </button>
+
           </div>
 
-          <input type="file" id="importFile" accept=".json,application/json" hidden>
+          <input
+            type="file"
+            id="importFile"
+            accept=".json,application/json"
+            hidden
+          >
 
           <p class="settings-data-note">
             Importing a backup may replace existing information. Review the
@@ -562,10 +659,10 @@
         </div>
       </section>
 
-      
 
       <!-- ABOUT -->
       <section class="settings-about">
+
         <div class="settings-about-mark">
           <i data-lucide="sprout"></i>
         </div>
@@ -576,6 +673,7 @@
         </div>
 
         <span class="settings-version">Personal workspace</span>
+
       </section>
 
     </div>
@@ -583,76 +681,107 @@
 
 </div>
 
+
 <!-- EXISTING SETTINGS FUNCTIONALITY -->
 <script src="../js/settings.js"></script>
 
-<!-- EXISTING PAGE FUNCTIONALITY -->
+
+<!-- PAGE FUNCTIONALITY -->
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
+document.addEventListener("DOMContentLoaded", () => {
 
-    const sidebar = document.getElementById("sidebar");
-    const menuToggle = document.getElementById("menuToggle");
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 
-    menuToggle?.addEventListener("click", () => {
-      const isOpen = sidebar?.classList.toggle("open") ?? false;
+  // MOBILE SIDEBAR
+  const sidebar = document.getElementById("sidebar");
+  const menuToggle = document.getElementById("menuToggle");
 
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-      );
-    });
+  menuToggle?.addEventListener("click", () => {
 
-    const currentDate = document.getElementById("currentDate");
+    const isOpen = sidebar?.classList.toggle("open") ?? false;
 
-    if (currentDate) {
-      currentDate.textContent = new Intl.DateTimeFormat("en", {
-        weekday: "long",
-        month: "long",
-        day: "numeric"
-      }).format(new Date());
-    }
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation" : "Open navigation"
+    );
+
   });
+
+
+  // CURRENT DATE
+  const currentDate = document.getElementById("currentDate");
+
+  if (currentDate) {
+    currentDate.textContent = new Intl.DateTimeFormat("en", {
+      weekday: "long",
+      month: "long",
+      day: "numeric"
+    }).format(new Date());
+  }
+
+});
 </script>
+
 
 <!-- SIDEBAR COLLAPSE -->
 <script>
 (() => {
-    const button = document.getElementById("sidebarCollapse");
-    if (!button) return;
 
-    const STORAGE_KEY = "lifeos_sidebar_collapsed";
+  const button = document.getElementById("sidebarCollapse");
 
-    function updateSidebar(collapsed) {
-        document.body.classList.toggle("sidebar-collapsed", collapsed);
+  if (!button) return;
 
-        button.setAttribute(
-            "aria-label",
-            collapsed ? "Expand sidebar" : "Collapse sidebar"
-        );
+  const STORAGE_KEY = "lifeos_sidebar_collapsed";
 
-        button.innerHTML = collapsed
-            ? '<i data-lucide="chevron-right"></i>'
-            : '<i data-lucide="chevron-left"></i>';
+  function updateSidebar(collapsed) {
 
-        if (window.lucide) window.lucide.createIcons();
+    document.body.classList.toggle(
+      "sidebar-collapsed",
+      collapsed
+    );
+
+    button.setAttribute(
+      "aria-label",
+      collapsed ? "Expand sidebar" : "Collapse sidebar"
+    );
+
+    button.innerHTML = collapsed
+      ? '<i data-lucide="chevron-right"></i>'
+      : '<i data-lucide="chevron-left"></i>';
+
+    if (window.lucide) {
+      window.lucide.createIcons();
     }
 
-    updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
+  }
 
-    button.addEventListener("click", () => {
-        const collapsed = !document.body.classList.contains("sidebar-collapsed");
+  // RESTORE SAVED SIDEBAR STATE
+  updateSidebar(
+    localStorage.getItem(STORAGE_KEY) === "true"
+  );
 
-        localStorage.setItem(STORAGE_KEY, String(collapsed));
-        updateSidebar(collapsed);
-    });
+
+  // COLLAPSE / EXPAND
+  button.addEventListener("click", () => {
+
+    const collapsed = !document.body.classList.contains(
+      "sidebar-collapsed"
+    );
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      String(collapsed)
+    );
+
+    updateSidebar(collapsed);
+
+  });
+
 })();
-
-
-
 </script>
 
 </body>

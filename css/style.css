@@ -2203,3 +2203,215 @@ html[data-theme="dark"] .sidebar-collapse {
         display: none;
     }
 }
+
+/* =========================================================
+   LIFEOS — UNIFIED SIDEBAR DESIGN
+   Makes all pages match the homepage sidebar
+========================================================= */
+
+/* Shared navigation links */
+
+.sidebar .side-link,
+.sidebar .nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    min-height: 49px;
+    padding: 0 14px;
+
+    color: var(--muted-dark);
+    font-family: var(--font-main);
+    font-size: 13px;
+    font-weight: 500;
+
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+
+    text-decoration: none;
+
+    transition:
+        background var(--transition),
+        color var(--transition),
+        transform var(--transition);
+}
+
+/* Shared icons */
+
+.sidebar .side-link svg,
+.sidebar .nav-link svg {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    stroke-width: 1.8;
+}
+
+/* Hover */
+
+.sidebar .side-link:hover,
+.sidebar .nav-link:hover {
+    background: var(--sage-pale);
+    color: var(--green-dark);
+    transform: translateX(2px);
+}
+
+/* Active page */
+
+.sidebar .side-link.active,
+.sidebar .nav-link.active {
+    background: linear-gradient(110deg, #e4ecdf, #edf2e9);
+    color: var(--green-dark);
+    font-weight: 700;
+}
+
+/* Active indicator */
+
+.sidebar .side-link.active::before,
+.sidebar .nav-link.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 3px;
+    border-radius: 5px;
+    background: var(--green);
+}
+
+/* Navigation spacing */
+
+.sidebar .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+/* Sidebar labels */
+
+.sidebar .sidebar-label {
+    padding: 0 13px 12px;
+    color: #a1a99d;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+}
+
+/* Sidebar bottom */
+
+.sidebar .sidebar-bottom {
+    margin-top: auto;
+}
+
+/* Brand consistency */
+
+.sidebar .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 3px 12px 34px;
+    width: fit-content;
+}
+
+.sidebar .brand-icon {
+    display: grid;
+    place-items: center;
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #dce9d5, #b8ccb0);
+    color: var(--green-dark);
+    box-shadow: 0 6px 16px rgba(89, 116, 84, 0.12);
+}
+
+.sidebar .brand-icon svg {
+    width: 23px;
+    height: 23px;
+}
+
+.sidebar .brand-name {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--green-dark);
+}
+
+/* Collapse button */
+
+.sidebar-collapse {
+    position: absolute;
+    top: 32px;
+    right: -15px;
+    z-index: 1001;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: #fffefa;
+    color: var(--green-dark);
+    box-shadow: 0 3px 10px rgba(48, 58, 53, 0.10);
+    transition: all var(--transition);
+}
+
+.sidebar-collapse:hover {
+    background: var(--sage-pale);
+}
+
+.sidebar-collapse svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* Collapsed sidebar: both link classes */
+
+body.sidebar-collapsed .sidebar .side-link,
+body.sidebar-collapsed .sidebar .nav-link {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+body.sidebar-collapsed .sidebar .side-link span,
+body.sidebar-collapsed .sidebar .nav-link span {
+    display: none;
+}
+
+body.sidebar-collapsed .sidebar .side-link:hover,
+body.sidebar-collapsed .sidebar .nav-link:hover {
+    transform: none;
+}
+
+/* Dark mode */
+
+html[data-theme="dark"] .sidebar .side-link,
+html[data-theme="dark"] .sidebar .nav-link {
+    color: var(--muted-dark);
+}
+
+html[data-theme="dark"] .sidebar .side-link:hover,
+html[data-theme="dark"] .sidebar .nav-link:hover,
+html[data-theme="dark"] .sidebar .side-link.active,
+html[data-theme="dark"] .sidebar .nav-link.active {
+    background: #354435;
+    color: #e1eadb;
+}
+
+html[data-theme="dark"] .sidebar .sidebar-label {
+    color: var(--muted);
+}
+
+html[data-theme="dark"] .sidebar .brand-name {
+    color: var(--green-dark);
+}
+
+html[data-theme="dark"] .sidebar-collapse {
+    background: #273229;
+    color: #d0ddc8;
+    border-color: var(--border);
+}
+

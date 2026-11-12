@@ -1,3 +1,4 @@
+
 /* =========================================
    LIFEOS — SETTINGS
    File: js/settings.js
@@ -42,7 +43,7 @@
 
   const elements = {
     form: $("settingsForm"),
-    displayName: $("settingsDisplayName"),
+
     dailyGoal: $("settingsDailyGoal"),
     weekStart: $("settingsWeekStart"),
     dateFormat: $("settingsDateFormat"),
@@ -101,6 +102,7 @@
     return {
       ...merged,
 
+      // Retain the account's existing display name.
       displayName: String(merged.displayName || "").slice(0, 40),
 
       dailyGoal: clampNumber(merged.dailyGoal, 3, 1, 50),
@@ -239,7 +241,6 @@
       input.addEventListener("change", () => {
         if (!input.checked) return;
 
-        // Preview immediately. The preference is saved with the form.
         applyAppearance(input.value);
       });
     });
@@ -250,10 +251,6 @@
   ----------------------------------------- */
 
   function populateForm() {
-    if (elements.displayName) {
-      elements.displayName.value = settings.displayName;
-    }
-
     if (elements.dailyGoal) {
       elements.dailyGoal.value = settings.dailyGoal;
     }
@@ -320,7 +317,9 @@
 
   function readForm() {
     return normalizeSettings({
-      displayName: elements.displayName?.value.trim() || "",
+      // Preserve the profile name; it is no longer edited in Settings.
+      displayName: settings.displayName,
+
       dailyGoal: elements.dailyGoal?.value,
       weekStart: elements.weekStart?.value,
       dateFormat: elements.dateFormat?.value,
@@ -392,13 +391,18 @@
 
   function resetSettings() {
     const confirmed = window.confirm(
-      "Restore all LIFEOS preferences to their defaults? Your tasks, notes, journal entries, and calendar events will remain untouched."
+      "Restore all LIFEOS preferences to their defaults? Your profile name, tasks, notes, journal entries, and calendar events will remain untouched."
     );
 
     if (!confirmed) return;
 
     const previousSettings = settings;
-    settings = { ...DEFAULT_SETTINGS };
+
+    // Reset preferences without erasing the profile name.
+    settings = {
+      ...DEFAULT_SETTINGS,
+      displayName: previousSettings.displayName
+    };
 
     if (!persistSettings()) {
       settings = previousSettings;

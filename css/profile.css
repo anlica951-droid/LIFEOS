@@ -1,0 +1,370 @@
+
+/* =========================================
+   LIFEOS — MY PROFILE
+========================================= */
+
+.profile-content {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+/* PAGE INTRO */
+
+.profile-welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 30px 34px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 25px;
+    background: linear-gradient(
+        120deg,
+        rgba(226, 235, 223, 0.88),
+        rgba(246, 247, 239, 0.92)
+    );
+}
+
+.profile-eyebrow,
+.profile-section-kicker {
+    display: block;
+    color: #718875;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 9px;
+}
+
+.profile-welcome h1 {
+    margin: 0;
+    color: #303a32;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(30px, 4vw, 39px);
+    font-weight: 600;
+}
+
+.profile-welcome h1 em {
+    color: #718875;
+    font-weight: 500;
+}
+
+.profile-welcome p {
+    margin: 9px 0 0;
+    color: #758077;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.profile-welcome-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 19px;
+    color: #617c62;
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.profile-welcome-icon svg {
+    width: 25px;
+    height: 25px;
+}
+
+/* PROFILE LAYOUT */
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.7fr);
+    align-items: start;
+    gap: 22px;
+}
+
+/* SUMMARY CARD */
+
+.profile-summary-card,
+.profile-details-card {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 23px;
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 8px 30px rgba(48, 58, 50, 0.045);
+}
+
+.profile-summary-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 32px 20px;
+}
+
+.profile-large-avatar {
+    width: 94px;
+    height: 94px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 19px;
+    border: 5px solid #edf2e9;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #dce8d7, #a9bd9e);
+    color: #344c3d;
+    font-family: "Playfair Display", serif;
+    font-size: 38px;
+    font-weight: 600;
+}
+
+.profile-summary-card h2 {
+    margin: 0;
+    color: #303a32;
+    font-size: 17px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.profile-summary-card > p {
+    margin: 7px 0 17px;
+    color: #899188;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.profile-account-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 12px;
+    border-radius: 30px;
+    background: #edf4eb;
+    color: #617c62;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.profile-account-status span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #789b72;
+}
+
+/* DETAILS CARD */
+
+.profile-details-card {
+    padding: 29px;
+}
+
+.profile-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 27px;
+}
+
+.profile-section-heading h2 {
+    margin: 0;
+    color: #303a32;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.profile-section-heading p {
+    margin: 7px 0 0;
+    color: #899188;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.profile-section-heading > svg {
+    width: 23px;
+    height: 23px;
+    color: #82977d;
+    flex-shrink: 0;
+}
+
+/* FORM FIELDS */
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 22px;
+}
+
+.profile-field label {
+    color: #465449;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.profile-field input {
+    width: 100%;
+    min-height: 47px;
+    padding: 0 14px;
+    border: 1px solid #e4e9e1;
+    border-radius: 11px;
+    outline: none;
+    background: #fbfcf9;
+    color: #303a32;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.profile-field input:focus {
+    border-color: #9db296;
+    box-shadow: 0 0 0 3px rgba(169, 189, 158, 0.17);
+}
+
+.profile-field input:disabled {
+    cursor: not-allowed;
+    background: #f2f4ef;
+    color: #899188;
+    opacity: 1;
+}
+
+.profile-field small {
+    color: #929a91;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* FEEDBACK */
+
+.profile-feedback {
+    min-height: 20px;
+    margin: 5px 0 18px;
+    color: #829080;
+    font-size: 12px;
+}
+
+.profile-feedback.success {
+    color: #557b57;
+}
+
+.profile-feedback.error {
+    color: #b65e56;
+}
+
+/* ACTIONS */
+
+.profile-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 1px solid #edf0ea;
+}
+
+.profile-actions button {
+    min-height: 42px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 10px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.profile-cancel-button {
+    background: #f0f2ed;
+    color: #657066;
+}
+
+.profile-cancel-button:hover {
+    background: #e7ebe3;
+}
+
+.profile-save-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #617c62;
+    color: #fff;
+}
+
+.profile-save-button:hover {
+    background: #4d694f;
+    transform: translateY(-1px);
+}
+
+.profile-save-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+    transform: none;
+}
+
+.profile-save-button svg {
+    width: 15px;
+    height: 15px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-summary-card {
+        padding: 25px 20px;
+    }
+
+    .profile-large-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 33px;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-welcome {
+        padding: 23px 20px;
+        border-radius: 19px;
+    }
+
+    .profile-welcome-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 15px;
+    }
+
+    .profile-welcome p {
+        max-width: 250px;
+    }
+
+    .profile-details-card {
+        padding: 22px 18px;
+        border-radius: 19px;
+    }
+
+    .profile-section-heading h2 {
+        font-size: 17px;
+    }
+
+    .profile-actions button {
+        flex: 1;
+        padding: 0 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .profile-welcome-icon {
+        display: none;
+    }
+
+    .profile-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .profile-actions button {
+        width: 100%;
+    }
+}

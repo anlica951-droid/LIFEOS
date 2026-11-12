@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f5ef">
+  <meta name="description" content="Manage your LIFEOS personal profile.">
+
+  <title>My Profile | LIFEOS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/profile.css">
+
+  <style>
+    .profile-photo-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin: 0 auto 18px;
+    }
+
+    .profile-large-avatar {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .profile-large-avatar img,
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .profile-photo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .profile-photo-actions button {
+      border: 1px solid rgba(97, 124, 98, .25);
+      border-radius: 20px;
+      padding: 8px 13px;
+      background: rgba(255,255,255,.75);
+      color: #405b47;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .profile-photo-actions button:hover {
+      background: #e2ebdf;
+    }
+
+    .profile-photo-actions button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .profile-photo-hint {
+      color: #788078;
+      font-size: 11px;
+      text-align: center;
+      margin: 0;
+    }
+
+    #profilePhotoInput {
+      display: none;
+    }
+
+    .profile-feedback.error {
+      color: #a33c3c;
+    }
+
+    .profile-feedback.success {
+      color: #496d4c;
+    }
+  </style>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../js/theme.js"></script>
+</head>
+
+<body class="profile-page">
+
+<div class="app-layout">
+
+  <aside class="sidebar" id="sidebar">
+
+    <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
+      <i data-lucide="chevron-left"></i>
+    </button>
+
+    <a href="../dashboard.html" class="brand">
+      <span class="brand-icon"><i data-lucide="sprout"></i></span>
+      <span class="brand-name">LIFEOS</span>
+    </a>
+
+    <p class="sidebar-label">YOUR SPACE</p>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+
+      <a href="../dashboard.html" class="side-link nav-link">
+        <i data-lucide="house"></i>
+        <span>Home</span>
+      </a>
+
+      <a href="subjects.html" class="side-link nav-link">
+        <i data-lucide="graduation-cap"></i>
+        <span>Academics</span>
+      </a>
+
+      <a href="calendar.html" class="side-link nav-link">
+        <i data-lucide="calendar-days"></i>
+        <span>Calendar</span>
+      </a>
+
+      <a href="tasks.html" class="side-link nav-link">
+        <i data-lucide="list-checks"></i>
+        <span>My Tasks</span>
+      </a>
+
+      <a href="journal.html" class="side-link nav-link">
+        <i data-lucide="book-heart"></i>
+        <span>Mood &amp; Journal</span>
+      </a>
+
+      <a href="focus.html" class="side-link nav-link">
+        <i data-lucide="timer"></i>
+        <span>Study Session</span>
+      </a>
+
+      <a href="progress.html" class="side-link nav-link">
+        <i data-lucide="chart-no-axes-combined"></i>
+        <span>My Progress</span>
+      </a>
+
+      <a href="notes.html" class="side-link nav-link">
+        <i data-lucide="notebook-pen"></i>
+        <span>My Notes</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a href="settings.html" class="side-link nav-link">
+        <i data-lucide="settings"></i>
+        <span>Settings</span>
+      </a>
+
+      <div class="sidebar-quote">
+        <i data-lucide="leaf"></i>
+        <p>Small steps every day lead to beautiful changes.</p>
+      </div>
+
+      <div class="sidebar-version">
+        LIFEOS <span>PERSONAL EDITION</span>
+      </div>
+
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="topbar-breadcrumb">
+        <span>Workspace</span>
+        <i data-lucide="chevron-right"></i>
+        <strong>My Profile</strong>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="topbar-date" id="currentDate"></span>
+      </div>
+
+    </header>
+
+    <div class="page-content profile-content">
+
+      <section class="profile-welcome">
+        <div>
+          <span class="profile-eyebrow">PERSONAL SPACE</span>
+          <h1>My <em>Profile</em></h1>
+          <p>Manage the personal details connected to your LIFEOS account.</p>
+        </div>
+
+        <div class="profile-welcome-icon">
+          <i data-lucide="user-round"></i>
+        </div>
+      </section>
+
+      <section class="profile-layout">
+
+        <aside class="profile-summary-card">
+
+          <div class="profile-photo-area">
+
+            <div class="profile-large-avatar" id="profileAvatar">A</div>
+
+            <input
+              type="file"
+              id="profilePhotoInput"
+              accept="image/png,image/jpeg,image/webp"
+            >
+
+            <div class="profile-photo-actions">
+
+              <button type="button" id="choosePhotoButton">
+                <i data-lucide="camera"></i>
+                Change photo
+              </button>
+
+              <button type="button" id="removePhotoButton">
+                Remove
+              </button>
+
+            </div>
+
+            <p class="profile-photo-hint">
+              JPG, PNG or WEBP · Maximum 5 MB
+            </p>
+
+          </div>
+
+          <h2 id="profileDisplayName">Loading profile...</h2>
+          <p id="profileEmail">Loading account...</p>
+
+          <span class="profile-account-status">
+            <span></span>
+            Active account
+          </span>
+
+        </aside>
+
+        <section class="profile-details-card">
+
+          <div class="profile-section-heading">
+            <div>
+              <span class="profile-section-kicker">ACCOUNT DETAILS</span>
+              <h2>Personal information</h2>
+              <p>Update the name displayed throughout your workspace.</p>
+            </div>
+
+            <i data-lucide="user-round-pen"></i>
+          </div>
+
+          <form id="profileForm">
+
+            <div class="profile-field">
+              <label for="displayName">Display name</label>
+
+              <input
+                type="text"
+                id="displayName"
+                name="displayName"
+                maxlength="60"
+                placeholder="Enter your name"
+                autocomplete="name"
+                required
+              >
+
+              <small>
+                This name appears in your LIFEOS workspace.
+              </small>
+            </div>
+
+            <div class="profile-field">
+              <label for="accountEmail">Email address</label>
+
+              <input
+                type="email"
+                id="accountEmail"
+                name="email"
+                readonly
+                disabled
+              >
+
+              <small>
+                Your email is connected to your signed-in account.
+              </small>
+            </div>
+
+            <div
+              class="profile-feedback"
+              id="profileFeedback"
+              role="status"
+              aria-live="polite"
+            >
+              Your profile details are ready to edit.
+            </div>
+
+            <div class="profile-actions">
+
+              <button
+                type="button"
+                class="profile-cancel-button"
+                id="cancelProfile"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                class="profile-save-button"
+                id="saveProfile"
+              >
+                <i data-lucide="check"></i>
+                Save changes
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
+  // Current date
+  const date = document.getElementById("currentDate");
+
+  if (date) {
+    date.textContent = new Intl.DateTimeFormat("en", {
+      weekday: "long",
+      month: "long",
+      day: "numeric"
+    }).format(new Date());
+  }
+
+  // Mobile sidebar
+  const sidebar = document.getElementById("sidebar");
+  const menuToggle = document.getElementById("menuToggle");
+
+  menuToggle?.addEventListener("click", () => {
+    const isOpen = sidebar?.classList.toggle("open") ?? false;
+
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation" : "Open navigation"
+    );
+  });
+
+  // Sidebar collapse
+  const collapseButton = document.getElementById("sidebarCollapse");
+  const storageKey = "lifeos_sidebar_collapsed";
+
+  function updateSidebar(collapsed) {
+
+    document.body.classList.toggle("sidebar-collapsed", collapsed);
+
+    if (collapseButton) {
+      collapseButton.setAttribute(
+        "aria-label",
+        collapsed ? "Expand sidebar" : "Collapse sidebar"
+      );
+
+      collapseButton.innerHTML = collapsed
+        ? '<i data-lucide="chevron-right"></i>'
+        : '<i data-lucide="chevron-left"></i>';
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    }
+  }
+
+  updateSidebar(localStorage.getItem(storageKey) === "true");
+
+  collapseButton?.addEventListener("click", () => {
+
+    const collapsed =
+      !document.body.classList.contains("sidebar-collapsed");
+
+    localStorage.setItem(storageKey, String(collapsed));
+
+    updateSidebar(collapsed);
+  });
+
+});
+</script>
+
+<script type="module" src="../js/profile.js"></script>
+
+</body>
+</html>

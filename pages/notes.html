@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#f5f5ef">
 
-    <title>Notes | LIFEOS</title>
+    <title>My Notes | LIFEOS</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,100 +17,119 @@
     <link rel="stylesheet" href="../css/responsive.css">
 
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../js/theme.js"></script>
 </head>
 
-<body>
+<body class="notes-page">
 
 <div class="app-layout">
 
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-        
+
         <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
-    <i data-lucide="chevron-left"></i>
-</button>
+            <i data-lucide="chevron-left"></i>
+        </button>
+
         <a href="../dashboard.html" class="brand">
-            <span class="brand-mark"><i data-lucide="sprout"></i></span>
+            <span class="brand-icon">
+                <i data-lucide="sprout"></i>
+            </span>
             <span class="brand-name">LIFEOS</span>
         </a>
 
-        <p class="sidebar-label">WORKSPACE</p>
+        <div class="sidebar-label">YOUR SPACE</div>
 
-        <nav class="sidebar-nav">
-            <a href="../dashboard.html" class="nav-link">
-                <i data-lucide="layout-dashboard"></i>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+
+            <a href="../dashboard.html" class="side-link nav-link">
+                <i data-lucide="house"></i>
                 <span>Home</span>
             </a>
-             <a href="subjects.html" class="nav-link">
-    <i data-lucide="graduation-cap"></i>
-    <span>Academics</span>
-</a>
 
-            <a href="calendar.html" class="nav-link">
+            <a href="subjects.html" class="side-link nav-link">
+                <i data-lucide="graduation-cap"></i>
+                <span>Academics</span>
+            </a>
+
+            <a href="calendar.html" class="side-link nav-link">
                 <i data-lucide="calendar-days"></i>
                 <span>Calendar</span>
             </a>
 
-            <a href="tasks.html" class="nav-link">
-                <i data-lucide="check-square"></i>
-                <span>Tasks</span>
+            <a href="tasks.html" class="side-link nav-link">
+                <i data-lucide="list-checks"></i>
+                <span>My Tasks</span>
             </a>
 
-            <a href="journal.html" class="nav-link">
+            <a href="journal.html" class="side-link nav-link">
                 <i data-lucide="book-heart"></i>
-                <span>Journal</span>
+                <span>Mood &amp; Journal</span>
             </a>
 
-            <a href="focus.html" class="nav-link">
+            <a href="focus.html" class="side-link nav-link">
                 <i data-lucide="timer"></i>
-                <span>Focus</span>
+                <span>Study Session</span>
             </a>
 
-            <a href="progress.html" class="nav-link">
-                <i data-lucide="chart-no-axes-column-increasing"></i>
-                <span>Progress</span>
+            <a href="progress.html" class="side-link nav-link">
+                <i data-lucide="chart-no-axes-combined"></i>
+                <span>My Progress</span>
             </a>
-           
 
-            <a href="notes.html" class="nav-link active" aria-current="page">
+            <a href="notes.html" class="side-link nav-link active" aria-current="page">
                 <i data-lucide="notebook-pen"></i>
-                <span>Notes</span>
+                <span>My Notes</span>
             </a>
+
         </nav>
 
         <div class="sidebar-bottom">
-            <a href="settings.html" class="nav-link">
+
+            <a href="settings.html" class="side-link nav-link">
                 <i data-lucide="settings"></i>
                 <span>Settings</span>
             </a>
 
-            <div class="sidebar-profile">
-                <div class="profile-avatar">L</div>
-                <div class="profile-info">
-                    <strong>My Space</strong>
-                    <span>Personal dashboard</span>
-                </div>
+            <div class="sidebar-quote">
+                <i data-lucide="leaf"></i>
+                <p>Small steps every day lead to beautiful changes.</p>
             </div>
+
+            <div class="sidebar-version">
+                LIFEOS <span>PERSONAL EDITION</span>
+            </div>
+
         </div>
+
     </aside>
 
     <!-- MAIN CONTENT -->
     <main class="main-content">
 
         <header class="topbar">
-            <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open navigation"
+                aria-controls="sidebar"
+                aria-expanded="false"
+            >
                 <i data-lucide="menu"></i>
             </button>
 
             <div class="topbar-breadcrumb">
                 <span>Workspace</span>
                 <i data-lucide="chevron-right"></i>
-                <strong>Notes</strong>
+                <strong>My Notes</strong>
             </div>
 
             <div class="topbar-actions">
                 <span class="topbar-date" id="currentDate"></span>
             </div>
+
         </header>
 
         <section class="page-content">
@@ -133,6 +152,7 @@
 
             <!-- NOTE STATISTICS -->
             <section class="stats-grid">
+
                 <article class="stat-card">
                     <div class="stat-icon">
                         <i data-lucide="notebook-text"></i>
@@ -152,11 +172,14 @@
                         <strong class="stat-value" id="pinnedCount">0</strong>
                     </div>
                 </article>
+
             </section>
 
             <!-- SEARCH AND FILTERS -->
             <section class="content-section">
+
                 <div class="section-toolbar">
+
                     <div class="search-box">
                         <i data-lucide="search"></i>
                         <input
@@ -177,6 +200,7 @@
                         <option value="Ideas">Ideas</option>
                         <option value="Reminders">Reminders</option>
                     </select>
+
                 </div>
 
                 <!-- NOTES LIST -->
@@ -185,14 +209,18 @@
                 </div>
 
                 <p class="feedback-message" id="noteFeedback" role="status" aria-live="polite"></p>
+
             </section>
 
         </section>
+
     </main>
+
 </div>
 
 <!-- NOTE DIALOG -->
 <dialog class="app-dialog" id="noteDialog">
+
     <div class="dialog-header">
         <div>
             <p class="eyebrow">YOUR PERSONAL SPACE</p>
@@ -210,6 +238,7 @@
     </div>
 
     <form id="noteForm">
+
         <div class="form-group">
             <label for="noteTitle">Note title</label>
             <input
@@ -245,6 +274,7 @@
         </div>
 
         <div class="dialog-actions">
+
             <button type="button" class="secondary-button" id="cancelNote">
                 Cancel
             </button>
@@ -253,24 +283,34 @@
                 <i data-lucide="save"></i>
                 Save note
             </button>
+
         </div>
+
     </form>
+
 </dialog>
 
+<!-- SCRIPTS -->
 <script src="../js/notes.js"></script>
-<script src="../js/theme.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
+
         if (window.lucide) {
-            lucide.createIcons();
+            window.lucide.createIcons();
         }
 
         const menuToggle = document.getElementById("menuToggle");
         const sidebar = document.getElementById("sidebar");
 
         menuToggle?.addEventListener("click", () => {
-            sidebar?.classList.toggle("open");
+            const isOpen = sidebar.classList.toggle("open");
+
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation" : "Open navigation"
+            );
         });
 
         const currentDate = document.getElementById("currentDate");
@@ -282,38 +322,42 @@
                 day: "numeric"
             }).format(new Date());
         }
+
     });
 </script>
+
 <script>
-(() => {
-    const button = document.getElementById("sidebarCollapse");
-    if (!button) return;
+    (() => {
+        const button = document.getElementById("sidebarCollapse");
+        if (!button) return;
 
-    const STORAGE_KEY = "lifeos_sidebar_collapsed";
+        const STORAGE_KEY = "lifeos_sidebar_collapsed";
 
-    function updateSidebar(collapsed) {
-        document.body.classList.toggle("sidebar-collapsed", collapsed);
+        function updateSidebar(collapsed) {
+            document.body.classList.toggle("sidebar-collapsed", collapsed);
 
-        button.setAttribute(
-            "aria-label",
-            collapsed ? "Expand sidebar" : "Collapse sidebar"
-        );
+            button.setAttribute(
+                "aria-label",
+                collapsed ? "Expand sidebar" : "Collapse sidebar"
+            );
 
-        button.innerHTML = collapsed
-            ? '<i data-lucide="chevron-right"></i>'
-            : '<i data-lucide="chevron-left"></i>';
+            button.innerHTML = collapsed
+                ? '<i data-lucide="chevron-right"></i>'
+                : '<i data-lucide="chevron-left"></i>';
 
-        if (window.lucide) window.lucide.createIcons();
-    }
+            if (window.lucide) window.lucide.createIcons();
+        }
 
-    updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
+        updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
 
-    button.addEventListener("click", () => {
-        const collapsed = !document.body.classList.contains("sidebar-collapsed");
-        localStorage.setItem(STORAGE_KEY, String(collapsed));
-        updateSidebar(collapsed);
-    });
-})();
+        button.addEventListener("click", () => {
+            const collapsed = !document.body.classList.contains("sidebar-collapsed");
+
+            localStorage.setItem(STORAGE_KEY, String(collapsed));
+            updateSidebar(collapsed);
+        });
+
+    })();
 </script>
 
 </body>

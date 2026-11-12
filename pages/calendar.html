@@ -10,195 +10,246 @@
 
   <title>Calendar | LIFEOS</title>
 
-  <!-- Fonts -->
+  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@1.72.0/dist/umd/lucide.min.js"></script>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/pages.css">
   <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/calendar-sticky.css">
 </head>
 
 <body>
 
-  <div class="app-layout">
+<div class="app-layout">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
-    <i data-lucide="chevron-left"></i>
-</button>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
 
-      <a href="../index.html" class="brand">
-        <span class="brand-icon">
-          <i data-lucide="sprout"></i>
-        </span>
+    <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
+      <i data-lucide="chevron-left"></i>
+    </button>
 
-        <span class="brand-name">LIFEOS</span>
+    <a href="../dashboard.html" class="brand">
+      <span class="brand-icon">
+        <i data-lucide="sprout"></i>
+      </span>
+      <span class="brand-name">LIFEOS</span>
+    </a>
+
+    <div class="sidebar-label">YOUR SPACE</div>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+
+      <a href="../dashboard.html" class="side-link nav-link">
+        <i data-lucide="house"></i>
+        <span>Home</span>
       </a>
 
-      <div class="sidebar-label">WORKSPACE</div>
+      <a href="subjects.html" class="side-link nav-link">
+        <i data-lucide="graduation-cap"></i>
+        <span>Academics</span>
+      </a>
 
-      <nav class="sidebar-nav" aria-label="Main navigation">
+      <a href="calendar.html" class="side-link nav-link active" aria-current="page">
+        <i data-lucide="calendar-days"></i>
+        <span>Calendar</span>
+      </a>
 
-        <a href="../dashboard.html" class="nav-link">
-          <i data-lucide="layout-dashboard"></i>
-          <span>Home</span>
-        </a>
-         <a href="subjects.html" class="nav-link">
-  <i data-lucide="graduation-cap"></i>
-  <span>Academics</span>
-</a>
+      <a href="tasks.html" class="side-link nav-link">
+        <i data-lucide="list-checks"></i>
+        <span>My Tasks</span>
+      </a>
 
+      <a href="journal.html" class="side-link nav-link">
+        <i data-lucide="book-heart"></i>
+        <span>Mood &amp; Journal</span>
+      </a>
 
-        <a href="calendar.html" class="nav-link active" aria-current="page">
-          <i data-lucide="calendar-days"></i>
-          <span>Calendar</span>
-        </a>
+      <a href="focus.html" class="side-link nav-link">
+        <i data-lucide="timer"></i>
+        <span>Study Session</span>
+      </a>
 
-        <a href="tasks.html" class="nav-link">
-          <i data-lucide="check-square"></i>
-          <span>Tasks</span>
-        </a>
-       
-        <a href="journal.html" class="nav-link">
-          <i data-lucide="book-heart"></i>
-          <span>Journal</span>
-        </a>
+      <a href="progress.html" class="side-link nav-link">
+        <i data-lucide="chart-no-axes-combined"></i>
+        <span>My Progress</span>
+      </a>
 
-        <a href="focus.html" class="nav-link">
-          <i data-lucide="timer"></i>
-          <span>Focus</span>
-        </a>
+      <a href="notes.html" class="side-link nav-link">
+        <i data-lucide="notebook-pen"></i>
+        <span>My Notes</span>
+      </a>
 
-        <a href="progress.html" class="nav-link">
-          <i data-lucide="chart-no-axes-column-increasing"></i>
-          <span>Progress</span>
-        </a>
+    </nav>
 
-        <a href="notes.html" class="nav-link">
-          <i data-lucide="notebook-pen"></i>
-          <span>Notes</span>
-        </a>
+    <div class="sidebar-bottom">
 
-      </nav>
+      <a href="settings.html" class="side-link nav-link">
+        <i data-lucide="settings"></i>
+        <span>Settings</span>
+      </a>
 
-      <div class="sidebar-label">PREFERENCES</div>
-
-      <nav class="sidebar-nav" aria-label="Preferences">
-        <a href="settings.html" class="nav-link">
-          <i data-lucide="settings-2"></i>
-          <span>Settings</span>
-        </a>
-      </nav>
-
-      <div class="sidebar-bottom">
-        <div class="sidebar-profile">
-          <div class="profile-avatar">
-            <i data-lucide="user-round"></i>
-          </div>
-
-          <div class="profile-info">
-            <strong>My LIFEOS</strong>
-            <span>Personal workspace</span>
-          </div>
-        </div>
+      <div class="sidebar-quote">
+        <i data-lucide="leaf"></i>
+        <p>Small steps every day lead to beautiful changes.</p>
       </div>
 
-    </aside>
+      <div class="sidebar-version">
+        LIFEOS <span>PERSONAL EDITION</span>
+      </div>
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
+    </div>
 
-      <!-- TOPBAR -->
-      <header class="topbar">
+  </aside>
 
-        <button
-          type="button"
-          class="menu-toggle"
-          id="menuToggle"
-          aria-label="Open navigation"
-          aria-controls="sidebar"
-          aria-expanded="false"
-        >
-          <i data-lucide="menu"></i>
-        </button>
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
 
-        <div class="topbar-breadcrumb">
-          <span>Workspace</span>
-          <i data-lucide="chevron-right"></i>
-          <strong>Calendar</strong>
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="topbar-breadcrumb">
+        <span>Workspace</span>
+        <i data-lucide="chevron-right"></i>
+        <strong>Calendar</strong>
+      </div>
+
+      <a href="settings.html" class="profile-button" aria-label="Settings">
+        <i data-lucide="user-round"></i>
+      </a>
+
+    </header>
+
+    <!-- CALENDAR PAGE -->
+    <div class="page-content calendar-page">
+
+      <!-- PAGE INTRO -->
+      <section class="calendar-hero">
+
+        <div class="calendar-hero-copy">
+          <div class="calendar-overline">
+            <span class="calendar-overline-line"></span>
+            <span>YOUR TIME, THOUGHTFULLY PLANNED</span>
+          </div>
+
+          <h1>Your days, <em>in order.</em></h1>
+
+          <p>
+            Keep track of the little things, the important moments,
+            and everything you have planned ahead.
+          </p>
         </div>
 
-        <a href="settings.html" class="profile-button" aria-label="Settings">
-          <i data-lucide="user-round"></i>
-        </a>
-
-      </header>
-
-      <!-- PAGE CONTENT -->
-      <div class="page-content">
-
-        <!-- PAGE HEADER -->
-        <section class="page-header">
-
-          <div>
-            <span class="eyebrow">YOUR SCHEDULE</span>
-
-            <h1>Calendar</h1>
-
-            <p>
-              Keep track of important dates, plans, and upcoming events.
-            </p>
+        <div class="calendar-hero-decoration" aria-hidden="true">
+          <div class="calendar-decoration-circle">
+            <i data-lucide="calendar-days"></i>
           </div>
+          <span class="calendar-decoration-caption">MAKE ROOM FOR WHAT MATTERS</span>
+        </div>
+
+      </section>
+
+      <!-- ACTION TOOLBAR -->
+      <section class="calendar-toolbar" aria-label="Calendar actions">
+
+        <div class="calendar-toolbar-context">
+          <span class="toolbar-label">YOUR PLANNER</span>
+          <span class="toolbar-description">Everything in one place.</span>
+        </div>
+
+        <div class="calendar-intro-actions">
 
           <button
             type="button"
-            class="btn btn-primary"
-            id="openCalendarDialog"
+            class="calendar-action calendar-action-note"
+            id="createStickyNote"
           >
-            <i data-lucide="plus"></i>
-            Add Event
+            <span class="calendar-action-icon">
+              <i data-lucide="notebook-pen"></i>
+            </span>
+            <span class="calendar-action-copy">
+              <strong>Create note</strong>
+              <small>Leave yourself a reminder</small>
+            </span>
+            <i data-lucide="arrow-up-right" class="calendar-action-arrow"></i>
           </button>
 
-        </section>
+          <button
+            type="button"
+            class="calendar-action calendar-action-event"
+            id="openCalendarDialog"
+          >
+            <span class="calendar-action-icon">
+              <i data-lucide="plus"></i>
+            </span>
+            <span class="calendar-action-copy">
+              <strong>Add an event</strong>
+              <small>Plan something important</small>
+            </span>
+            <i data-lucide="arrow-up-right" class="calendar-action-arrow"></i>
+          </button>
 
-        <!-- CALENDAR SECTION -->
-        <section class="calendar-page-layout">
+        </div>
 
-          <div class="content-card full-calendar-card">
+      </section>
 
-            <!-- CALENDAR HEADER -->
-            <div class="calendar-header">
+      <!-- CALENDAR WORKSPACE -->
+      <section class="calendar-page-layout">
 
-              <div>
-                <h2 id="fullCalendarTitle">Month Year</h2>
-                <p>Choose a date to view its events.</p>
-              </div>
+        <!-- CALENDAR -->
+        <div class="content-card full-calendar-card">
 
-              <div class="calendar-controls">
+          <div class="calendar-header">
 
-                <button
-                  type="button"
-                  class="icon-button"
-                  id="calendarToday"
-                  aria-label="Go to today"
-                  title="Today"
-                >
-                  <i data-lucide="calendar-check"></i>
-                </button>
+            <div class="calendar-heading-text">
+              <span class="calendar-section-kicker">
+                <span class="calendar-kicker-dot"></span>
+                MONTHLY OVERVIEW
+              </span>
+
+              <h2 id="fullCalendarTitle">Month Year</h2>
+
+              <p>Every date is a chance to make progress.</p>
+            </div>
+
+            <div class="calendar-controls">
+
+              <button
+                type="button"
+                class="calendar-today-button"
+                id="calendarToday"
+                title="Go to today"
+              >
+                <i data-lucide="calendar-check"></i>
+                <span>Today</span>
+              </button>
+
+              <div class="calendar-month-navigation">
 
                 <button
                   type="button"
                   class="icon-button"
                   id="calendarPrevious"
                   aria-label="Previous month"
+                  title="Previous month"
                 >
                   <i data-lucide="chevron-left"></i>
                 </button>
@@ -208,6 +259,7 @@
                   class="icon-button"
                   id="calendarNext"
                   aria-label="Next month"
+                  title="Next month"
                 >
                   <i data-lucide="chevron-right"></i>
                 </button>
@@ -216,7 +268,10 @@
 
             </div>
 
-            <!-- WEEKDAY LABELS -->
+          </div>
+
+          <div class="calendar-grid-wrapper">
+
             <div class="calendar-weekdays" aria-hidden="true">
               <span>Sun</span>
               <span>Mon</span>
@@ -227,7 +282,6 @@
               <span>Sat</span>
             </div>
 
-            <!-- CALENDAR DAYS -->
             <div
               class="calendar-days full-calendar-days"
               id="fullCalendarDays"
@@ -236,234 +290,376 @@
               <!-- Generated by calendar.js -->
             </div>
 
-            <!-- CALENDAR LEGEND -->
-            <div class="calendar-legend">
+          </div>
 
-              <span>
-                <i class="legend-dot today-dot"></i>
-                Today
+          <!-- CALENDAR LEGEND -->
+          <div class="calendar-legend">
+
+            <div class="calendar-legend-title">CALENDAR KEY</div>
+
+            <span>
+              <i class="legend-dot today-dot"></i>
+              Today
+            </span>
+
+            <span>
+              <i class="legend-dot event-dot"></i>
+              Events
+            </span>
+
+            <span>
+              <i class="legend-dot selected-dot"></i>
+              Selected date
+            </span>
+
+            <span class="note-legend">
+              <i data-lucide="sticky-note"></i>
+              Paper notes
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- DAILY SCHEDULE PANEL -->
+        <aside class="content-card calendar-events-panel">
+
+          <div class="events-panel-top">
+
+            <span class="calendar-section-kicker">
+              <span class="calendar-kicker-dot"></span>
+              YOUR DAILY PLAN
+            </span>
+
+            <div class="events-panel-heading">
+              <div>
+                <h2>Daily schedule</h2>
+                <p>What is happening on this day?</p>
+              </div>
+
+              <span class="events-panel-icon">
+                <i data-lucide="calendar-clock"></i>
               </span>
-
-              <span>
-                <i class="legend-dot event-dot"></i>
-                Has events
-              </span>
-
-              <span>
-                <i class="legend-dot selected-dot"></i>
-                Selected date
-              </span>
-
             </div>
 
           </div>
 
-          <!-- SELECTED DATE EVENTS -->
-          <aside class="content-card calendar-events-panel">
+          <div class="events-selected-date">
+            <span class="events-date-label">SELECTED DATE</span>
+            <h3 id="selectedDateLabel">Selected Date</h3>
+          </div>
 
-            <div class="section-heading">
+          <div class="events-panel-divider"></div>
 
-              <div>
-                <span class="eyebrow">YOUR PLANS</span>
-                <h2 id="selectedDateLabel">Selected Date</h2>
-              </div>
+          <div class="events-list-heading">
+            <h3>Scheduled events</h3>
 
-              <button
-                type="button"
-                class="icon-button"
-                id="addCalendarEvent"
-                aria-label="Add event"
-                title="Add event"
-              >
-                <i data-lucide="plus"></i>
-              </button>
-
-            </div>
-
-            <div
-              class="calendar-events-list"
-              id="calendarEventsList"
-              aria-live="polite"
+            <button
+              type="button"
+              class="events-add-button"
+              id="addCalendarEvent"
+              aria-label="Add event"
+              title="Add event"
             >
-              <!-- Generated by calendar.js -->
-            </div>
+              <i data-lucide="plus"></i>
+            </button>
+          </div>
 
-          </aside>
+          <div
+            class="calendar-events-list"
+            id="calendarEventsList"
+            aria-live="polite"
+          >
+            <!-- Generated by calendar.js -->
+          </div>
 
-        </section>
+          <div class="events-panel-footer">
+            <i data-lucide="sprout"></i>
+            <p>Make today meaningful, one plan at a time.</p>
+          </div>
 
-        <div
-          class="feedback-message"
-          id="calendarFeedback"
-          role="status"
-          hidden
-        ></div>
+        </aside>
 
+      </section>
+
+      <div
+        class="feedback-message"
+        id="calendarFeedback"
+        role="status"
+        hidden
+      ></div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<!-- ADD EVENT DIALOG -->
+<dialog class="app-dialog" id="calendarEventDialog">
+
+  <form id="calendarEventForm" class="dialog-form">
+
+    <div class="dialog-header">
+
+      <div>
+        <span class="eyebrow">YOUR SCHEDULE</span>
+        <h2 data-dialog-title>Add an Event</h2>
       </div>
 
-    </main>
+      <button
+        type="button"
+        class="icon-button"
+        id="closeCalendarDialog"
+        aria-label="Close dialog"
+      >
+        <i data-lucide="x"></i>
+      </button>
 
-  </div>
+    </div>
 
-  <!-- ADD EVENT DIALOG -->
-  <dialog class="app-dialog" id="calendarEventDialog">
+    <div class="form-group">
+      <label for="calendarEventTitle">Event title</label>
+      <input
+        type="text"
+        id="calendarEventTitle"
+        name="title"
+        placeholder="e.g. Study session"
+        maxlength="100"
+        required
+      >
+    </div>
 
-    <form id="calendarEventForm" class="dialog-form">
-
-      <div class="dialog-header">
-
-        <div>
-          <span class="eyebrow">YOUR SCHEDULE</span>
-          <h2 data-dialog-title>Add an Event</h2>
-        </div>
-
-        <button
-          type="button"
-          class="icon-button"
-          id="closeCalendarDialog"
-          aria-label="Close dialog"
-        >
-          <i data-lucide="x"></i>
-        </button>
-
-      </div>
+    <div class="form-row">
 
       <div class="form-group">
-
-        <label for="calendarEventTitle">Event title</label>
-
+        <label for="calendarEventDate">Date</label>
         <input
-          type="text"
-          id="calendarEventTitle"
-          name="title"
-          placeholder="e.g. Study session"
-          maxlength="100"
+          type="date"
+          id="calendarEventDate"
+          name="date"
           required
         >
-
-      </div>
-
-      <div class="form-row">
-
-        <div class="form-group">
-
-          <label for="calendarEventDate">Date</label>
-
-          <input
-            type="date"
-            id="calendarEventDate"
-            name="date"
-            required
-          >
-
-        </div>
-
-        <div class="form-group">
-
-          <label for="calendarEventTime">Time</label>
-
-          <input
-            type="time"
-            id="calendarEventTime"
-            name="time"
-          >
-
-        </div>
-
       </div>
 
       <div class="form-group">
+        <label for="calendarEventTime">Time</label>
+        <input
+          type="time"
+          id="calendarEventTime"
+          name="time"
+        >
+      </div>
 
-        <label for="calendarEventDescription">
-          Description
-          <span class="optional-label">Optional</span>
-        </label>
+    </div>
 
-        <textarea
-          id="calendarEventDescription"
-          name="description"
-          rows="4"
-          maxlength="1000"
-          placeholder="Add some details about this event..."
-        ></textarea>
+    <div class="form-group">
+      <label for="calendarEventDescription">
+        Description <span class="optional-label">Optional</span>
+      </label>
+
+      <textarea
+        id="calendarEventDescription"
+        name="description"
+        rows="4"
+        maxlength="1000"
+        placeholder="Add some details about this event..."
+      ></textarea>
+    </div>
+
+    <div class="dialog-actions">
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        id="cancelCalendarEvent"
+      >
+        Cancel
+      </button>
+
+      <button type="submit" class="btn btn-primary">
+        Save Event
+      </button>
+
+    </div>
+
+  </form>
+
+</dialog>
+
+<!-- CREATE / EDIT PAPER NOTE DIALOG -->
+<dialog class="sticky-note-dialog" id="stickyNoteDialog">
+
+  <form id="stickyNoteForm" class="sticky-note-dialog-inner">
+
+    <div class="dialog-header">
+
+      <div>
+        <span class="eyebrow">A LITTLE REMINDER</span>
+        <h2 id="stickyNoteDialogTitle">Create a Note</h2>
+      </div>
+
+      <button
+        type="button"
+        class="icon-button"
+        id="closeStickyNoteDialog"
+        aria-label="Close dialog"
+      >
+        <i data-lucide="x"></i>
+      </button>
+
+    </div>
+
+    <p class="dialog-description">
+      Write something you want to remember and place it on your calendar.
+    </p>
+
+    <label class="sticky-note-field">
+      <span>Note title</span>
+      <input
+        type="text"
+        id="stickyNoteTitle"
+        maxlength="70"
+        placeholder="e.g. Don't forget!"
+        required
+      >
+    </label>
+
+    <label class="sticky-note-field">
+      <span>Your reminder</span>
+      <textarea
+        id="stickyNoteBody"
+        maxlength="500"
+        rows="4"
+        placeholder="Write your thoughts here..."
+      ></textarea>
+    </label>
+
+    <label class="sticky-note-field">
+      <span>Calendar date</span>
+      <input
+        type="date"
+        id="stickyNoteDate"
+        required
+      >
+    </label>
+
+    <div class="sticky-note-field">
+
+      <span>Choose a paper color</span>
+
+      <div class="sticky-note-colors" id="stickyNoteColors">
+
+        <button type="button" class="sticky-note-color" data-color="#f3e9ad" style="background:#f3e9ad" aria-label="Butter yellow" aria-pressed="true"></button>
+
+        <button type="button" class="sticky-note-color" data-color="#f2d6d1" style="background:#f2d6d1" aria-label="Soft pink" aria-pressed="false"></button>
+
+        <button type="button" class="sticky-note-color" data-color="#dce8d5" style="background:#dce8d5" aria-label="Sage green" aria-pressed="false"></button>
+
+        <button type="button" class="sticky-note-color" data-color="#dce5f0" style="background:#dce5f0" aria-label="Powder blue" aria-pressed="false"></button>
+
+        <button type="button" class="sticky-note-color" data-color="#eadff0" style="background:#eadff0" aria-label="Lavender" aria-pressed="false"></button>
 
       </div>
 
-      <div class="dialog-actions">
+    </div>
+
+    <div class="sticky-note-dialog-actions">
+
+      <button
+        type="button"
+        class="sticky-note-delete"
+        id="deleteStickyNote"
+        hidden
+      >
+        <i data-lucide="trash-2"></i>
+        Delete
+      </button>
+
+      <div class="sticky-note-dialog-right">
 
         <button
           type="button"
-          class="btn btn-secondary"
-          id="cancelCalendarEvent"
+          class="sticky-note-cancel"
+          id="cancelStickyNote"
         >
           Cancel
         </button>
 
         <button
           type="submit"
-          class="btn btn-primary"
+          class="sticky-note-save"
+          id="saveStickyNote"
         >
-          Save Event
+          Save Note
         </button>
 
       </div>
 
-    </form>
+    </div>
 
-  </dialog>
+  </form>
 
-  <!-- SCRIPTS -->
-  <script src="../js/calendar.js"></script>
-  <script src="../js/theme.js"></script>
+</dialog>
 
-  <script>
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
+<!-- SCRIPTS -->
+<script src="../js/calendar.js"></script>
+<script src="../js/theme.js"></script>
 
-    const sidebar = document.getElementById("sidebar");
-    const menuToggle = document.getElementById("menuToggle");
-
-    menuToggle?.addEventListener("click", () => {
-      const isOpen = sidebar.classList.toggle("open");
-
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-      );
-    });
-  </script>
 <script>
-(() => {
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
+  const sidebar = document.getElementById("sidebar");
+  const menuToggle = document.getElementById("menuToggle");
+
+  menuToggle?.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("open");
+
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation" : "Open navigation"
+    );
+  });
+</script>
+
+<!-- SIDEBAR COLLAPSE -->
+<script>
+  (() => {
     const button = document.getElementById("sidebarCollapse");
     if (!button) return;
 
     const STORAGE_KEY = "lifeos_sidebar_collapsed";
 
     function updateSidebar(collapsed) {
-        document.body.classList.toggle("sidebar-collapsed", collapsed);
+      document.body.classList.toggle("sidebar-collapsed", collapsed);
 
-        button.setAttribute(
-            "aria-label",
-            collapsed ? "Expand sidebar" : "Collapse sidebar"
-        );
+      button.setAttribute(
+        "aria-label",
+        collapsed ? "Expand sidebar" : "Collapse sidebar"
+      );
 
-        button.innerHTML = collapsed
-            ? '<i data-lucide="chevron-right"></i>'
-            : '<i data-lucide="chevron-left"></i>';
+      button.innerHTML = collapsed
+        ? '<i data-lucide="chevron-right"></i>'
+        : '<i data-lucide="chevron-left"></i>';
 
-        if (window.lucide) window.lucide.createIcons();
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
     }
 
     updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
 
     button.addEventListener("click", () => {
-        const collapsed = !document.body.classList.contains("sidebar-collapsed");
-        localStorage.setItem(STORAGE_KEY, String(collapsed));
-        updateSidebar(collapsed);
+      const collapsed = !document.body.classList.contains("sidebar-collapsed");
+
+      localStorage.setItem(STORAGE_KEY, String(collapsed));
+      updateSidebar(collapsed);
     });
-})();
+  })();
 </script>
+
 </body>
 </html>
