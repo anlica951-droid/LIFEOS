@@ -7,7 +7,7 @@ async function protectDashboard() {
     // Redirect users who are not signed in.
     if (error || !user) {
         window.location.replace(
-            new URL("login.html", window.location.href).href
+            new URL("../login.html", import.meta.url).href
         );
         return;
     }
@@ -44,14 +44,17 @@ async function protectDashboard() {
 
         const photoPath = user.user_metadata?.avatar_path;
 
-        // Retrieve the private profile photo.
+        // Retrieve the user's private profile photo.
         if (photoPath) {
             const { data, error: photoError } = await supabase.storage
                 .from("profile-photos")
                 .createSignedUrl(photoPath, 3600);
 
             if (photoError) {
-                console.error("Could not load profile photo:", photoError.message);
+                console.error(
+                    "Could not load profile photo:",
+                    photoError.message
+                );
             } else if (data?.signedUrl) {
                 const image = document.createElement("img");
 

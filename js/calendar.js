@@ -1,14 +1,14 @@
 
 /* =========================================
-   LIFEOS — CALENDAR + VISIBLE PAPER NOTES
+   LIFEOS — CALENDAR + PAPER NOTES
+   SUPABASE VERSION
    File: js/calendar.js
 ========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-    "use strict";
+import { supabase } from "./supabase.js";
 
-    const EVENT_KEY = "lifeos_calendar_events";
-    const NOTE_KEY = "lifeos_calendar_sticky_notes";
+document.addEventListener("DOMContentLoaded", async () => {
+    "use strict";
 
     const $ = id => document.getElementById(id);
 
@@ -48,6 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const today = new Date();
     const todayString = dateString(today);
 
+    let currentUser = null;
+    let events = [];
+    let notes = [];
+
     let selectedDate = todayString;
     let displayedMonth = new Date(
         today.getFullYear(),
@@ -58,54 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let editingNoteId = null;
     let editingEventId = null;
     let selectedColor = colors[0];
+    let isSaving = false;
 
     let notesList = null;
     let addNoteButton = null;
 
     /* =====================================
-       STORAGE
+       DATE HELPERS
     ===================================== */
-
-    function read(key) {
-        try {
-            const value = JSON.parse(localStorage.getItem(key) || "[]");
-            return Array.isArray(value) ? value : [];
-        } catch (error) {
-            console.error("Calendar storage error:", error);
-            return [];
-        }
-    }
-
-    function write(key, data) {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
-            return true;
-        } catch (error) {
-            console.error("Calendar save error:", error);
-            feedback("Unable to save. Check your browser storage.");
-            return false;
-        }
-    }
-
-    const getEvents = () => read(EVENT_KEY);
-    const getNotes = () => read(NOTE_KEY);
-
-    /* =====================================
-       HELPERS
-    ===================================== */
-
-    function element(tag, className, text) {
-        const node = document.createElement(tag);
-
-        if (className) node.className = className;
-        if (text !== undefined) node.textContent = text;
-
-        return node;
-    }
-
-    function id(prefix) {
-        return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-    }
 
     function dateString(date) {
         const year = date.getFullYear();
@@ -138,6 +102,73 @@ document.addEventListener("DOMContentLoaded", () => {
             : "";
     }
 
+    function localDateTimeToISO(dateValue, timeValue = "") {
+        const date = parseDate(dateValue);
+        if (!date) return null;
+
+        const [hours, minutes] = (timeValue || "00:00")
+            .split(":")
+            .map(Number);
+
+        return new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            hours || 0,
+            minutes || 0,
+            0,
+            0
+        ).toISOString();
+    }
+
+    function getLocalDateFromISO(value) {
+        if (!value) return "";
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) return "";
+
+        return dateString(date);
+    }
+
+    function getLocalTimeFromISO(value) {
+        if (!value) return "";
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) return "";
+
+        return `${String(date.getHours()).padStart(2, "0")}:${String(
+            date.getMinutes()
+        ).padStart(2, "0")}`;
+    }
+
+    function showMonthFor(value) {
+        const date = parseDate(value);
+        if (!date) return;
+
+        displayedMonth = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            1
+        );
+
+        selectedDate = value;
+    }
+
+    /* =====================================
+       GENERAL HELPERS
+    ===================================== */
+
+    function element(tag, className, text) {
+        const node = document.createElement(tag);
+
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+
+        return node;
+    }
+
     function feedback(message, error = true) {
         const box = $("calendarFeedback");
         if (!box) return;
@@ -145,6 +176,20 @@ document.addEventListener("DOMContentLoaded", () => {
         box.textContent = message;
         box.hidden = false;
         box.classList.toggle("error", error);
+
+        clearTimeout(feedback.timeout);
+
+        feedback.timeout = setTimeout(() => {
+            box.hidden = true;
+        }, 4000);
+    }
+
+    function databaseError(action, error) {
+        console.error(`LIFEOS Calendar: ${action} failed:`, error);
+
+        feedback(
+            `${action} failed: ${error?.message || "Please try again."}`
+        );
     }
 
     function openDialog(dialog) {
@@ -167,23 +212,79 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function showMonthFor(value) {
-        const date = parseDate(value);
-        if (!date) return;
-
-        displayedMonth = new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            1
-        );
-
-        selectedDate = value;
-    }
-
     function refreshIcons() {
         if (window.lucide?.createIcons) {
             window.lucide.createIcons();
         }
+    }
+
+    /* =====================================
+       DATABASE ROW CONVERSION
+    ===================================== */
+
+    function mapEvent(row) {
+        return {
+            id: row.id,
+            title: row.title || "",
+            date: getLocalDateFromISO(row.starts_at),
+            time: row.all_day
+                ? ""
+                : getLocalTimeFromISO(row.starts_at),
+            description: row.description || "",
+            allDay: Boolean(row.all_day),
+            startsAt: row.starts_at,
+            createdAt: row.created_at,
+            updatedAt: row.updated_at
+        };
+    }
+
+    function mapNote(row) {
+        return {
+            id: row.id,
+            title: row.title || "",
+            body: row.content || "",
+            date: row.calendar_date || "",
+            color: row.color || colors[0],
+            createdAt: row.created_at,
+            updatedAt: row.updated_at
+        };
+    }
+
+    /* =====================================
+       LOAD DATA FROM SUPABASE
+    ===================================== */
+
+    async function loadCalendarData() {
+        if (!currentUser) return;
+
+        const [eventResult, noteResult] = await Promise.all([
+            supabase
+                .from("personal_events")
+                .select("*")
+                .eq("user_id", currentUser.id)
+                .order("starts_at", { ascending: true }),
+
+            supabase
+                .from("notes")
+                .select("*")
+                .eq("user_id", currentUser.id)
+                .eq("note_type", "calendar")
+                .order("created_at", { ascending: false })
+        ]);
+
+        if (eventResult.error) {
+            databaseError("Loading calendar events", eventResult.error);
+        } else {
+            events = (eventResult.data || []).map(mapEvent);
+        }
+
+        if (noteResult.error) {
+            databaseError("Loading calendar notes", noteResult.error);
+        } else {
+            notes = (noteResult.data || []).map(mapNote);
+        }
+
+        renderAll();
     }
 
     /* =====================================
@@ -346,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================
-       CREATE NOTES PANEL AUTOMATICALLY
+       CREATE NOTES PANEL
     ===================================== */
 
     function createNotesPanel() {
@@ -363,14 +464,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const section = element("section", "calendar-notes-section");
-        section.classList.add("calendar-notes-section");
-
         const divider = element("div", "events-panel-divider");
-
         const heading = element("div", "calendar-notes-heading");
 
         const headingCopy = element("div");
+
         const title = element("h3", "", "My paper notes");
+
         const subtitle = element(
             "p",
             "calendar-notes-subtitle",
@@ -433,7 +533,7 @@ document.addEventListener("DOMContentLoaded", () => {
         eventForm.reset();
 
         const event = eventId
-            ? getEvents().find(item => item.id === eventId)
+            ? events.find(item => item.id === eventId)
             : null;
 
         if (eventId && !event) {
@@ -455,76 +555,124 @@ document.addEventListener("DOMContentLoaded", () => {
         const submitButton = eventForm.querySelector('[type="submit"]');
 
         if (submitButton) {
-            submitButton.textContent = event
-                ? "Save Changes"
-                : "Save Event";
+            submitButton.textContent = event ? "Save Changes" : "Save Event";
         }
 
         openDialog(eventDialog);
     }
 
-    function saveEvent(e) {
+    /* =====================================
+       CREATE / UPDATE EVENT
+    ===================================== */
+
+    async function saveEvent(e) {
         e.preventDefault();
+
+        if (isSaving) return;
 
         const title = eventTitleInput.value.trim();
         const date = eventDateInput.value;
+        const time = eventTimeInput.value;
 
         if (!title || !parseDate(date)) {
             feedback("Please enter a valid event title and date.");
             return;
         }
 
-        const events = getEvents();
-        const now = new Date().toISOString();
+        const startsAt = localDateTimeToISO(date, time);
 
-        if (editingEventId) {
-            const index = events.findIndex(
-                item => item.id === editingEventId
-            );
+        if (!startsAt) {
+            feedback("Please enter a valid event date and time.");
+            return;
+        }
 
-            if (index === -1) {
-                feedback("The event could not be found.");
+        const payload = {
+            title,
+            description: eventDescriptionInput.value.trim() || null,
+            location: null,
+            starts_at: startsAt,
+            ends_at: null,
+            all_day: !time,
+            updated_at: new Date().toISOString()
+        };
+
+        isSaving = true;
+
+        const submitButton = eventForm.querySelector('[type="submit"]');
+        if (submitButton) submitButton.disabled = true;
+
+        try {
+            let result;
+
+            if (editingEventId) {
+                result = await supabase
+                    .from("personal_events")
+                    .update(payload)
+                    .eq("id", editingEventId)
+                    .eq("user_id", currentUser.id)
+                    .select("*")
+                    .single();
+            } else {
+                result = await supabase
+                    .from("personal_events")
+                    .insert({
+                        ...payload,
+                        user_id: currentUser.id
+                    })
+                    .select("*")
+                    .single();
+            }
+
+            if (result.error) {
+                databaseError("Saving event", result.error);
                 return;
             }
 
-            events[index] = {
-                ...events[index],
-                title,
-                date,
-                time: eventTimeInput.value,
-                description: eventDescriptionInput.value.trim(),
-                updatedAt: now
-            };
-        } else {
-            events.push({
-                id: id("event"),
-                title,
-                date,
-                time: eventTimeInput.value,
-                description: eventDescriptionInput.value.trim(),
-                createdAt: now
-            });
+            const savedEvent = mapEvent(result.data);
+
+            if (editingEventId) {
+                events = events.map(item =>
+                    item.id === editingEventId ? savedEvent : item
+                );
+            } else {
+                events.push(savedEvent);
+            }
+
+            showMonthFor(date);
+
+            editingEventId = null;
+            closeDialog(eventDialog);
+
+            renderAll();
+            feedback("Event saved successfully.", false);
+
+        } catch (error) {
+            databaseError("Saving event", error);
+        } finally {
+            isSaving = false;
+            if (submitButton) submitButton.disabled = false;
         }
-
-        if (!write(EVENT_KEY, events)) return;
-
-        showMonthFor(date);
-        editingEventId = null;
-
-        closeDialog(eventDialog);
-        renderAll();
-
-        feedback("Event saved successfully.", false);
     }
 
-    function deleteEvent(eventId) {
+    /* =====================================
+       DELETE EVENT
+    ===================================== */
+
+    async function deleteEvent(eventId) {
         if (!window.confirm("Delete this event?")) return;
 
-        const updated = getEvents().filter(
-            item => item.id !== eventId
-        );
+        const { error } = await supabase
+            .from("personal_events")
+            .delete()
+            .eq("id", eventId)
+            .eq("user_id", currentUser.id);
 
-        if (!write(EVENT_KEY, updated)) return;
+        if (error) {
+            databaseError("Deleting event", error);
+            return;
+        }
+
+        events = events.filter(item => item.id !== eventId);
 
         renderAll();
         feedback("Event deleted.", false);
@@ -543,13 +691,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         eventsList.replaceChildren();
 
-        const events = getEvents()
+        const dailyEvents = events
             .filter(item => item.date === selectedDate)
-            .sort((a, b) =>
-                (a.time || "").localeCompare(b.time || "")
-            );
+            .sort((a, b) => (a.time || "").localeCompare(b.time || ""));
 
-        if (!events.length) {
+        if (!dailyEvents.length) {
             const empty = element("div", "empty-state");
 
             empty.append(
@@ -566,7 +712,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        events.forEach(event => {
+        dailyEvents.forEach(event => {
             const item = element("article", "calendar-event-item");
             const marker = element("span", "event-color");
             const details = element("div", "event-details");
@@ -581,9 +727,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 "p",
                 "event-meta",
                 [
-                    event.time || "",
+                    event.time || "All day",
                     event.description || ""
-                ].filter(Boolean).join(" • ") || "No additional details"
+                ].filter(Boolean).join(" • ")
             );
 
             const actions = element("div", "calendar-event-actions");
@@ -615,7 +761,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================
-       RENDER VISIBLE PAPER NOTES
+       RENDER PAPER NOTES
     ===================================== */
 
     function renderNotes() {
@@ -623,7 +769,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         notesList.replaceChildren();
 
-        const notes = getNotes()
+        const dailyNotes = notes
             .filter(note => note.date === selectedDate)
             .sort((a, b) =>
                 (b.updatedAt || b.createdAt || "").localeCompare(
@@ -634,29 +780,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const count = $("calendarNoteCount");
 
         if (count) {
-            count.textContent = `${notes.length} ${
-                notes.length === 1 ? "note" : "notes"
+            count.textContent = `${dailyNotes.length} ${
+                dailyNotes.length === 1 ? "note" : "notes"
             }`;
         }
 
-        if (!notes.length) {
+        if (!dailyNotes.length) {
             const empty = element("div", "calendar-notes-empty");
 
-            const icon = element(
-                "span",
-                "calendar-notes-empty-icon"
-            );
-
+            const icon = element("span", "calendar-notes-empty-icon");
             icon.innerHTML = '<i data-lucide="notebook-pen"></i>';
 
             empty.append(
                 icon,
                 element("strong", "", "No paper notes for this date"),
-                element(
-                    "div",
-                    "",
-                    "Create a note and it will appear here."
-                )
+                element("div", "", "Create a note and it will appear here.")
             );
 
             notesList.appendChild(empty);
@@ -664,15 +802,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        notes.forEach(note => {
+        dailyNotes.forEach(note => {
             const card = element("button", "calendar-paper-card");
             card.type = "button";
 
-            const paperColor = colors.includes(note.color)
+            card.style.backgroundColor = colors.includes(note.color)
                 ? note.color
                 : colors[0];
-
-            card.style.backgroundColor = paperColor;
 
             card.setAttribute(
                 "aria-label",
@@ -708,7 +844,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================
-       CREATE / EDIT NOTES
+       CREATE / EDIT PAPER NOTES
     ===================================== */
 
     function openNoteDialog(noteId = null) {
@@ -719,7 +855,7 @@ document.addEventListener("DOMContentLoaded", () => {
         noteForm.reset();
 
         const note = noteId
-            ? getNotes().find(item => item.id === noteId)
+            ? notes.find(item => item.id === noteId)
             : null;
 
         if (noteId && !note) {
@@ -746,13 +882,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const saveButton = $("saveStickyNote");
 
         if (saveButton) {
-            saveButton.textContent = note
-                ? "Save Changes"
-                : "Save Note";
+            saveButton.textContent = note ? "Save Changes" : "Save Note";
         }
 
         openDialog(noteDialog);
-        noteTitleInput.focus();
+        noteTitleInput?.focus();
     }
 
     function closeNoteDialog() {
@@ -760,8 +894,10 @@ document.addEventListener("DOMContentLoaded", () => {
         editingNoteId = null;
     }
 
-    function saveNote(e) {
+    async function saveNote(e) {
         e.preventDefault();
+
+        if (isSaving) return;
 
         const title = noteTitleInput.value.trim();
         const body = noteBodyInput.value.trim();
@@ -777,65 +913,121 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const notes = getNotes();
         const now = new Date().toISOString();
 
-        if (editingNoteId) {
-            const index = notes.findIndex(
-                item => item.id === editingNoteId
-            );
+        const payload = {
+            title,
+            content: body,
+            category: null,
+            color: selectedColor,
+            calendar_date: date,
+            note_type: "calendar",
+            updated_at: now
+        };
 
-            if (index === -1) {
-                feedback("This note could not be found.");
+        isSaving = true;
+
+        const saveButton = $("saveStickyNote") ||
+            noteForm.querySelector('[type="submit"]');
+
+        if (saveButton) saveButton.disabled = true;
+
+        try {
+            let result;
+
+            if (editingNoteId) {
+                result = await supabase
+                    .from("notes")
+                    .update(payload)
+                    .eq("id", editingNoteId)
+                    .eq("user_id", currentUser.id)
+                    .eq("note_type", "calendar")
+                    .select("*")
+                    .single();
+            } else {
+                result = await supabase
+                    .from("notes")
+                    .insert({
+                        ...payload,
+                        user_id: currentUser.id,
+                        subject_id: null,
+                        pinned: false,
+                        created_at: now
+                    })
+                    .select("*")
+                    .single();
+            }
+
+            if (result.error) {
+                databaseError("Saving paper note", result.error);
                 return;
             }
 
-            notes[index] = {
-                ...notes[index],
-                title,
-                body,
-                date,
-                color: selectedColor,
-                updatedAt: now
-            };
-        } else {
-            notes.push({
-                id: id("note"),
-                title,
-                body,
-                date,
-                color: selectedColor,
-                createdAt: now,
-                updatedAt: now
-            });
+            const savedNote = mapNote(result.data);
+
+            if (editingNoteId) {
+                notes = notes.map(item =>
+                    item.id === editingNoteId ? savedNote : item
+                );
+            } else {
+                notes.unshift(savedNote);
+            }
+
+            showMonthFor(date);
+            closeNoteDialog();
+
+            renderAll();
+            feedback("Your note has been saved.", false);
+
+        } catch (error) {
+            databaseError("Saving paper note", error);
+        } finally {
+            isSaving = false;
+            if (saveButton) saveButton.disabled = false;
         }
-
-        if (!write(NOTE_KEY, notes)) return;
-
-        showMonthFor(date);
-        closeNoteDialog();
-
-        renderAll();
-        feedback("Your note has been saved.", false);
     }
 
-    function deleteNote() {
-        if (!editingNoteId) return;
+    /* =====================================
+       DELETE PAPER NOTE
+    ===================================== */
+
+    async function deleteNote() {
+        if (!editingNoteId || isSaving) return;
 
         if (!window.confirm("Are you sure you want to delete this note?")) {
             return;
         }
 
-        const updated = getNotes().filter(
-            item => item.id !== editingNoteId
-        );
+        isSaving = true;
 
-        if (!write(NOTE_KEY, updated)) return;
+        if (deleteNoteButton) deleteNoteButton.disabled = true;
 
-        closeNoteDialog();
-        renderAll();
+        try {
+            const { error } = await supabase
+                .from("notes")
+                .delete()
+                .eq("id", editingNoteId)
+                .eq("user_id", currentUser.id)
+                .eq("note_type", "calendar");
 
-        feedback("Your note has been deleted.", false);
+            if (error) {
+                databaseError("Deleting paper note", error);
+                return;
+            }
+
+            notes = notes.filter(item => item.id !== editingNoteId);
+
+            closeNoteDialog();
+            renderAll();
+
+            feedback("Your note has been deleted.", false);
+
+        } catch (error) {
+            databaseError("Deleting paper note", error);
+        } finally {
+            isSaving = false;
+            if (deleteNoteButton) deleteNoteButton.disabled = false;
+        }
     }
 
     /* =====================================
@@ -862,24 +1054,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalCells =
             Math.ceil((firstWeekday + daysInMonth) / 7) * 7;
 
-        const events = getEvents();
-        const notes = getNotes();
-
         for (let index = 0; index < totalCells; index++) {
             let date;
             let dayNumber;
             let outside = false;
 
             if (index < firstWeekday) {
-                dayNumber =
-                    previousMonthDays - firstWeekday + index + 1;
-
+                dayNumber = previousMonthDays - firstWeekday + index + 1;
                 date = new Date(year, month - 1, dayNumber);
                 outside = true;
             } else if (index >= firstWeekday + daysInMonth) {
-                dayNumber =
-                    index - firstWeekday - daysInMonth + 1;
-
+                dayNumber = index - firstWeekday - daysInMonth + 1;
                 date = new Date(year, month + 1, dayNumber);
                 outside = true;
             } else {
@@ -935,13 +1120,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             dayHeader.appendChild(dayButton);
 
-            const hasEvent = events.some(
-                event => event.date === value
-            );
-
-            const dayNotes = notes.filter(
-                note => note.date === value
-            );
+            const hasEvent = events.some(event => event.date === value);
+            const dayNotes = notes.filter(note => note.date === value);
 
             if (hasEvent) {
                 cell.classList.add("has-event");
@@ -959,8 +1139,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     String(dayNotes.length)
                 );
 
-                noteIndicator.title =
-                    `${dayNotes.length} paper note(s)`;
+                noteIndicator.title = `${dayNotes.length} paper note(s)`;
 
                 dayHeader.appendChild(noteIndicator);
             }
@@ -1018,7 +1197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =====================================
-       BUTTON LISTENERS
+       EVENT BUTTONS
     ===================================== */
 
     $("openCalendarDialog")?.addEventListener("click", () => {
@@ -1040,6 +1219,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     eventForm?.addEventListener("submit", saveEvent);
+
+    /* =====================================
+       PAPER NOTE BUTTONS
+    ===================================== */
 
     $("createStickyNote")?.addEventListener("click", () => {
         openNoteDialog();
@@ -1087,7 +1270,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =====================================
-       OPEN REQUESTED DATE
+       REQUESTED DATE
     ===================================== */
 
     const requestedDate = new URLSearchParams(
@@ -1099,30 +1282,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================
-       STORAGE UPDATES
-    ===================================== */
-
-    window.addEventListener("storage", event => {
-        if (
-            event.key === EVENT_KEY ||
-            event.key === NOTE_KEY
-        ) {
-            renderAll();
-        }
-    });
-
-    /* =====================================
        INITIALIZE
     ===================================== */
 
-    createNotesPanel();
-    setColor(colors[0]);
+    async function initialize() {
+        try {
+            const { data, error } = await supabase.auth.getUser();
 
-    if (eventDateInput && !eventDateInput.value) {
-        eventDateInput.value = selectedDate;
+            if (error || !data?.user) {
+                window.location.replace(
+                    new URL("../login.html", import.meta.url).href
+                );
+                return;
+            }
+
+            currentUser = data.user;
+
+            createNotesPanel();
+            setColor(colors[0]);
+
+            if (eventDateInput && !eventDateInput.value) {
+                eventDateInput.value = selectedDate;
+            }
+
+            await loadCalendarData();
+            refreshIcons();
+
+        } catch (error) {
+            databaseError("Initializing calendar", error);
+        }
     }
 
-    renderAll();
-    refreshIcons();
+    initialize();
 
 });

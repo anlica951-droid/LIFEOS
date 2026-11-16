@@ -2,12 +2,13 @@
 /* =========================================
    LIFEOS — JOURNAL
    File: js/journal.js
-   ========================================= */
+   Supabase account-specific storage
+========================================= */
 
-(() => {
+import { supabase } from "./supabase.js";
+
+(async () => {
   "use strict";
-
-  const STORAGE_KEY = "lifeos_reflections";
 
   const elements = {
     journalForm: document.getElementById("journalForm"),
@@ -29,59 +30,28 @@
     journalFeedback: document.getElementById("journalFeedback")
   };
 
-  let entries = loadEntries();
+  let currentUser = null;
+  let entries = [];
   let editingEntryId = null;
+  let isSaving = false;
 
   /* -----------------------------------------
-     STORAGE
+     AUTHENTICATION
   ----------------------------------------- */
 
-  function loadEntries() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      return Array.isArray(saved) ? saved : [];
-    } catch (error) {
-      console.error("Unable to load journal entries:", error);
-      return [];
-    }
+  const { data: authData, error: authError } =
+    await supabase.auth.getUser();
+
+  if (authError || !authData?.user) {
+    window.location.replace("../login.html");
+    return;
   }
 
-  function saveEntries() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-      return true;
-    } catch (error) {
-      console.error("Unable to save journal entries:", error);
-      showFeedback("Your entry could not be saved. Check your browser storage.");
-      return false;
-    }
-  }
+  currentUser = authData.user;
 
   /* -----------------------------------------
      HELPERS
   ----------------------------------------- */
-
-  function createId() {
-    if (window.crypto && typeof window.crypto.randomUUID === "function") {
-      return window.crypto.randomUUID();
-    }
-
-    return `journal-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-  }
-
-  function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, character => {
-      const entities = {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-      };
-
-      return entities[character];
-    });
-  }
 
   function getToday() {
     const now = new Date();
@@ -108,6 +78,20 @@
     });
   }
 
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => {
+      const entities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      };
+
+      return entities[character];
+    });
+  }
+
   function showFeedback(message) {
     if (!elements.journalFeedback) return;
 
@@ -125,7 +109,9 @@
     if (!elements.journalDialog) return;
 
     if (typeof elements.journalDialog.showModal === "function") {
-      elements.journalDialog.showModal();
+      if (!elements.journalDialog.open) {
+        elements.journalDialog.showModal();
+      }
     } else {
       elements.journalDialog.setAttribute("open", "");
     }
@@ -135,7 +121,9 @@
     if (!elements.journalDialog) return;
 
     if (typeof elements.journalDialog.close === "function") {
-      elements.journalDialog.close();
+      if (elements.journalDialog.open) {
+        elements.journalDialog.close();
+      }
     } else {
       elements.journalDialog.removeAttribute("open");
     }
@@ -168,30 +156,108 @@
     }
   }
 
+  function setSavingState(saving) {
+    isSaving = saving;
+
+    const submitButton = elements.journalForm?.querySelector(
+      '[type="submit"]'
+    );
+
+    if (!submitButton) return;
+
+    submitButton.disabled = saving;
+
+    if (saving) {
+      submitButton.textContent = "Saving...";
+    } else {
+      submitButton.textContent = editingEntryId
+        ? "Save Changes"
+        : "Save Entry";
+    }
+  }
+
+  function mapDatabaseEntry(row) {
+    return {
+      id: row.id,
+      title: row.title || "",
+      date: row.entry_date || "",
+      mood: row.mood || "",
+      content: row.content || "",
+      favorite: Boolean(row.favorite),
+      createdAt: row.created_at || "",
+      updatedAt: row.updated_at || ""
+    };
+  }
+
+  /* -----------------------------------------
+     LOAD ENTRIES FROM SUPABASE
+  ----------------------------------------- */
+
+  async function loadEntries() {
+    if (!elements.journalList) return;
+
+    elements.journalList.innerHTML = `
+      <div class="empty-state">
+        <p>Loading your journal entries...</p>
+      </div>
+    `;
+
+    const { data, error } = await supabase
+      .from("journal_entries")
+      .select("*")
+      .eq("user_id", currentUser.id)
+      .order("entry_date", { ascending: false })
+      .order("updated_at", { ascending: false });
+
+    if (error) {
+      console.error("Unable to load journal entries:", error);
+      entries = [];
+      renderEntries();
+      showFeedback("Unable to load your journal entries. Please try again.");
+      return;
+    }
+
+    entries = (data || []).map(mapDatabaseEntry);
+
+    renderEntries();
+  }
+
   /* -----------------------------------------
      CREATE ENTRY
   ----------------------------------------- */
 
-  function createEntry(formData) {
-    const entry = {
-      id: createId(),
+  async function createEntry(formData) {
+    const now = new Date().toISOString();
+
+    const newEntry = {
+      user_id: currentUser.id,
       title: formData.title,
-      date: formData.date,
-      mood: formData.mood,
       content: formData.content,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      mood: formData.mood || null,
+      entry_date: formData.date,
+      favorite: false,
+      created_at: now,
+      updated_at: now
     };
 
-    entries.unshift(entry);
+    const { data, error } = await supabase
+      .from("journal_entries")
+      .insert(newEntry)
+      .select("*")
+      .single();
 
-    if (!saveEntries()) {
-      entries.shift();
-      return;
+    if (error) {
+      console.error("Unable to save journal entry:", error);
+      showFeedback("Your entry could not be saved. Please try again.");
+      return false;
     }
+
+    entries.unshift(mapDatabaseEntry(data));
 
     renderEntries();
     showFeedback("Your journal entry has been saved.");
+
+    return true;
   }
 
   /* -----------------------------------------
@@ -239,46 +305,66 @@
     openDialog();
   }
 
-  function updateEntry(entryId, formData) {
+  async function updateEntry(entryId, formData) {
+    const { data, error } = await supabase
+      .from("journal_entries")
+      .update({
+        title: formData.title,
+        content: formData.content,
+        mood: formData.mood || null,
+        entry_date: formData.date,
+        updated_at: new Date().toISOString()
+      })
+      .eq("id", entryId)
+      .eq("user_id", currentUser.id)
+      .select("*")
+      .single();
+
+    if (error) {
+      console.error("Unable to update journal entry:", error);
+      showFeedback("Your entry could not be updated. Please try again.");
+      return false;
+    }
+
     const index = entries.findIndex(item => item.id === entryId);
-    if (index === -1) return;
 
-    const previousEntry = { ...entries[index] };
-
-    entries[index] = {
-      ...entries[index],
-      title: formData.title,
-      date: formData.date,
-      mood: formData.mood,
-      content: formData.content,
-      updatedAt: new Date().toISOString()
-    };
-
-    if (!saveEntries()) {
-      entries[index] = previousEntry;
-      return;
+    if (index !== -1) {
+      entries[index] = mapDatabaseEntry(data);
     }
 
     renderEntries();
     showFeedback("Your journal entry has been updated.");
+
+    return true;
   }
 
   /* -----------------------------------------
      DELETE ENTRY
   ----------------------------------------- */
 
-  function deleteEntry(entryId) {
-    const index = entries.findIndex(item => item.id === entryId);
-    if (index === -1) return;
+  async function deleteEntry(entryId) {
+    const entry = entries.find(item => item.id === entryId);
+    if (!entry) return;
 
-    const deletedEntry = entries[index];
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this journal entry?"
+    );
 
-    entries.splice(index, 1);
+    if (!confirmed) return;
 
-    if (!saveEntries()) {
-      entries.splice(index, 0, deletedEntry);
+    const { error } = await supabase
+      .from("journal_entries")
+      .delete()
+      .eq("id", entryId)
+      .eq("user_id", currentUser.id);
+
+    if (error) {
+      console.error("Unable to delete journal entry:", error);
+      showFeedback("The entry could not be deleted. Please try again.");
       return;
     }
+
+    entries = entries.filter(item => item.id !== entryId);
 
     renderEntries();
     showFeedback("Journal entry deleted.");
@@ -297,10 +383,14 @@
 
     return entries
       .filter(entry => {
+        const title = String(entry.title || "").toLowerCase();
+        const content = String(entry.content || "").toLowerCase();
+        const mood = String(entry.mood || "").toLowerCase();
+
         const matchesSearch =
-          entry.title.toLowerCase().includes(searchTerm) ||
-          entry.content.toLowerCase().includes(searchTerm) ||
-          String(entry.mood || "").toLowerCase().includes(searchTerm);
+          title.includes(searchTerm) ||
+          content.includes(searchTerm) ||
+          mood.includes(searchTerm);
 
         const matchesFilter =
           filter === "all" ||
@@ -346,10 +436,12 @@
         const safeDate = escapeHTML(formatDate(entry.date));
         const safeMood = escapeHTML(entry.mood || "No mood selected");
 
+        const content = String(entry.content || "");
+
         const preview = escapeHTML(
-          entry.content.length > 220
-            ? `${entry.content.slice(0, 220)}…`
-            : entry.content
+          content.length > 220
+            ? `${content.slice(0, 220)}…`
+            : content
         );
 
         return `
@@ -409,8 +501,10 @@
      FORM SUBMISSION
   ----------------------------------------- */
 
-  elements.journalForm?.addEventListener("submit", event => {
+  elements.journalForm?.addEventListener("submit", async event => {
     event.preventDefault();
+
+    if (isSaving) return;
 
     const title = elements.journalTitle?.value.trim();
     const date = elements.journalDate?.value || getToday();
@@ -435,13 +529,26 @@
       content
     };
 
-    if (editingEntryId) {
-      updateEntry(editingEntryId, formData);
-    } else {
-      createEntry(formData);
+    setSavingState(true);
+
+    let success = false;
+
+    try {
+      if (editingEntryId) {
+        success = await updateEntry(editingEntryId, formData);
+      } else {
+        success = await createEntry(formData);
+      }
+    } catch (error) {
+      console.error("Journal save error:", error);
+      showFeedback("Something went wrong while saving your entry.");
+    } finally {
+      setSavingState(false);
     }
 
-    closeDialog();
+    if (success) {
+      closeDialog();
+    }
   });
 
   /* -----------------------------------------
@@ -481,17 +588,6 @@
   });
 
   /* -----------------------------------------
-     CROSS-TAB SYNCHRONIZATION
-  ----------------------------------------- */
-
-  window.addEventListener("storage", event => {
-    if (event.key === STORAGE_KEY) {
-      entries = loadEntries();
-      renderEntries();
-    }
-  });
-
-  /* -----------------------------------------
      INITIALIZE
   ----------------------------------------- */
 
@@ -499,6 +595,6 @@
     elements.journalDate.value = getToday();
   }
 
-  renderEntries();
+  await loadEntries();
 
 })();

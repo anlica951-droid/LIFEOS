@@ -1,6 +1,11 @@
-
 import { supabase } from "./supabase.js";
 
+/* =========================================
+   LIFEOS — AUTHENTICATION
+   File: js/auth.js
+========================================= */
+
+// ELEMENTS
 const authForm = document.getElementById("authForm");
 const loginTab = document.getElementById("loginTab");
 const registerTab = document.getElementById("registerTab");
@@ -13,11 +18,19 @@ const googleBtn = document.getElementById("googleBtn");
 const feedback = document.getElementById("feedback");
 const loginCard = document.querySelector(".login-card");
 
+// REDIRECT URLS
+const dashboardURL = new URL("dashboard.html", window.location.href).href;
+const loginURL = new URL("login.html", window.location.href).href;
+
+// STATE
 let mode = "login";
 let submitting = false;
 let animationTimer;
 
-const dashboardURL = new URL("dashboard.html", window.location.href).href;
+
+// =========================================
+// FEEDBACK
+// =========================================
 
 function clearErrorEffects() {
     feedback.classList.remove("show", "success");
@@ -44,7 +57,7 @@ function showFeedback(message, type = "error") {
     void loginCard.offsetWidth;
     loginCard.classList.add("shake");
 
-    // Highlight and shake the password for login errors.
+    // Highlight password for login errors.
     if (mode === "login") {
         void password.offsetWidth;
         password.classList.add("input-error");
@@ -54,6 +67,11 @@ function showFeedback(message, type = "error") {
         loginCard.classList.remove("shake");
     }, 450);
 }
+
+
+// =========================================
+// LOGIN / REGISTER MODE
+// =========================================
 
 function setMode(nextMode) {
     clearErrorEffects();
@@ -77,6 +95,11 @@ function setMode(nextMode) {
         : "current-password";
 }
 
+
+// =========================================
+// LOADING STATE
+// =========================================
+
 function setLoading(loading) {
     submitting = loading;
 
@@ -90,12 +113,26 @@ function setLoading(loading) {
             : "Sign In";
 }
 
-// Clear errors when the user starts correcting their details.
-password.addEventListener("input", clearErrorEffects);
-email.addEventListener("input", clearErrorEffects);
+
+// =========================================
+// TAB EVENTS
+// =========================================
 
 loginTab.addEventListener("click", () => setMode("login"));
 registerTab.addEventListener("click", () => setMode("register"));
+
+
+// =========================================
+// CLEAR ERRORS WHEN TYPING
+// =========================================
+
+password.addEventListener("input", clearErrorEffects);
+email.addEventListener("input", clearErrorEffects);
+
+
+// =========================================
+// EMAIL SIGN IN / REGISTRATION
+// =========================================
 
 authForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -113,6 +150,7 @@ authForm.addEventListener("submit", async (event) => {
             throw new Error("Please complete all required fields.");
         }
 
+        // REGISTER
         if (mode === "register") {
             const name = displayName.value.trim();
 
@@ -144,6 +182,7 @@ authForm.addEventListener("submit", async (event) => {
             );
 
         } else {
+            // SIGN IN
             const { data, error } = await supabase.auth.signInWithPassword({
                 email: userEmail,
                 password: userPassword
@@ -169,6 +208,11 @@ authForm.addEventListener("submit", async (event) => {
     }
 });
 
+
+// =========================================
+// GOOGLE SIGN IN
+// =========================================
+
 googleBtn.addEventListener("click", async () => {
     if (submitting) return;
 
@@ -179,17 +223,92 @@ googleBtn.addEventListener("click", async () => {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: "google",
             options: {
-                redirectTo: dashboardURL
+                // Return to the LIFEOS login page first.
+                redirectTo: loginURL
             }
         });
 
         if (error) throw error;
 
     } catch (error) {
-        showFeedback(error.message || "Google sign-in failed.");
+        console.error("Google sign-in error:", error);
+
+        showFeedback(
+            error.message || "Google sign-in failed. Please try again."
+        );
+
         setLoading(false);
     }
 });
 
-// Initialize login mode.
-setMode("login");
+
+// =========================================
+// HANDLE GOOGLE AUTHENTICATION CALLBACK
+// =========================================
+
+// Successful Google sign-in returns to login.html.
+// Supabase restores the session and triggers SIGNED_IN.
+// Then send the user to the dashboard.
+
+supabase.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN" && session) {
+        window.location.replace(dashboardURL);
+    }
+});
+
+
+// =========================================
+// HANDLE GOOGLE SIGN-IN ERRORS
+// =========================================
+
+function handleOAuthError() {
+    const params = new URLSearchParams(window.location.search);
+
+    const errorCode = params.get("error");
+    const errorDescription = params.get("error_description");
+
+    if (!errorCode && !errorDescription) return;
+
+    const cancelled =
+        errorCode === "access_denied" ||
+        (errorDescription &&
+            errorDescription.toLowerCase().includes("cancel"));
+
+    // Remove OAuth error parameters from the address bar.
+    params.delete("error");
+    params.delete("error_code");
+    params.delete("error_description");
+
+    const cleanQuery = params.toString();
+
+    const cleanURL =
+        window.location.pathname +
+        (cleanQuery ? `?${cleanQuery}` : "") +
+        window.location.hash;
+
+    window.history.replaceState({}, document.title, cleanURL);
+
+    if (cancelled) {
+        showFeedback(
+            "Google sign-in was cancelled. You can sign in using your email instead."
+        );
+    } else {
+        showFeedback(
+            "Google sign-in could not be completed. Please try again."
+        );
+    }
+}
+
+
+// =========================================
+// INITIALIZE LOGIN PAGE
+// =========================================
+
+// Support login.html?mode=login
+// and login.html?mode=register
+
+const initialMode = new URLSearchParams(window.location.search).get("mode");
+
+setMode(initialMode === "register" ? "register" : "login");
+
+handleOAuthError();

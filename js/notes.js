@@ -1,13 +1,13 @@
 
 /* =========================================
-   LIFEOS — NOTES
+   LIFEOS — NOTES (SUPABASE VERSION)
    File: js/notes.js
-   ========================================= */
+========================================= */
+
+import { supabase } from "./supabase.js";
 
 (() => {
   "use strict";
-
-  const STORAGE_KEY = "lifeos_notes";
 
   const elements = {
     noteForm: document.getElementById("noteForm"),
@@ -30,45 +30,14 @@
     noteFeedback: document.getElementById("noteFeedback")
   };
 
-  let notes = loadNotes();
+  let notes = [];
+  let currentUser = null;
   let editingNoteId = null;
-
-  /* -----------------------------------------
-     STORAGE
-  ----------------------------------------- */
-
-  function loadNotes() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      return Array.isArray(saved) ? saved : [];
-    } catch (error) {
-      console.error("Unable to load notes:", error);
-      return [];
-    }
-  }
-
-  function saveNotes() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
-      return true;
-    } catch (error) {
-      console.error("Unable to save notes:", error);
-      showFeedback("Your note could not be saved. Check your browser storage.");
-      return false;
-    }
-  }
+  let isSaving = false;
 
   /* -----------------------------------------
      HELPERS
   ----------------------------------------- */
-
-  function createId() {
-    if (window.crypto && typeof window.crypto.randomUUID === "function") {
-      return window.crypto.randomUUID();
-    }
-
-    return `note-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-  }
 
   function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, character => {
@@ -113,6 +82,41 @@
     }, 3500);
   }
 
+  function showDatabaseError(action, error) {
+    console.error(`LIFEOS Notes: ${action} failed:`, error);
+
+    showFeedback(
+      error?.message
+        ? `${action} failed: ${error.message}`
+        : `${action} failed. Please try again.`
+    );
+  }
+
+  function mapNote(row) {
+    return {
+      id: row.id,
+      title: row.title || "",
+      category: row.category || "General",
+      content: row.content || "",
+      pinned: Boolean(row.pinned),
+      createdAt: row.created_at,
+      updatedAt: row.updated_at
+    };
+  }
+
+  function setSubmitButton(disabled, label) {
+    const button = elements.noteForm?.querySelector('[type="submit"]');
+
+    if (!button) return;
+
+    button.disabled = disabled;
+    button.textContent = label;
+  }
+
+  /* -----------------------------------------
+     DIALOG
+  ----------------------------------------- */
+
   function openDialog() {
     if (!elements.noteDialog) return;
 
@@ -137,51 +141,79 @@
 
   function resetForm() {
     elements.noteForm?.reset();
+
     editingNoteId = null;
+    isSaving = false;
 
-    const submitButton = elements.noteForm?.querySelector(
-      '[type="submit"]'
-    );
-
-    if (submitButton) {
-      submitButton.textContent = "Save Note";
-    }
+    setSubmitButton(false, "Save note");
 
     const dialogTitle = elements.noteDialog?.querySelector(
       "[data-dialog-title]"
     );
 
     if (dialogTitle) {
-      dialogTitle.textContent = "Create a Note";
+      dialogTitle.textContent = "New note";
     }
+  }
+
+  /* -----------------------------------------
+     LOAD NOTES FROM SUPABASE
+  ----------------------------------------- */
+
+  async function loadNotes() {
+    if (!currentUser) return;
+
+    const { data, error } = await supabase
+      .from("notes")
+      .select("*")
+      .eq("user_id", currentUser.id)
+      .eq("note_type", "regular")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      showDatabaseError("Loading notes", error);
+      return;
+    }
+
+    notes = (data || []).map(mapNote);
+
+    renderNotes();
   }
 
   /* -----------------------------------------
      CREATE NOTE
   ----------------------------------------- */
 
-  function createNote(formData) {
+  async function createNote(formData) {
     const now = new Date().toISOString();
 
-    const note = {
-      id: createId(),
-      title: formData.title,
-      category: formData.category,
-      content: formData.content,
-      pinned: false,
-      createdAt: now,
-      updatedAt: now
-    };
+    const { data, error } = await supabase
+      .from("notes")
+      .insert({
+        user_id: currentUser.id,
+        subject_id: null,
+        note_type: "regular",
+        title: formData.title,
+        content: formData.content,
+        category: formData.category,
+        pinned: false,
+        created_at: now,
+        updated_at: now
+      })
+      .select("*")
+      .single();
 
-    notes.unshift(note);
-
-    if (!saveNotes()) {
-      notes.shift();
-      return;
+    if (error) {
+      showDatabaseError("Saving note", error);
+      return false;
     }
+
+    notes.unshift(mapNote(data));
 
     renderNotes();
     showFeedback("Note saved successfully.");
+
+    return true;
   }
 
   /* -----------------------------------------
@@ -194,83 +226,94 @@
 
     editingNoteId = noteId;
 
-    if (elements.noteTitle) {
-      elements.noteTitle.value = note.title;
-    }
+    elements.noteTitle.value = note.title;
+    elements.noteCategory.value = note.category || "General";
+    elements.noteContent.value = note.content;
 
-    if (elements.noteCategory) {
-      elements.noteCategory.value = note.category || "General";
-    }
-
-    if (elements.noteContent) {
-      elements.noteContent.value = note.content;
-    }
-
-    const submitButton = elements.noteForm?.querySelector(
-      '[type="submit"]'
-    );
-
-    if (submitButton) {
-      submitButton.textContent = "Save Changes";
-    }
+    setSubmitButton(false, "Save changes");
 
     const dialogTitle = elements.noteDialog?.querySelector(
       "[data-dialog-title]"
     );
 
     if (dialogTitle) {
-      dialogTitle.textContent = "Edit Note";
+      dialogTitle.textContent = "Edit note";
     }
 
     openDialog();
   }
 
-  function updateNote(noteId, formData) {
+  async function updateNote(noteId, formData) {
+    const now = new Date().toISOString();
+
+    const { data, error } = await supabase
+      .from("notes")
+      .update({
+        title: formData.title,
+        category: formData.category,
+        content: formData.content,
+        updated_at: now
+      })
+      .eq("id", noteId)
+      .eq("user_id", currentUser.id)
+      .eq("note_type", "regular")
+      .select("*")
+      .single();
+
+    if (error) {
+      showDatabaseError("Updating note", error);
+      return false;
+    }
+
     const index = notes.findIndex(item => item.id === noteId);
-    if (index === -1) return;
 
-    const previousNote = { ...notes[index] };
-
-    notes[index] = {
-      ...notes[index],
-      title: formData.title,
-      category: formData.category,
-      content: formData.content,
-      updatedAt: new Date().toISOString()
-    };
-
-    if (!saveNotes()) {
-      notes[index] = previousNote;
-      return;
+    if (index !== -1) {
+      notes[index] = mapNote(data);
     }
 
     renderNotes();
     showFeedback("Note updated successfully.");
+
+    return true;
   }
 
   /* -----------------------------------------
      PIN AND UNPIN
   ----------------------------------------- */
 
-  function togglePin(noteId) {
+  async function togglePin(noteId) {
     const note = notes.find(item => item.id === noteId);
     if (!note) return;
 
-    const previousValue = note.pinned;
+    const newPinnedValue = !note.pinned;
 
-    note.pinned = !note.pinned;
+    const { data, error } = await supabase
+      .from("notes")
+      .update({
+        pinned: newPinnedValue,
+        updated_at: new Date().toISOString()
+      })
+      .eq("id", noteId)
+      .eq("user_id", currentUser.id)
+      .eq("note_type", "regular")
+      .select("*")
+      .single();
 
-    if (!saveNotes()) {
-      note.pinned = previousValue;
+    if (error) {
+      showDatabaseError("Updating pinned note", error);
       return;
+    }
+
+    const index = notes.findIndex(item => item.id === noteId);
+
+    if (index !== -1) {
+      notes[index] = mapNote(data);
     }
 
     renderNotes();
 
     showFeedback(
-      note.pinned
-        ? "Note pinned."
-        : "Note unpinned."
+      newPinnedValue ? "Note pinned." : "Note unpinned."
     );
   }
 
@@ -278,18 +321,29 @@
      DELETE NOTE
   ----------------------------------------- */
 
-  function deleteNote(noteId) {
-    const index = notes.findIndex(item => item.id === noteId);
-    if (index === -1) return;
+  async function deleteNote(noteId) {
+    const note = notes.find(item => item.id === noteId);
+    if (!note) return;
 
-    const deletedNote = notes[index];
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${note.title}"?`
+    );
 
-    notes.splice(index, 1);
+    if (!confirmed) return;
 
-    if (!saveNotes()) {
-      notes.splice(index, 0, deletedNote);
+    const { error } = await supabase
+      .from("notes")
+      .delete()
+      .eq("id", noteId)
+      .eq("user_id", currentUser.id)
+      .eq("note_type", "regular");
+
+    if (error) {
+      showDatabaseError("Deleting note", error);
       return;
     }
+
+    notes = notes.filter(item => item.id !== noteId);
 
     renderNotes();
     showFeedback("Note deleted.");
@@ -308,10 +362,14 @@
 
     return notes
       .filter(note => {
+        const title = String(note.title || "").toLowerCase();
+        const content = String(note.content || "").toLowerCase();
+        const category = String(note.category || "").toLowerCase();
+
         const matchesSearch =
-          note.title.toLowerCase().includes(searchTerm) ||
-          note.content.toLowerCase().includes(searchTerm) ||
-          String(note.category || "").toLowerCase().includes(searchTerm);
+          title.includes(searchTerm) ||
+          content.includes(searchTerm) ||
+          category.includes(searchTerm);
 
         let matchesFilter = true;
 
@@ -360,10 +418,12 @@
         const safeCategory = escapeHTML(note.category || "General");
         const safeDate = escapeHTML(formatDate(note.updatedAt));
 
+        const content = String(note.content || "");
+
         const preview = escapeHTML(
-          note.content.length > 240
-            ? `${note.content.slice(0, 240)}…`
-            : note.content
+          content.length > 240
+            ? `${content.slice(0, 240)}…`
+            : content
         );
 
         return `
@@ -440,8 +500,10 @@
      FORM SUBMISSION
   ----------------------------------------- */
 
-  elements.noteForm?.addEventListener("submit", event => {
+  elements.noteForm?.addEventListener("submit", async event => {
     event.preventDefault();
+
+    if (isSaving) return;
 
     const title = elements.noteTitle?.value.trim();
     const content = elements.noteContent?.value.trim();
@@ -458,19 +520,40 @@
       return;
     }
 
+    if (!currentUser) {
+      showFeedback("Your session has expired. Please sign in again.");
+      return;
+    }
+
     const formData = {
       title,
       category: elements.noteCategory?.value || "General",
       content
     };
 
-    if (editingNoteId) {
-      updateNote(editingNoteId, formData);
-    } else {
-      createNote(formData);
-    }
+    isSaving = true;
+    setSubmitButton(true, "Saving...");
 
-    closeDialog();
+    try {
+      const success = editingNoteId
+        ? await updateNote(editingNoteId, formData)
+        : await createNote(formData);
+
+      if (success) {
+        closeDialog();
+      }
+    } catch (error) {
+      showDatabaseError("Saving note", error);
+    } finally {
+      isSaving = false;
+
+      if (elements.noteDialog?.open) {
+        setSubmitButton(
+          false,
+          editingNoteId ? "Save changes" : "Save note"
+        );
+      }
+    }
   });
 
   /* -----------------------------------------
@@ -485,24 +568,35 @@
   elements.closeNoteDialog?.addEventListener("click", closeDialog);
   elements.cancelNote?.addEventListener("click", closeDialog);
 
-  elements.notesList?.addEventListener("click", event => {
+  elements.notesList?.addEventListener("click", async event => {
     const button = event.target.closest("[data-action]");
     if (!button) return;
 
     const noteId = button.dataset.id;
+    if (!noteId) return;
 
-    switch (button.dataset.action) {
-      case "edit":
-        editNote(noteId);
-        break;
+    button.disabled = true;
 
-      case "delete":
-        deleteNote(noteId);
-        break;
+    try {
+      switch (button.dataset.action) {
+        case "edit":
+          editNote(noteId);
+          break;
 
-      case "pin":
-        togglePin(noteId);
-        break;
+        case "delete":
+          await deleteNote(noteId);
+          break;
+
+        case "pin":
+          await togglePin(noteId);
+          break;
+      }
+    } catch (error) {
+      showDatabaseError("Performing note action", error);
+    } finally {
+      if (button.isConnected) {
+        button.disabled = false;
+      }
     }
   });
 
@@ -516,20 +610,28 @@
   });
 
   /* -----------------------------------------
-     CROSS-TAB SYNCHRONIZATION
-  ----------------------------------------- */
-
-  window.addEventListener("storage", event => {
-    if (event.key === STORAGE_KEY) {
-      notes = loadNotes();
-      renderNotes();
-    }
-  });
-
-  /* -----------------------------------------
      INITIALIZE
   ----------------------------------------- */
 
-  renderNotes();
+  async function initialize() {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+
+      if (error || !data?.user) {
+        window.location.replace(
+          new URL("../login.html", import.meta.url).href
+        );
+        return;
+      }
+
+      currentUser = data.user;
+
+      await loadNotes();
+    } catch (error) {
+      showDatabaseError("Initializing Notes", error);
+    }
+  }
+
+  initialize();
 
 })();

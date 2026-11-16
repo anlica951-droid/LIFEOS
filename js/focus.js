@@ -115,9 +115,9 @@ import { supabase } from "./supabase.js";
     const { data, error } = await supabase.auth.getUser();
 
     if (error || !data.user) {
-      showFeedback("Please sign in to use your study sessions.");
-      if (el.start) el.start.disabled = true;
-      return false;
+  window.location.replace("../login.html");
+  return false;
+}
     }
 
     user = data.user;

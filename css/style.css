@@ -2415,3 +2415,83 @@ html[data-theme="dark"] .sidebar-collapse {
     border-color: var(--border);
 }
 
+
+
+/* =========================================
+   LIFEOS — DASHBOARD VISUAL REFINEMENT
+========================================= */
+
+.dashboard {
+    max-width: 1440px;
+    padding-top: 24px;
+}
+
+.dashboard-heading {
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.dashboard-grid {
+    gap: 19px;
+    margin-top: 19px;
+}
+
+.hero-grid {
+    grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    align-items: stretch;
+}
+
+.middle-grid,
+.bottom-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card {
+    padding: 24px;
+    border-color: rgba(76, 99, 77, 0.13);
+    box-shadow: 0 8px 28px rgba(54, 72, 54, 0.055);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 13px 32px rgba(54, 72, 54, 0.09);
+}
+
+.welcome-card {
+    min-height: 320px;
+    padding: 30px;
+}
+
+.verse-card {
+    margin-top: 20px;
+}
+
+.mini-calendar-card,
+.tasks-card {
+    min-height: 300px;
+}
+
+.focus-card,
+.progress-card {
+    min-height: 290px;
+}
+
+.notes-shortcut {
+    margin-top: 19px;
+}
+
+/* Cleaner dashboard headings */
+.card-heading {
+    margin-bottom: 17px;
+}
+
+.card-heading h2 {
+    font-size: 19px;
+}
+
+/* Prevent content from stretching cards */
+.dashboard-grid > *,
+.card,
+.welcome-card {
+    min-width: 0;
+}

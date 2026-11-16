@@ -15,6 +15,7 @@
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="../js/theme.js"></script>
+  <script type="module" src="../js/search.js"></script>
 
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/pages.css">
@@ -26,8 +27,16 @@
 
   <div class="app-layout">
 
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-      <button class="sidebar-collapse" id="sidebarCollapse" type="button" aria-label="Collapse sidebar">
+
+      <button
+        class="sidebar-collapse"
+        id="sidebarCollapse"
+        type="button"
+        aria-label="Collapse sidebar"
+        aria-expanded="true"
+      >
         <i data-lucide="chevron-left"></i>
       </button>
 
@@ -101,9 +110,11 @@
       </div>
     </aside>
 
+    <!-- MAIN CONTENT -->
     <main class="main-content">
 
       <header class="topbar">
+
         <button
           type="button"
           class="menu-toggle"
@@ -124,28 +135,38 @@
         <a href="settings.html" class="profile-button" aria-label="Settings">
           <i data-lucide="user-round"></i>
         </a>
+
       </header>
 
       <div class="page-content tasks-content">
 
+        <!-- INTRO -->
         <section class="tasks-intro">
+
           <div class="tasks-intro-copy">
             <span class="tasks-eyebrow">A LITTLE PROGRESS, EVERY DAY</span>
             <h1>Make room for <em>what matters.</em></h1>
-            <p>Keep your plans organized, take things one step at a time, and celebrate every little accomplishment.</p>
+            <p>
+              Keep your plans organized, take things one step at a time,
+              and celebrate every little accomplishment.
+            </p>
           </div>
 
           <button type="button" class="tasks-add-button" id="openTaskDialog">
             <i data-lucide="plus"></i>
             <span>New task</span>
           </button>
+
         </section>
 
+        <!-- TASK STATISTICS -->
         <section class="tasks-overview" aria-label="Task overview">
 
           <article class="tasks-stat-card">
             <div class="tasks-stat-top">
-              <span class="tasks-stat-icon"><i data-lucide="layers-3"></i></span>
+              <span class="tasks-stat-icon">
+                <i data-lucide="layers-3"></i>
+              </span>
               <span class="tasks-stat-caption">YOUR LIST</span>
             </div>
             <strong id="taskCount">0</strong>
@@ -154,7 +175,9 @@
 
           <article class="tasks-stat-card">
             <div class="tasks-stat-top">
-              <span class="tasks-stat-icon completed-icon"><i data-lucide="check-check"></i></span>
+              <span class="tasks-stat-icon completed-icon">
+                <i data-lucide="check-check"></i>
+              </span>
               <span class="tasks-stat-caption">ACCOMPLISHED</span>
             </div>
             <strong id="completedCount">0</strong>
@@ -163,7 +186,9 @@
 
           <article class="tasks-stat-card">
             <div class="tasks-stat-top">
-              <span class="tasks-stat-icon pending-icon"><i data-lucide="hourglass"></i></span>
+              <span class="tasks-stat-icon pending-icon">
+                <i data-lucide="hourglass"></i>
+              </span>
               <span class="tasks-stat-caption">IN PROGRESS</span>
             </div>
             <strong id="pendingCount">0</strong>
@@ -172,17 +197,24 @@
 
         </section>
 
+        <!-- TASK WORKSPACE -->
         <section class="tasks-workspace">
 
           <div class="tasks-section-heading">
+
             <div>
               <span class="tasks-eyebrow">YOUR PERSONAL SPACE</span>
               <h2>Task overview</h2>
               <p>Every small step brings you closer.</p>
             </div>
-            <span class="tasks-heading-decoration"><i data-lucide="sprout"></i></span>
+
+            <span class="tasks-heading-decoration">
+              <i data-lucide="sprout"></i>
+            </span>
+
           </div>
 
+          <!-- SEARCH AND FILTERS -->
           <div class="tasks-toolbar">
 
             <div class="tasks-search">
@@ -196,7 +228,11 @@
             </div>
 
             <div class="tasks-toolbar-selects">
-              <label class="visually-hidden" for="taskFilter">Filter tasks</label>
+
+              <label class="visually-hidden" for="taskFilter">
+                Filter tasks
+              </label>
+
               <select id="taskFilter">
                 <option value="all">All tasks</option>
                 <option value="pending">Pending</option>
@@ -205,15 +241,18 @@
                 <option value="upcoming">Upcoming</option>
               </select>
 
-              <label class="visually-hidden" for="taskSort">Sort tasks</label>
+              <label class="visually-hidden" for="taskSort">
+                Sort tasks
+              </label>
+
               <select id="taskSort">
                 <option value="newest">Newest first</option>
                 <option value="oldest">Oldest first</option>
                 <option value="alphabetical">Alphabetical</option>
                 <option value="dueDate">Due date</option>
               </select>
-            </div>
 
+            </div>
           </div>
 
           <div class="tasks-list" id="tasksList" aria-live="polite">
@@ -235,9 +274,11 @@
 
   <!-- ADD / EDIT TASK MODAL -->
   <dialog class="app-dialog tasks-dialog" id="taskDialog">
+
     <form id="taskForm" class="dialog-form tasks-dialog-form">
 
       <div class="tasks-dialog-top">
+
         <div class="tasks-dialog-symbol">
           <i data-lucide="notebook-pen"></i>
         </div>
@@ -250,12 +291,15 @@
         >
           <i data-lucide="x"></i>
         </button>
+
       </div>
 
       <div class="tasks-dialog-heading">
         <span class="tasks-eyebrow">MAKE IT HAPPEN</span>
         <h2 data-dialog-title>Create a task</h2>
-        <p>Give your next step a name. You can figure out the rest as you go.</p>
+        <p>
+          Give your next step a name. You can figure out the rest as you go.
+        </p>
       </div>
 
       <div class="tasks-form-fields">
@@ -277,6 +321,7 @@
 
           <div class="form-group">
             <label for="taskDate">Due date</label>
+
             <div class="tasks-input-wrap">
               <i data-lucide="calendar-days"></i>
               <input type="date" id="taskDate" name="date">
@@ -284,7 +329,10 @@
           </div>
 
           <div class="form-group">
-            <label for="taskTime">Time <span>(optional)</span></label>
+            <label for="taskTime">
+              Time <span>(optional)</span>
+            </label>
+
             <div class="tasks-input-wrap">
               <i data-lucide="clock-3"></i>
               <input type="time" id="taskTime" name="time">
@@ -295,8 +343,10 @@
 
         <div class="form-group">
           <label for="taskCategory">Choose a category</label>
+
           <div class="tasks-select-wrap">
             <i data-lucide="folder"></i>
+
             <select id="taskCategory" name="category">
               <option value="Personal">Personal</option>
               <option value="School">School</option>
@@ -310,13 +360,16 @@
       </div>
 
       <div class="tasks-dialog-actions">
+
         <button type="button" class="tasks-cancel-button" id="cancelTask">
           Cancel
         </button>
+
         <button type="submit" class="tasks-save-button">
           <i data-lucide="plus"></i>
           <span>Add task</span>
         </button>
+
       </div>
 
       <p class="tasks-dialog-footnote">
@@ -327,61 +380,17 @@
     </form>
   </dialog>
 
+  <!-- PAGE SCRIPTS -->
   <script type="module" src="../js/tasks.js"></script>
+  <script src="../js/sidebar.js"></script>
 
-  <!-- ICONS AND MOBILE SIDEBAR -->
+  <!-- ICON INITIALIZATION -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       if (window.lucide) {
         window.lucide.createIcons();
       }
-
-      const sidebar = document.getElementById("sidebar");
-      const menuToggle = document.getElementById("menuToggle");
-
-      menuToggle?.addEventListener("click", () => {
-        const isOpen = sidebar.classList.toggle("open");
-
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-        menuToggle.setAttribute(
-          "aria-label",
-          isOpen ? "Close navigation" : "Open navigation"
-        );
-      });
     });
-  </script>
-
-  <!-- DESKTOP SIDEBAR COLLAPSE -->
-  <script>
-    (() => {
-      const button = document.getElementById("sidebarCollapse");
-      if (!button) return;
-
-      const STORAGE_KEY = "lifeos_sidebar_collapsed";
-
-      function updateSidebar(collapsed) {
-        document.body.classList.toggle("sidebar-collapsed", collapsed);
-
-        button.setAttribute(
-          "aria-label",
-          collapsed ? "Expand sidebar" : "Collapse sidebar"
-        );
-
-        button.innerHTML = collapsed
-          ? '<i data-lucide="chevron-right"></i>'
-          : '<i data-lucide="chevron-left"></i>';
-
-        if (window.lucide) window.lucide.createIcons();
-      }
-
-      updateSidebar(localStorage.getItem(STORAGE_KEY) === "true");
-
-      button.addEventListener("click", () => {
-        const collapsed = !document.body.classList.contains("sidebar-collapsed");
-        localStorage.setItem(STORAGE_KEY, String(collapsed));
-        updateSidebar(collapsed);
-      });
-    })();
   </script>
 
 </body>
